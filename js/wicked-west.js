@@ -212,32 +212,28 @@
 
             if (isMobile) {
                 // Guaranteed spaced mobile slots: distributed vertically and horizontally
-                // Alternating Right, Left, Right, Left to frame the centered content
+                // Alternating Upper Right, Upper Left, Lower Right, Lower Left
+                // All completely clear of the central story text card
                 const mobileSlots = [
                     // Slot 0: Upper Right (beside title / badges)
                     {
-                        x: Math.max(minPadding, bounds.width - spriteSize - 18 + (Math.random() * 14 - 7)),
-                        y: Math.max(20, bounds.height * 0.16 + (Math.random() * 30 - 15))
+                        x: Math.max(minPadding, bounds.width - spriteSize - 16 + (Math.random() * 12 - 6)),
+                        y: Math.max(20, bounds.height * 0.14 + (Math.random() * 20 - 10))
                     },
-                    // Slot 1: Mid Left (beside intro story card)
+                    // Slot 1: Upper Left (beside badges / top title)
                     {
                         x: Math.max(minPadding, 16 + (Math.random() * 16)),
-                        y: Math.max(100, bounds.height * 0.46 + (Math.random() * 40 - 20))
+                        y: Math.max(20, bounds.height * 0.16 + (Math.random() * 20 - 10))
                     },
-                    // Slot 2: Lower Right (beside feature tags / action buttons)
+                    // Slot 2: Lower Right (below story card, beside feature tags & action buttons)
                     {
-                        x: Math.max(minPadding, bounds.width - spriteSize - 20 + (Math.random() * 14 - 7)),
-                        y: Math.max(180, bounds.height * 0.76 + (Math.random() * 30 - 15))
+                        x: Math.max(minPadding, bounds.width - spriteSize - 18 + (Math.random() * 12 - 6)),
+                        y: Math.max(180, bounds.height * 0.78 + (Math.random() * 25 - 12))
                     },
-                    // Slot 3: Upper Left (opposite upper right)
+                    // Slot 3: Lower Left (below story card, near bottom action buttons)
                     {
-                        x: Math.max(minPadding, 18 + (Math.random() * 16)),
-                        y: Math.max(25, bounds.height * 0.08 + (Math.random() * 25 - 12))
-                    },
-                    // Slot 4: Lower Left (near bottom actions)
-                    {
-                        x: Math.max(minPadding, 16 + (Math.random() * 20)),
-                        y: Math.max(200, bounds.height * 0.85 + (Math.random() * 25 - 12))
+                        x: Math.max(minPadding, 16 + (Math.random() * 16)),
+                        y: Math.max(180, bounds.height * 0.84 + (Math.random() * 25 - 12))
                     }
                 ];
 
