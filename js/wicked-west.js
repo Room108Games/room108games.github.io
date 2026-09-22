@@ -183,6 +183,7 @@
     }
 
     const sprites = [];
+    let activeDrag = null;
     const isMobile = window.innerWidth <= 768 || window.matchMedia('(max-width: 768px)').matches;
 
     // Only summon floating planetary sprites on desktop/larger screens (disabled on mobile)
@@ -557,6 +558,7 @@
         window.addEventListener('touchmove', onPointerMove, { passive: false });
         window.addEventListener('mouseup', onPointerUp);
         window.addEventListener('touchend', onPointerUp);
+        window.addEventListener('blur', onPointerUp);
 
         requestAnimationFrame(animatePlanetarySprites);
     }
