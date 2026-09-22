@@ -183,9 +183,10 @@
     }
 
     const sprites = [];
-    let activeDrag = null;
+    const isMobile = window.innerWidth <= 768 || window.matchMedia('(max-width: 768px)').matches;
 
-    if (container) {
+    // Only summon floating planetary sprites on desktop/larger screens (disabled on mobile)
+    if (container && !isMobile) {
         // Shuffle pool
         const shuffled = [...SPRITE_POOL].sort(() => Math.random() - 0.5);
 
@@ -501,15 +502,11 @@
         activeDrag = null;
     }
 
-    window.addEventListener('mousemove', onPointerMove, { passive: false });
-    window.addEventListener('touchmove', onPointerMove, { passive: false });
-    window.addEventListener('mouseup', onPointerUp);
-    window.addEventListener('touchend', onPointerUp);
-
     // --- Planetary Floating & Rotating Physics Loop ---
     let animTime = 0;
 
     function animatePlanetarySprites() {
+        if (sprites.length === 0) return;
         animTime += 0.02;
         const bounds = getBounds();
 
@@ -554,7 +551,15 @@
         requestAnimationFrame(animatePlanetarySprites);
     }
 
-    requestAnimationFrame(animatePlanetarySprites);
+    // Only attach drag listeners and start physics loop if sprites exist (Desktop)
+    if (sprites.length > 0) {
+        window.addEventListener('mousemove', onPointerMove, { passive: false });
+        window.addEventListener('touchmove', onPointerMove, { passive: false });
+        window.addEventListener('mouseup', onPointerUp);
+        window.addEventListener('touchend', onPointerUp);
+
+        requestAnimationFrame(animatePlanetarySprites);
+    }
 
     // ==========================================================================
     // 5. Ambient Floating Pixel Dust Canvas

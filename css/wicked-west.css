@@ -360,3 +360,13 @@
     text-align: center;
 }
 
+/* ==========================================================================
+   Mobile Optimization: Don't display or layout floating sprites
+   ========================================================================== */
+@media (max-width: 768px) {
+    .ww-floating-container,
+    .ww-draggable-sprite {
+        display: none !important;
+    }
+}
+
