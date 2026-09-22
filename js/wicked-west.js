@@ -178,7 +178,7 @@
     function getBounds() {
         return {
             width: parentSection.clientWidth || window.innerWidth,
-            height: parentSection.clientHeight || window.innerHeight
+            height: Math.max(parentSection.clientHeight || 0, window.innerHeight || 0, 700)
         };
     }
 
@@ -202,16 +202,76 @@
         const spriteSize = isSmallMobile ? 68 : (isMobile ? 85 : 180);
         const placedPositions = [];
 
+        // Pre-defined distributed mobile zones across the section
+        const mobileZones = [
+            // Top Left (near attribution badges)
+            { minXRatio: 0.05, maxXRatio: 0.35, minYRatio: 0.03, maxYRatio: 0.16 },
+            // Top Right (opposite side near top)
+            { minXRatio: 0.62, maxXRatio: 0.92, minYRatio: 0.03, maxYRatio: 0.16 },
+            // Mid Left (flanking title & tagline)
+            { minXRatio: 0.04, maxXRatio: 0.30, minYRatio: 0.22, maxYRatio: 0.40 },
+            // Mid Right (flanking story card)
+            { minXRatio: 0.68, maxXRatio: 0.94, minYRatio: 0.40, maxYRatio: 0.60 },
+            // Lower Left (flanking feature tags)
+            { minXRatio: 0.05, maxXRatio: 0.38, minYRatio: 0.65, maxYRatio: 0.82 },
+            // Lower Right (near action buttons & return link)
+            { minXRatio: 0.60, maxXRatio: 0.92, minYRatio: 0.72, maxYRatio: 0.92 }
+        ];
+
+        // Shuffle mobile zones so each load gets different distributed placements
+        const shuffledMobileZones = [...mobileZones].sort(() => Math.random() - 0.5);
+
         function getBlankSpaceSpawnPosition(index) {
             const parentRect = parentSection.getBoundingClientRect();
             const introContainer = document.querySelector('.ww-intro-container');
 
-            const buffer = isMobile ? 14 : 32; // Buffer clearance around content
-            const minPadding = isMobile ? 8 : 15;
+            const minPadding = isMobile ? 10 : 15;
             const maxX = Math.max(minPadding, bounds.width - spriteSize - minPadding);
             const maxY = Math.max(minPadding, bounds.height - spriteSize - minPadding);
 
-            // Bounding boxes that sprites must NEVER overlap at spawn time
+            if (isMobile) {
+                // Dedicated mobile placement: assign a distinct zone per sprite
+                const zone = shuffledMobileZones[index % shuffledMobileZones.length];
+                const zMinX = Math.min(maxX, Math.max(minPadding, bounds.width * zone.minXRatio));
+                const zMaxX = Math.max(zMinX, Math.min(maxX, bounds.width * zone.maxXRatio - spriteSize));
+                const zMinY = Math.min(maxY, Math.max(minPadding, bounds.height * zone.minYRatio));
+                const zMaxY = Math.max(zMinY, Math.min(maxY, bounds.height * zone.maxYRatio - spriteSize));
+
+                let bestX = zMinX + (zMaxX - zMinX) * 0.5;
+                let bestY = zMinY + (zMaxY - zMinY) * 0.5;
+                let maxMinDist = -1;
+
+                // Try 30 candidates within this sprite's assigned zone
+                for (let attempt = 0; attempt < 30; attempt++) {
+                    const cx = zMinX + Math.random() * Math.max(1, zMaxX - zMinX);
+                    const cy = zMinY + Math.random() * Math.max(1, zMaxY - zMinY);
+
+                    const candCenterX = cx + spriteSize / 2;
+                    const candCenterY = cy + spriteSize / 2;
+
+                    let closestDist = Infinity;
+                    for (const p of placedPositions) {
+                        const d = Math.hypot(candCenterX - p.cx, candCenterY - p.cy);
+                        if (d < closestDist) closestDist = d;
+                    }
+
+                    if (closestDist > maxMinDist) {
+                        maxMinDist = closestDist;
+                        bestX = cx;
+                        bestY = cy;
+                    }
+
+                    // Separation of at least 80px between sprites on mobile
+                    if (closestDist >= 80) {
+                        return { x: cx, y: cy };
+                    }
+                }
+
+                return { x: bestX, y: bestY };
+            }
+
+            // Desktop Placement (Wide Flanks around center card)
+            const buffer = 32;
             const occupiedBoxes = [];
             const occupiedElements = [
                 document.querySelector('.ww-badge-row'),
@@ -224,7 +284,6 @@
             ].filter(Boolean);
 
             if (introContainer && bounds.width >= 1150) {
-                // Wide desktop: keep the entire center column completely clear
                 const ir = introContainer.getBoundingClientRect();
                 occupiedBoxes.push({
                     left: ir.left - parentRect.left - buffer,
@@ -233,7 +292,6 @@
                     bottom: ir.bottom - parentRect.top + buffer
                 });
             } else {
-                // Narrower screen: avoid each occupied UI element specifically
                 occupiedElements.forEach(el => {
                     const r = el.getBoundingClientRect();
                     occupiedBoxes.push({
@@ -254,7 +312,6 @@
                 ));
             }
 
-            // Identify primary blank space regions around the center content
             const regions = [];
             if (introContainer) {
                 const ir = introContainer.getBoundingClientRect();
@@ -312,21 +369,19 @@
                 }
             }
 
-            let fallbackX = minPadding;
-            let fallbackY = minPadding;
+            let fallbackX = regions.length > 0 ? regions[index % regions.length].minX : minPadding;
+            let fallbackY = regions.length > 0 ? regions[index % regions.length].minY : minPadding;
             let maxMinDist = -1;
 
             for (let attempt = 0; attempt < 160; attempt++) {
                 let cx, cy;
 
                 if (regions.length > 0 && attempt < 100) {
-                    // Alternate starting region across sprites (e.g. Sprite 0 -> Left, Sprite 1 -> Right, etc.)
                     const regIdx = (index + attempt) % regions.length;
                     const reg = regions[regIdx];
                     cx = reg.minX + Math.random() * (reg.maxX - reg.minX);
                     cy = reg.minY + Math.random() * (reg.maxY - reg.minY);
                 } else {
-                    // Fallback to random coordinate across canvas
                     cx = minPadding + Math.random() * Math.max(1, maxX - minPadding);
                     cy = minPadding + Math.random() * Math.max(1, maxY - minPadding);
                 }
@@ -338,12 +393,10 @@
                     bottom: cy + spriteSize
                 };
 
-                // Must never overlap occupied content
                 if (overlapsAnyOccupied(candBox)) {
                     continue;
                 }
 
-                // Maintain separation from already spawned sprites
                 const candCenterX = cx + spriteSize / 2;
                 const candCenterY = cy + spriteSize / 2;
                 let closestDist = Infinity;
@@ -355,9 +408,7 @@
                     }
                 }
 
-                const requiredDist = attempt < 40
-                    ? (isMobile ? 70 : 150)
-                    : (attempt < 80 ? (isMobile ? 50 : 100) : (isMobile ? 30 : 60));
+                const requiredDist = attempt < 40 ? 150 : (attempt < 80 ? 100 : 60);
                 if (closestDist < requiredDist) {
                     if (closestDist > maxMinDist) {
                         maxMinDist = closestDist;
