@@ -35,21 +35,33 @@
                 </div>
             </a>
 
-            <nav class="nav-menu">
+            <!-- Mobile Burger Toggle Button -->
+            <button class="pixel-burger-btn" id="pixel-burger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+            </button>
+
+            <nav class="nav-menu" id="nav-menu">
                 <a href="index.html" class="nav-link">[ROOM108 HOME]</a>
 
-                <!-- Audio Toggle Button -->
-                <button id="pixel-audio-btn" class="pixel-audio-btn" title="Toggle sound effects">
-                    <span>SFX: ON</span>
-                </button>
+                <div class="nav-menu-actions">
+                    <!-- Audio Toggle Button -->
+                    <button id="pixel-audio-btn" class="pixel-audio-btn" title="Toggle sound effects">
+                        <span>SFX: ON</span>
+                    </button>
 
-                <!-- Theme Toggle Button -->
-                <button id="pixel-theme-btn" class="pixel-theme-btn" title="Toggle Dark/Light Mode">
-                    <span>DARK</span>
-                </button>
+                    <!-- Theme Toggle Button -->
+                    <button id="pixel-theme-btn" class="pixel-theme-btn" title="Toggle Dark/Light Mode">
+                        <span>DARK</span>
+                    </button>
+                </div>
             </nav>
         </div>
     </header>
+
+    <!-- Mobile Nav Backdrop Overlay -->
+    <div class="pixel-nav-backdrop" id="pixel-nav-backdrop" aria-hidden="true"></div>
 
     <!-- ==========================================================================
          Main Introduction Section with Floating NPCs & Monsters

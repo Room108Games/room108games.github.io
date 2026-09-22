@@ -75,8 +75,69 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    /* ==========================================================================
+       1b. Mobile Burger Navigation Menu
+       ========================================================================== */
+    const burgerBtn = document.getElementById("pixel-burger-btn");
+    const navMenu = document.getElementById("nav-menu");
+    const navBackdrop = document.getElementById("pixel-nav-backdrop");
+
+    function openMobileMenu() {
+        if (!burgerBtn || !navMenu) return;
+        burgerBtn.classList.add("is-active");
+        burgerBtn.setAttribute("aria-expanded", "true");
+        navMenu.classList.add("is-open");
+        if (navBackdrop) navBackdrop.classList.add("is-active");
+        document.body.style.overflow = "hidden";
+        sfxClick();
+    }
+
+    function closeMobileMenu() {
+        if (!burgerBtn || !navMenu) return;
+        burgerBtn.classList.remove("is-active");
+        burgerBtn.setAttribute("aria-expanded", "false");
+        navMenu.classList.remove("is-open");
+        if (navBackdrop) navBackdrop.classList.remove("is-active");
+        document.body.style.overflow = "";
+    }
+
+    function toggleMobileMenu() {
+        if (navMenu && navMenu.classList.contains("is-open")) {
+            closeMobileMenu();
+            sfxClick();
+        } else {
+            openMobileMenu();
+        }
+    }
+
+    if (burgerBtn) {
+        burgerBtn.addEventListener("click", toggleMobileMenu);
+    }
+
+    if (navBackdrop) {
+        navBackdrop.addEventListener("click", closeMobileMenu);
+    }
+
+    if (navMenu) {
+        navMenu.querySelectorAll(".nav-link").forEach(link => {
+            link.addEventListener("click", closeMobileMenu);
+        });
+    }
+
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && navMenu && navMenu.classList.contains("is-open")) {
+            closeMobileMenu();
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 768 && navMenu && navMenu.classList.contains("is-open")) {
+            closeMobileMenu();
+        }
+    }, { passive: true });
+
     // Attach audio to pixel buttons
-    document.querySelectorAll(".pixel-btn, .pixel-submit-btn, .channel-link, .nav-link, .pixel-theme-btn").forEach(el => {
+    document.querySelectorAll(".pixel-btn, .pixel-submit-btn, .channel-link, .nav-link, .pixel-theme-btn, .pixel-burger-btn").forEach(el => {
         el.addEventListener("mouseenter", () => sfxBleep());
         el.addEventListener("click", () => sfxClick());
     });

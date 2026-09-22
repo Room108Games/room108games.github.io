@@ -180,6 +180,7 @@ a:hover {
 }
 
 .nav-container {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -235,6 +236,12 @@ a:hover {
     list-style: none;
 }
 
+.nav-menu-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
 .nav-link {
     font-family: var(--font-heading);
     font-size: 0.95rem;
@@ -247,6 +254,63 @@ a:hover {
     background-color: var(--color-primary);
     color: #0d1a10;
     box-shadow: 2px 2px 0 var(--border-color);
+}
+
+/* Pixel Burger Button for Mobile */
+.pixel-burger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-color);
+    box-shadow: 3px 3px 0 var(--border-color);
+    cursor: pointer;
+    transition: transform 0.08s steps(2), background-color 0.1s ease;
+    z-index: 102;
+}
+
+.pixel-burger-btn:hover {
+    background-color: var(--color-primary);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--border-color);
+}
+
+.pixel-burger-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--border-color);
+}
+
+.burger-bar {
+    display: block;
+    width: 22px;
+    height: 3px;
+    background-color: var(--color-ink);
+    margin: 2px 0;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease;
+    image-rendering: pixelated;
+}
+
+/* Transformed into 'X' when open */
+.pixel-burger-btn.is-active .burger-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.pixel-burger-btn.is-active .burger-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.pixel-burger-btn.is-active .burger-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Nav Backdrop */
+.pixel-nav-backdrop {
+    display: none;
 }
 
 /* Pixel Audio Button */
@@ -800,8 +864,86 @@ a:hover {
         font-size: 1.6rem;
     }
 
+    .pixel-burger-btn {
+        display: flex;
+    }
+
+    .pixel-nav-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(10, 20, 13, 0.55);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.18s ease, visibility 0.18s;
+        z-index: 98;
+    }
+
+    .pixel-nav-backdrop.is-active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
     .nav-menu {
-        gap: 0.6rem;
+        position: absolute;
+        top: calc(100% + 0.85rem);
+        left: 1rem;
+        right: 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.65rem;
+        padding: 1.25rem;
+        background-color: var(--bg-surface);
+        border: 3px solid var(--border-color);
+        box-shadow: 4px 4px 0 var(--border-color);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px) scale(0.98);
+        pointer-events: none;
+        transition: opacity 0.16s ease, transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.16s;
+        will-change: transform, opacity;
+        z-index: 101;
+    }
+
+    .nav-menu.is-open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+    }
+
+    .nav-menu .nav-link {
+        display: block;
+        text-align: center;
+        padding: 0.75rem 1rem;
+        background-color: var(--bg-main);
+        border: 2px solid var(--border-color);
+        box-shadow: 2px 2px 0 var(--border-color);
+        font-size: 1.05rem;
+    }
+
+    .nav-menu .nav-link:hover {
+        background-color: var(--color-primary);
+        color: #0d1a10;
+    }
+
+    .nav-menu-actions {
+        display: flex;
+        gap: 0.65rem;
+        width: 100%;
+        margin-top: 0.35rem;
+    }
+
+    .nav-menu-actions .pixel-audio-btn,
+    .nav-menu-actions .pixel-theme-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 0.65rem 0.5rem;
+        font-size: 0.85rem;
     }
 
     #toast-container {

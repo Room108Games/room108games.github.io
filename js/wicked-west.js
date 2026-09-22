@@ -69,6 +69,66 @@
     updateAudioButton();
 
     // ==========================================================================
+    // 2b. Mobile Burger Navigation Menu
+    // ==========================================================================
+
+    const burgerBtn = document.getElementById('pixel-burger-btn');
+    const navMenu = document.getElementById('nav-menu');
+    const navBackdrop = document.getElementById('pixel-nav-backdrop');
+
+    function openMobileMenu() {
+        if (!burgerBtn || !navMenu) return;
+        burgerBtn.classList.add('is-active');
+        burgerBtn.setAttribute('aria-expanded', 'true');
+        navMenu.classList.add('is-open');
+        if (navBackdrop) navBackdrop.classList.add('is-active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+        if (!burgerBtn || !navMenu) return;
+        burgerBtn.classList.remove('is-active');
+        burgerBtn.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('is-open');
+        if (navBackdrop) navBackdrop.classList.remove('is-active');
+        document.body.style.overflow = '';
+    }
+
+    function toggleMobileMenu() {
+        if (navMenu && navMenu.classList.contains('is-open')) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    }
+
+    if (burgerBtn) {
+        burgerBtn.addEventListener('click', toggleMobileMenu);
+    }
+
+    if (navBackdrop) {
+        navBackdrop.addEventListener('click', closeMobileMenu);
+    }
+
+    if (navMenu) {
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu && navMenu.classList.contains('is-open')) {
+            closeMobileMenu();
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && navMenu && navMenu.classList.contains('is-open')) {
+            closeMobileMenu();
+        }
+    }, { passive: true });
+
+    // ==========================================================================
     // 3. Compact OST Player (Empty Tavern)
     // ==========================================================================
 
