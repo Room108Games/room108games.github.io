@@ -202,72 +202,49 @@
         const spriteSize = isSmallMobile ? 68 : (isMobile ? 85 : 180);
         const placedPositions = [];
 
-        // Pre-defined distributed mobile zones across the section
-        const mobileZones = [
-            // Top Left (near attribution badges)
-            { minXRatio: 0.05, maxXRatio: 0.35, minYRatio: 0.03, maxYRatio: 0.16 },
-            // Top Right (opposite side near top)
-            { minXRatio: 0.62, maxXRatio: 0.92, minYRatio: 0.03, maxYRatio: 0.16 },
-            // Mid Left (flanking title & tagline)
-            { minXRatio: 0.04, maxXRatio: 0.30, minYRatio: 0.22, maxYRatio: 0.40 },
-            // Mid Right (flanking story card)
-            { minXRatio: 0.68, maxXRatio: 0.94, minYRatio: 0.40, maxYRatio: 0.60 },
-            // Lower Left (flanking feature tags)
-            { minXRatio: 0.05, maxXRatio: 0.38, minYRatio: 0.65, maxYRatio: 0.82 },
-            // Lower Right (near action buttons & return link)
-            { minXRatio: 0.60, maxXRatio: 0.92, minYRatio: 0.72, maxYRatio: 0.92 }
-        ];
-
-        // Shuffle mobile zones so each load gets different distributed placements
-        const shuffledMobileZones = [...mobileZones].sort(() => Math.random() - 0.5);
-
         function getBlankSpaceSpawnPosition(index) {
             const parentRect = parentSection.getBoundingClientRect();
             const introContainer = document.querySelector('.ww-intro-container');
 
-            const minPadding = isMobile ? 10 : 15;
+            const minPadding = isMobile ? 12 : 20;
             const maxX = Math.max(minPadding, bounds.width - spriteSize - minPadding);
             const maxY = Math.max(minPadding, bounds.height - spriteSize - minPadding);
 
             if (isMobile) {
-                // Dedicated mobile placement: assign a distinct zone per sprite
-                const zone = shuffledMobileZones[index % shuffledMobileZones.length];
-                const zMinX = Math.min(maxX, Math.max(minPadding, bounds.width * zone.minXRatio));
-                const zMaxX = Math.max(zMinX, Math.min(maxX, bounds.width * zone.maxXRatio - spriteSize));
-                const zMinY = Math.min(maxY, Math.max(minPadding, bounds.height * zone.minYRatio));
-                const zMaxY = Math.max(zMinY, Math.min(maxY, bounds.height * zone.maxYRatio - spriteSize));
-
-                let bestX = zMinX + (zMaxX - zMinX) * 0.5;
-                let bestY = zMinY + (zMaxY - zMinY) * 0.5;
-                let maxMinDist = -1;
-
-                // Try 30 candidates within this sprite's assigned zone
-                for (let attempt = 0; attempt < 30; attempt++) {
-                    const cx = zMinX + Math.random() * Math.max(1, zMaxX - zMinX);
-                    const cy = zMinY + Math.random() * Math.max(1, zMaxY - zMinY);
-
-                    const candCenterX = cx + spriteSize / 2;
-                    const candCenterY = cy + spriteSize / 2;
-
-                    let closestDist = Infinity;
-                    for (const p of placedPositions) {
-                        const d = Math.hypot(candCenterX - p.cx, candCenterY - p.cy);
-                        if (d < closestDist) closestDist = d;
+                // Guaranteed spaced mobile slots: distributed vertically and horizontally
+                // Alternating Right, Left, Right, Left to frame the centered content
+                const mobileSlots = [
+                    // Slot 0: Upper Right (beside title / badges)
+                    {
+                        x: Math.max(minPadding, bounds.width - spriteSize - 18 + (Math.random() * 14 - 7)),
+                        y: Math.max(20, bounds.height * 0.16 + (Math.random() * 30 - 15))
+                    },
+                    // Slot 1: Mid Left (beside intro story card)
+                    {
+                        x: Math.max(minPadding, 16 + (Math.random() * 16)),
+                        y: Math.max(100, bounds.height * 0.46 + (Math.random() * 40 - 20))
+                    },
+                    // Slot 2: Lower Right (beside feature tags / action buttons)
+                    {
+                        x: Math.max(minPadding, bounds.width - spriteSize - 20 + (Math.random() * 14 - 7)),
+                        y: Math.max(180, bounds.height * 0.76 + (Math.random() * 30 - 15))
+                    },
+                    // Slot 3: Upper Left (opposite upper right)
+                    {
+                        x: Math.max(minPadding, 18 + (Math.random() * 16)),
+                        y: Math.max(25, bounds.height * 0.08 + (Math.random() * 25 - 12))
+                    },
+                    // Slot 4: Lower Left (near bottom actions)
+                    {
+                        x: Math.max(minPadding, 16 + (Math.random() * 20)),
+                        y: Math.max(200, bounds.height * 0.85 + (Math.random() * 25 - 12))
                     }
+                ];
 
-                    if (closestDist > maxMinDist) {
-                        maxMinDist = closestDist;
-                        bestX = cx;
-                        bestY = cy;
-                    }
-
-                    // Separation of at least 80px between sprites on mobile
-                    if (closestDist >= 80) {
-                        return { x: cx, y: cy };
-                    }
-                }
-
-                return { x: bestX, y: bestY };
+                const slot = mobileSlots[index % mobileSlots.length];
+                const clampedX = Math.max(minPadding, Math.min(maxX, slot.x));
+                const clampedY = Math.max(minPadding, Math.min(maxY, slot.y));
+                return { x: clampedX, y: clampedY };
             }
 
             // Desktop Placement (Wide Flanks around center card)
@@ -369,8 +346,17 @@
                 }
             }
 
-            let fallbackX = regions.length > 0 ? regions[index % regions.length].minX : minPadding;
-            let fallbackY = regions.length > 0 ? regions[index % regions.length].minY : minPadding;
+            const desktopSlots = [
+                { x: 35, y: bounds.height * 0.22 },
+                { x: Math.max(35, bounds.width - spriteSize - 45), y: bounds.height * 0.26 },
+                { x: 50, y: bounds.height * 0.62 },
+                { x: Math.max(35, bounds.width - spriteSize - 55), y: bounds.height * 0.66 },
+                { x: Math.max(35, bounds.width * 0.5 - spriteSize / 2), y: 35 },
+                { x: Math.max(35, bounds.width * 0.5 - spriteSize / 2), y: Math.max(60, bounds.height - spriteSize - 40) }
+            ];
+            const fallbackSlot = desktopSlots[index % desktopSlots.length];
+            let fallbackX = Math.max(minPadding, Math.min(maxX, fallbackSlot.x));
+            let fallbackY = Math.max(minPadding, Math.min(maxY, fallbackSlot.y));
             let maxMinDist = -1;
 
             for (let attempt = 0; attempt < 160; attempt++) {
@@ -463,6 +449,9 @@
             // Random initial rotation and slow planetary spin rate
             const rotation = Math.random() * 360;
             const rotSpeed = (Math.random() > 0.5 ? 1 : -1) * (0.12 + Math.random() * 0.22); // slow majestic rotation
+
+            // Apply initial position immediately so element never sits at (0, 0)
+            wrapper.style.transform = `translate3d(${spawnX.toFixed(1)}px, ${spawnY.toFixed(1)}px, 0) rotate(${rotation.toFixed(1)}deg)`;
 
             const spriteObj = {
                 id: index,
