@@ -318,12 +318,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const toast = document.createElement("div");
         toast.className = "pixel-toast";
 
-        const prefix = type === "success" ? "[OK]" : "[!]";
-        toast.innerHTML = `
-            <span style="font-family:var(--font-pixel-heading); font-size:0.75rem; color:var(--color-secondary); font-weight:bold;">${prefix}</span>
-            <span class="toast-msg">${text}</span>
-        `;
+        const prefixEl = document.createElement("span");
+        prefixEl.style.fontFamily = "var(--font-pixel-heading)";
+        prefixEl.style.fontSize = "0.75rem";
+        prefixEl.style.color = "var(--color-secondary)";
+        prefixEl.style.fontWeight = "bold";
+        prefixEl.textContent = type === "success" ? "[OK]" : "[!]";
 
+        const msgEl = document.createElement("span");
+        msgEl.className = "toast-msg";
+        msgEl.textContent = text; // Safe textContent neutralizes XSS
+
+        toast.appendChild(prefixEl);
+        toast.appendChild(msgEl);
         container.appendChild(toast);
 
         setTimeout(() => {

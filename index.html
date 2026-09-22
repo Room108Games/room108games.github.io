@@ -7,6 +7,11 @@
     <meta name="description" content="Room108 Games is an indie co-op game studio based in Malta developing games with the Godot Engine in pixel art style.">
     <meta name="theme-color" content="#DDE9CE">
 
+    <!-- Security Policies -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
     <!-- Fonts: Mogra & Chicle -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -178,17 +183,17 @@
                         <form id="contact-form" class="pixel-form">
                             <div class="pixel-field">
                                 <label for="field-name" class="pixel-label">PLAYER NAME / ORG:</label>
-                                <input type="text" id="field-name" class="pixel-input" placeholder="e.g. Alex" required>
+                                <input type="text" id="field-name" class="pixel-input" placeholder="e.g. Alex" required maxlength="100" autocomplete="name">
                             </div>
 
                             <div class="pixel-field">
                                 <label for="field-email" class="pixel-label">EMAIL ADDRESS:</label>
-                                <input type="email" id="field-email" class="pixel-input" placeholder="alex@domain.com" required>
+                                <input type="email" id="field-email" class="pixel-input" placeholder="alex@domain.com" required maxlength="150" autocomplete="email">
                             </div>
 
                             <div class="pixel-field">
                                 <label for="field-message" class="pixel-label">TRANSMISSION MESSAGE:</label>
-                                <textarea id="field-message" class="pixel-textarea" placeholder="Type your message here..." required></textarea>
+                                <textarea id="field-message" class="pixel-textarea" placeholder="Type your message here..." required maxlength="2000"></textarea>
                             </div>
 
                             <button type="submit" id="submit-btn" class="pixel-submit-btn">
