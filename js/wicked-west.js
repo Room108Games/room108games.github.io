@@ -185,26 +185,29 @@
     const sprites = [];
     let activeDrag = null;
     const isMobile = window.innerWidth <= 768 || window.matchMedia('(max-width: 768px)').matches;
+    const isSmallMobile = window.innerWidth <= 480;
 
-    // Only summon floating planetary sprites on desktop/larger screens (disabled on mobile)
-    if (container && !isMobile) {
+    // Summon floating planetary sprites (smaller count and size on mobile devices)
+    if (container) {
         // Shuffle pool
         const shuffled = [...SPRITE_POOL].sort(() => Math.random() - 0.5);
 
-        // Pick 5 to 7 random unique sprites on every load
-        const countToSpawn = Math.min(Math.floor(Math.random() * 3) + 5, shuffled.length);
+        // Pick random unique sprites: 3 to 4 on mobile, 5 to 7 on desktop
+        const countToSpawn = isMobile
+            ? Math.min(3 + Math.floor(Math.random() * 2), shuffled.length)
+            : Math.min(Math.floor(Math.random() * 3) + 5, shuffled.length);
         const selected = shuffled.slice(0, countToSpawn);
 
         const bounds = getBounds();
-        const spriteSize = window.innerWidth <= 640 ? 110 : 180;
+        const spriteSize = isSmallMobile ? 68 : (isMobile ? 85 : 180);
         const placedPositions = [];
 
         function getBlankSpaceSpawnPosition(index) {
             const parentRect = parentSection.getBoundingClientRect();
             const introContainer = document.querySelector('.ww-intro-container');
 
-            const buffer = 32; // Buffer clearance around content
-            const minPadding = 15;
+            const buffer = isMobile ? 14 : 32; // Buffer clearance around content
+            const minPadding = isMobile ? 8 : 15;
             const maxX = Math.max(minPadding, bounds.width - spriteSize - minPadding);
             const maxY = Math.max(minPadding, bounds.height - spriteSize - minPadding);
 
@@ -352,7 +355,9 @@
                     }
                 }
 
-                const requiredDist = attempt < 40 ? 150 : (attempt < 80 ? 100 : 60);
+                const requiredDist = attempt < 40
+                    ? (isMobile ? 70 : 150)
+                    : (attempt < 80 ? (isMobile ? 50 : 100) : (isMobile ? 30 : 60));
                 if (closestDist < requiredDist) {
                     if (closestDist > maxMinDist) {
                         maxMinDist = closestDist;
@@ -400,7 +405,7 @@
 
             // Random planetary drift velocity vector
             const angle = Math.random() * Math.PI * 2;
-            const speed = 0.2 + Math.random() * 0.35; // gentle, majestic floating speed
+            const speed = (isMobile ? 0.15 : 0.2) + Math.random() * (isMobile ? 0.25 : 0.35); // gentle floating speed
             const vx = Math.cos(angle) * speed;
             const vy = Math.sin(angle) * speed;
 
@@ -411,6 +416,7 @@
             const spriteObj = {
                 id: index,
                 el: wrapper,
+                size: spriteSize,
                 x: spawnX,
                 y: spawnY,
                 vx: vx,
@@ -418,7 +424,7 @@
                 rotation: rotation,
                 rotSpeed: rotSpeed,
                 bobPhase: Math.random() * Math.PI * 2,
-                bobAmp: 4 + Math.random() * 5,
+                bobAmp: isMobile ? (2 + Math.random() * 2.5) : (4 + Math.random() * 5),
                 isDragging: false,
                 dragStartX: 0,
                 dragStartY: 0,
@@ -434,8 +440,8 @@
             // Pointer down handler
             function onPointerDown(e) {
                 e.preventDefault();
-                const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
-                const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+                const clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+                const clientY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
 
                 activeDrag = spriteObj;
                 spriteObj.isDragging = true;
@@ -460,8 +466,8 @@
         if (!activeDrag) return;
         e.preventDefault();
 
-        const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
-        const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+        const clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+        const clientY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
 
         const dx = clientX - activeDrag.dragStartX;
         const dy = clientY - activeDrag.dragStartY;
@@ -521,10 +527,11 @@
                 s.x += s.vx;
                 s.y += s.vy;
 
-                const minX = 8;
-                const maxX = Math.max(minX + 50, bounds.width - 210);
-                const minY = 8;
-                const maxY = Math.max(minY + 50, bounds.height - 210);
+                const spritePadding = (s.size || 180) + 12;
+                const minX = 6;
+                const maxX = Math.max(minX + 30, bounds.width - spritePadding);
+                const minY = 6;
+                const maxY = Math.max(minY + 30, bounds.height - spritePadding);
 
                 // Gentle planetary bounce off edges
                 if (s.x <= minX) {

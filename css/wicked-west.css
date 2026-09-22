@@ -289,13 +289,27 @@
     }
 
     .ww-draggable-sprite {
-        width: 110px;
-        height: 110px;
+        width: 85px;
+        height: 85px;
     }
 
     .ww-draggable-sprite img {
-        max-width: 110px;
-        max-height: 110px;
+        max-width: 85px;
+        max-height: 85px;
+        filter: drop-shadow(4px 4px 0 var(--border-color));
+    }
+}
+
+@media (max-width: 480px) {
+    .ww-draggable-sprite {
+        width: 68px;
+        height: 68px;
+    }
+
+    .ww-draggable-sprite img {
+        max-width: 68px;
+        max-height: 68px;
+        filter: drop-shadow(3px 3px 0 var(--border-color));
     }
 }
 
@@ -360,13 +374,4 @@
     text-align: center;
 }
 
-/* ==========================================================================
-   Mobile Optimization: Don't display or layout floating sprites
-   ========================================================================== */
-@media (max-width: 768px) {
-    .ww-floating-container,
-    .ww-draggable-sprite {
-        display: none !important;
-    }
-}
 
