@@ -1,0 +1,53 @@
+/**
+ * Room108 Games - Pixel Art Animations
+ */
+
+@keyframes pixelFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    25% {
+        transform: translateY(-4px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+    75% {
+        transform: translateY(-4px);
+    }
+}
+
+@keyframes pixelBlink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes pixelToastIn {
+    0% {
+        transform: translateY(16px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pixelShake {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-3px, 2px); }
+    50% { transform: translate(3px, -2px); }
+    75% { transform: translate(-2px, -2px); }
+}
+
+.pixel-blink {
+    animation: pixelBlink 1s steps(2) infinite;
+}
+
+.pixel-float {
+    animation: pixelFloat 3.5s steps(4) infinite;
+}

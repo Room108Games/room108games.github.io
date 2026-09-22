@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room108 Games | Indie Co-op Studio • Malta</title>
+    <meta name="description" content="Room108 Games is an indie co-op game studio based in Malta developing games with the Godot Engine in pixel art style.">
+    <meta name="theme-color" content="#DDE9CE">
+
+    <!-- Fonts: Mogra & Chicle -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chicle&family=Mogra&display=swap" rel="stylesheet">
+
+    <!-- Favicon using Logo Icon -->
+    <link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/wicked-west.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+         Pixel Navigation Bar (Logo Only - No separate door)
+         ========================================================================== -->
+    <header class="pixel-navbar">
+        <div class="container nav-container">
+            <a href="#intro" class="nav-brand" aria-label="Room108 Games">
+                <img id="nav-logo" class="brand-logo-img" src="assets/logo-black-cropped.svg" alt="Room108 Logo">
+                <div class="brand-title-wrap">
+                    <span class="brand-title">ROOM108</span>
+                    <span class="brand-sub">GAMES // MALTA</span>
+                </div>
+            </a>
+
+            <nav class="nav-menu">
+                <a href="#intro" class="nav-link">[INTRO]</a>
+                <a href="wicked-west.html" class="nav-link">[WICKED WEST]</a>
+                <a href="#contact" class="nav-link">[CONTACT]</a>
+
+                <!-- Audio Toggle Button -->
+                <button id="pixel-audio-btn" class="pixel-audio-btn" title="Toggle sound effects">
+                    <span>SFX: ON</span>
+                </button>
+
+                <!-- Theme Toggle Button -->
+                <button id="pixel-theme-btn" class="pixel-theme-btn" title="Toggle Dark/Light Mode">
+                    <span>DARK</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         Small Introduction Section (Title & Room108 Logo - No separate door)
+         ========================================================================== -->
+    <section id="intro" class="intro-section">
+        <!-- Floating Pixel Background Canvas -->
+        <div class="intro-canvas-container">
+            <canvas id="pixel-canvas"></canvas>
+        </div>
+
+        <div class="container intro-content">
+            <!-- Malta Location Badge -->
+            <div class="location-badge">
+                <span>BASED IN MALTA // INDIE CO-OP STUDIO</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="intro-title">
+                <span class="highlight">ROOM108 GAMES</span>
+            </h1>
+
+            <!-- Small Information Card -->
+            <div class="intro-text-card">
+                <p>
+                    <strong>We are an indie co-op game studio based in Malta, developing our games with the Godot Engine.</strong>
+                </p>
+                <p>
+                    We craft atmospheric, cooperative, and heartfelt experiences built for players who love tackling challenges together. Powered by the Godot Engine, our games celebrate teamwork, tight mechanics, and timeless pixel art charm.
+                </p>
+            </div>
+
+            <!-- Feature Tags -->
+            <div class="feature-tags">
+                <span class="pixel-tag green">CO-OP FIRST</span>
+                <span class="pixel-tag emerald">GODOT ENGINE</span>
+                <span class="pixel-tag green">PIXEL ART</span>
+                <span class="pixel-tag emerald">CRAFTED IN MALTA</span>
+            </div>
+
+            <!-- CTA Button to Contact -->
+            <a href="#contact" class="pixel-btn">
+                <span>SEND TRANSMISSION / CONTACT US</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         Featured Game: Wicked West
+         ========================================================================== -->
+    <section class="ww-featured-section">
+        <div class="container ww-featured-content">
+            <div class="ww-featured-header">
+                <span class="ww-featured-tag">FEATURED PROJECT</span>
+                <h2 class="ww-featured-title">LATEST FROM THE STUDIO</h2>
+            </div>
+
+            <div class="ww-badge-row">
+                <span class="ww-badge dev">DEVELOPED BY: BURSTYN SANTILLO</span>
+                <span class="ww-badge pub">PUBLISHED BY: ROOM108</span>
+                <span class="ww-badge engine">POWERED BY GODOT 4</span>
+            </div>
+
+            <div class="ww-title-container" style="max-width: 480px; margin: 1.25rem auto;">
+                <img class="ww-title-img ww-title-img-light" src="assets/wicked-west/titles/WickedWestTitle.png" alt="Wicked West">
+                <img class="ww-title-img ww-title-img-dark" src="assets/wicked-west/titles/WickedWestTitleWhite.png" alt="Wicked West">
+            </div>
+
+            <p class="ww-featured-desc">
+                A rogue-lite survivor shooter with tavern management elements. Battle relentless hordes of fairytale monsters, distill their essences into legendary brews, and uncover the wicked conspiracy behind the frontier invasion.
+            </p>
+
+            <a href="wicked-west.html" class="pixel-btn">
+                <span>EXPLORE WICKED WEST</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         Contact Us Section
+         ========================================================================== -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="pixel-box">
+                <!-- Box Header -->
+                <div class="pixel-box-header">
+                    <div class="pixel-box-title">
+                        <span>QUEST: CONTACT ROOM108</span>
+                    </div>
+                    <div class="pixel-dots">
+                        <span class="pixel-dot"></span>
+                        <span class="pixel-dot"></span>
+                        <span class="pixel-dot"></span>
+                    </div>
+                </div>
+
+                <!-- Box Content -->
+                <div class="pixel-box-body">
+                    <!-- Left: Community Discord -->
+                    <div class="contact-info-col">
+                        <div class="channels-list">
+                            <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="channel-link">
+                                <div class="channel-text-wrap">
+                                    <span class="channel-label">COMMUNITY DISCORD</span>
+                                    <span class="channel-value">Join Co-op Guild</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right: Interactive Transmission Form -->
+                    <div class="contact-form-col">
+                        <form id="contact-form" class="pixel-form">
+                            <div class="pixel-field">
+                                <label for="field-name" class="pixel-label">PLAYER NAME / ORG:</label>
+                                <input type="text" id="field-name" class="pixel-input" placeholder="e.g. Alex" required>
+                            </div>
+
+                            <div class="pixel-field">
+                                <label for="field-email" class="pixel-label">EMAIL ADDRESS:</label>
+                                <input type="email" id="field-email" class="pixel-input" placeholder="alex@domain.com" required>
+                            </div>
+
+                            <div class="pixel-field">
+                                <label for="field-message" class="pixel-label">TRANSMISSION MESSAGE:</label>
+                                <textarea id="field-message" class="pixel-textarea" placeholder="Type your message here..." required></textarea>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="pixel-submit-btn">
+                                SEND TRANSMISSION
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         Footer
+         ========================================================================== -->
+    <footer class="pixel-footer">
+        <div class="container footer-content">
+            <div class="footer-branding">
+                <img id="footer-logo" class="footer-logo-small" src="assets/logo-black-cropped.svg" alt="Room108 Logo">
+                <span>ROOM108 GAMES</span>
+            </div>
+            <div class="footer-motto">
+                Made in Malta • Independent Co-op Game Studio • Powered by Godot Engine
+            </div>
+            <div class="footer-copyright">
+                &copy; 2026 Room108 Games. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container for Notifications -->
+    <div id="toast-container" aria-live="polite"></div>
+
+    <!-- Script -->
+    <script src="js/main.js"></script>
+</body>
+</html>

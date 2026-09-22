@@ -1,0 +1,362 @@
+/* ==========================================================================
+   Wicked West - Dedicated Game Page Stylesheet (Clean Intro & Floating Elements)
+   Developed by Burstyn Santillo // Published by Room108
+   ========================================================================== */
+
+/* Pixel Art crisp scaling */
+.pixel-art {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* ==========================================================================
+   Main Intro Section
+   ========================================================================== */
+
+.ww-main-section {
+    position: relative;
+    min-height: calc(100vh - 75px - 90px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3.5rem 1.5rem;
+    overflow: hidden;
+}
+
+.ww-intro-container {
+    position: relative;
+    z-index: 4;
+    max-width: 820px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Title Logo Image */
+.ww-title-container {
+    margin: 1.25rem 0 1.25rem 0;
+    max-width: 540px;
+    width: 90%;
+    aspect-ratio: 16 / 9;
+    filter: drop-shadow(4px 4px 0px rgba(11, 148, 68, 0.4));
+    transition: transform 0.1s steps(2);
+}
+
+.ww-title-container:hover {
+    transform: scale(1.02);
+}
+
+.ww-title-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* Dark mode switches to white title */
+[data-theme="dark"] .ww-title-img-light {
+    display: none;
+}
+[data-theme="dark"] .ww-title-img-dark {
+    display: block;
+}
+
+[data-theme="light"] .ww-title-img-light {
+    display: block;
+}
+[data-theme="light"] .ww-title-img-dark {
+    display: none;
+}
+
+/* Tagline */
+.ww-tagline {
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 2.3vw, 1.55rem);
+    color: var(--color-ink);
+    margin-bottom: 1.5rem;
+    max-width: 720px;
+    line-height: 1.25;
+}
+
+.ww-tagline .highlight {
+    background-color: var(--color-primary);
+    color: #0d1a10;
+    padding: 0.15rem 0.55rem;
+    box-shadow: 2px 2px 0 var(--color-secondary);
+    display: inline-block;
+}
+
+/* Attribution Badges */
+.ww-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.ww-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.85rem;
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-color);
+    box-shadow: 2px 2px 0 var(--border-color);
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--color-ink);
+}
+
+.ww-badge.dev {
+    background-color: var(--color-primary);
+    color: #0d1a10;
+    border-color: #0d1a10;
+    box-shadow: 3px 3px 0 var(--color-secondary);
+}
+
+.ww-badge.pub {
+    background-color: var(--color-secondary);
+    color: #ffffff;
+    border-color: #0d1a10;
+    box-shadow: 3px 3px 0 var(--border-color);
+}
+
+.ww-badge.engine {
+    background-color: #478cbf;
+    color: #ffffff;
+    border-color: #0d1a10;
+    box-shadow: 3px 3px 0 var(--border-color);
+}
+
+/* Intro Description Card */
+.ww-intro-card {
+    background-color: var(--bg-surface);
+    border: 3px solid var(--border-color);
+    box-shadow: var(--pixel-shadow-md);
+    padding: 2rem 2.25rem;
+    margin-bottom: 1.75rem;
+    text-align: left;
+    position: relative;
+    width: 100%;
+}
+
+.ww-intro-lead {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.35;
+}
+
+[data-theme="dark"] .ww-intro-lead {
+    color: var(--color-primary);
+}
+
+.ww-intro-card p {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--color-ink);
+}
+
+.ww-intro-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* Feature Tag Pills */
+.ww-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+}
+
+/* Compact Soundtrack & Action Row */
+.ww-actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ww-ost-btn {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    padding: 0.7rem 1.4rem;
+    background-color: var(--color-primary);
+    color: #0d1a10;
+    border: 3px solid var(--border-color);
+    box-shadow: 4px 4px 0 var(--border-color);
+    cursor: pointer;
+    transition: all 0.08s steps(2);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ww-ost-btn:hover {
+    background-color: var(--color-secondary);
+    color: #ffffff;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--border-color);
+}
+
+.ww-ost-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--border-color);
+}
+
+/* ==========================================================================
+   Draggable Floating Sprites (NPCs & Enemies Wandering)
+   ========================================================================== */
+
+.ww-floating-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 3;
+}
+
+.ww-draggable-sprite {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: auto;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    z-index: 5;
+    will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 180px;
+}
+
+.ww-draggable-sprite:active,
+.ww-draggable-sprite.is-dragging {
+    cursor: grabbing !important;
+    z-index: 999 !important;
+}
+
+.ww-draggable-sprite img {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    filter: drop-shadow(6px 6px 0 var(--border-color));
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: contain !important;
+    transition: filter 0.15s steps(2);
+}
+
+.ww-draggable-sprite:hover img {
+    filter: drop-shadow(8px 8px 0 var(--color-primary));
+}
+
+.ww-draggable-sprite.is-dragging img {
+    filter: drop-shadow(10px 10px 0 var(--color-secondary));
+}
+
+@media (max-width: 768px) {
+    .ww-main-section {
+        padding: 2rem 1rem;
+    }
+
+    .ww-intro-card {
+        padding: 1.5rem;
+    }
+
+    .ww-title-container {
+        max-width: 360px;
+    }
+
+    .ww-draggable-sprite {
+        width: 110px;
+        height: 110px;
+    }
+
+    .ww-draggable-sprite img {
+        max-width: 110px;
+        max-height: 110px;
+    }
+}
+
+/* ==========================================================================
+   Featured Section on Index Page (Fully Centered)
+   ========================================================================== */
+
+.ww-featured-section {
+    position: relative;
+    padding: 4.5rem 0 3.5rem 0;
+    border-top: 3px dashed var(--border-color);
+}
+
+.ww-featured-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 820px;
+}
+
+.ww-featured-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ww-featured-tag {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--color-secondary);
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-color);
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 2px 2px 0 var(--border-color);
+}
+
+[data-theme="dark"] .ww-featured-tag {
+    color: var(--color-primary);
+}
+
+.ww-featured-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    color: var(--color-ink);
+    line-height: 1.15;
+    text-align: center;
+}
+
+.ww-featured-desc {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    max-width: 720px;
+    margin: 1.25rem auto 2rem auto;
+    line-height: 1.6;
+    color: var(--color-ink);
+    text-align: center;
+}
+

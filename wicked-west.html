@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wicked West — Developed by Burstyn Santillo // Published by Room108</title>
+    <meta name="description" content="Wicked West is an indie rogue-lite survivor shooter with tavern management elements, developed by Burstyn Santillo in Godot 4 and published by Room108.">
+    <meta name="theme-color" content="#DDE9CE">
+
+    <!-- Fonts: Mogra & Chicle -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chicle&family=Mogra&display=swap" rel="stylesheet">
+
+    <!-- Favicon using Wicked West Icon -->
+    <link rel="icon" type="image/png" href="assets/wicked-west/icons/Icon.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/wicked-west.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+         Navigation Bar
+         ========================================================================== -->
+    <header class="pixel-navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand" aria-label="Back to Room108 Home">
+                <img id="nav-logo" class="brand-logo-img" src="assets/logo-black-cropped.svg" alt="Room108 Logo">
+                <div class="brand-title-wrap">
+                    <span class="brand-title">ROOM108</span>
+                    <span class="brand-sub">STUDIO HOME</span>
+                </div>
+            </a>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">[ROOM108 HOME]</a>
+
+                <!-- Audio Toggle Button -->
+                <button id="pixel-audio-btn" class="pixel-audio-btn" title="Toggle sound effects">
+                    <span>SFX: ON</span>
+                </button>
+
+                <!-- Theme Toggle Button -->
+                <button id="pixel-theme-btn" class="pixel-theme-btn" title="Toggle Dark/Light Mode">
+                    <span>DARK</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         Main Introduction Section with Floating NPCs & Monsters
+         ========================================================================== -->
+    <main class="ww-main-section">
+        <!-- Ambient Pixel Dust Canvas -->
+        <div class="intro-canvas-container">
+            <canvas id="pixel-canvas"></canvas>
+        </div>
+
+        <!-- Draggable Floating Planetary Sprites Container (Randomly Spawned) -->
+        <div class="ww-floating-container" id="sprites-container" aria-hidden="true"></div>
+
+        <!-- Center Introduction Card -->
+        <div class="ww-intro-container">
+            <!-- Attribution Badges -->
+            <div class="ww-badge-row">
+                <span class="ww-badge dev">DEVELOPED BY: BURSTYN SANTILLO</span>
+                <span class="ww-badge pub">PUBLISHED BY: ROOM108</span>
+                <span class="ww-badge engine">GODOT ENGINE 4</span>
+            </div>
+
+            <!-- Title Logo (Swaps between light and dark) -->
+            <div class="ww-title-container">
+                <img class="ww-title-img ww-title-img-light" src="assets/wicked-west/titles/WickedWestTitle.png" alt="Wicked West">
+                <img class="ww-title-img ww-title-img-dark" src="assets/wicked-west/titles/WickedWestTitleWhite.png" alt="Wicked West">
+            </div>
+
+            <!-- Tagline -->
+            <h1 class="ww-tagline">
+                A Rogue-Lite Survivor Shooter with <span class="highlight">Tavern Management</span>
+            </h1>
+
+            <!-- Introduction Story Card -->
+            <div class="ww-intro-card">
+                <h2 class="ww-intro-lead">
+                    Wicked West is an indie rogue-lite survivor shooter with tavern management elements.
+                </h2>
+                <p>
+                    Developed by <strong>Burstyn Santillo</strong>, published by <strong>Room108</strong>, and built with the <strong>Godot Engine</strong>.
+                </p>
+                <p>
+                    The Wild West has been overrun by bizarre fairytale monsters. As Cowboy Cody, turn this supernatural chaos into the business opportunity of a lifetime: venture into perilous dungeons, harvest exotic monster essences, and brew legendary beers to build the most celebrated saloon in the frontier.
+                </p>
+            </div>
+
+            <!-- Feature Tag Pills -->
+            <div class="ww-tags-row">
+                <span class="pixel-tag green">ROGUELITE SURVIVOR</span>
+                <span class="pixel-tag emerald">TAVERN SIM</span>
+                <span class="pixel-tag green">PIXEL ART</span>
+                <span class="pixel-tag emerald">GODOT 4</span>
+                <span class="pixel-tag green">BURSTYN SANTILLO</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="ww-actions-row">
+                <button id="ww-ost-btn" class="ww-ost-btn" title="Toggle Empty Tavern OST track">
+                    <span>PLAY OST: EMPTY TAVERN</span>
+                </button>
+                <a href="index.html" class="pixel-btn">
+                    <span>RETURN TO ROOM108</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         Footer
+         ========================================================================== -->
+    <footer class="pixel-footer">
+        <div class="container footer-content">
+            <div class="footer-branding">
+                <img id="footer-logo" class="footer-logo-small" src="assets/logo-black-cropped.svg" alt="Room108 Logo">
+                <span>WICKED WEST // ROOM108</span>
+            </div>
+            <div class="footer-motto">
+                Developed by Burstyn Santillo &bull; Published by Room108 &bull; Built with Godot 4
+            </div>
+            <div class="footer-copyright">
+                &copy; 2026 Burstyn Santillo &amp; Room108. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container for Notifications -->
+    <div id="toast-container" aria-live="polite"></div>
+
+    <!-- Script -->
+    <script src="js/wicked-west.js"></script>
+</body>
+</html>
