@@ -1,6 +1,6 @@
 /* ==========================================================================
    12 Days - Dedicated Game Stylesheet
-   Gritty Political Thriller Theme: Navros Executive Presidency
+   Theme: Navros Executive Presidency (Gritty Political Thriller)
    Palette:
      Dark Bunker Paper: #111413
      Executive Slate:   #1a201d
@@ -32,9 +32,8 @@ body.days-page button:hover,
 body.days-page input:hover,
 body.days-page select:hover,
 body.days-page .clickable:hover,
-body.days-page .dossier-tab:hover,
-body.days-page .decree-choice-btn:hover,
-body.days-page .gallery-thumb:hover {
+body.days-page .pixel-btn:hover,
+body.days-page .steam-btn:hover {
     cursor: url('../assets/12-days/images/cursor/Bigger-cursor.png') 4 4, pointer !important;
 }
 
@@ -85,7 +84,7 @@ body.days-page .gallery-thumb:hover {
    ========================================================================== */
 .days-hero-section {
     position: relative;
-    padding: 3rem 1rem 2rem;
+    padding: 3.5rem 1rem 2rem;
     text-align: center;
 }
 
@@ -299,7 +298,7 @@ body.days-page .gallery-thumb:hover {
    ========================================================================== */
 .days-story-card {
     max-width: 820px;
-    margin: 0 auto 3rem;
+    margin: 0 auto 3.5rem;
     background: #171d19;
     border: 3px solid #3c493f;
     box-shadow: var(--days-border-shadow);
@@ -360,386 +359,10 @@ body.days-page .gallery-thumb:hover {
 }
 
 /* ==========================================================================
-   Interactive Feature: The Presidential Crisis Desk
-   ========================================================================== */
-.crisis-desk-section {
-    max-width: 960px;
-    margin: 0 auto 4rem;
-    padding: 0 1rem;
-}
-
-.crisis-desk-header {
-    text-align: center;
-    margin-bottom: 1.75rem;
-}
-
-.crisis-desk-tag {
-    display: inline-block;
-    background: var(--days-red);
-    color: #ffffff;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    padding: 0.2rem 0.8rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid #c93b3b;
-}
-
-.crisis-desk-title {
-    font-size: 2.2rem;
-    color: #f7d98c;
-    letter-spacing: 1.5px;
-    margin-bottom: 0.4rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-}
-
-.crisis-desk-subtitle {
-    font-size: 1.35rem;
-    color: #bccbbd;
-}
-
-/* Desk Surface */
-.crisis-desk-surface {
-    background: #1c241f url('../assets/12-days/images/backgrounds/table.png');
-    border: 4px solid #445447;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.8), var(--days-border-shadow);
-    padding: 2rem 2rem 2.5rem;
-    position: relative;
-    border-radius: 4px;
-}
-
-/* Political Balance Gauges Bar */
-.political-meters-bar {
-    background: #101512;
-    border: 2px solid #364438;
-    padding: 1rem 1.5rem;
-    margin-bottom: 1.75rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.75rem;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
-}
-
-.meter-block {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-.meter-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.meter-label {
-    font-size: 1.25rem;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.meter-label.party {
-    color: #e57272;
-}
-
-.meter-label.people {
-    color: #79c58e;
-}
-
-.meter-value {
-    font-size: 1.35rem;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-.meter-track {
-    height: 18px;
-    background: #1a221c;
-    border: 2px solid #445648;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
-}
-
-.meter-fill {
-    height: 100%;
-    width: 50%;
-    transition: width 0.4s cubic-bezier(0.2, 0.9, 0.3, 1), background-color 0.3s;
-}
-
-.meter-fill.party-fill {
-    background: linear-gradient(90deg, #591616, #bf2626);
-}
-
-.meter-fill.people-fill {
-    background: linear-gradient(90deg, #184a24, #36a450);
-}
-
-/* Day Tabs Bar */
-.dossier-tabs-row {
-    display: flex;
-    gap: 0.5rem;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid #344237;
-}
-
-.dossier-tab {
-    background: #18201a;
-    color: #92a495;
-    border: 2px solid #38483b;
-    border-bottom: none;
-    padding: 0.5rem 1.1rem;
-    font-family: var(--font-romulus);
-    font-size: 1.25rem;
-    letter-spacing: 1px;
-    white-space: nowrap;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.dossier-tab:hover {
-    background: #253329;
-    color: #ffffff;
-    border-color: var(--days-gold);
-}
-
-.dossier-tab.active {
-    background: #2d3b30;
-    color: #f7d98c;
-    border-color: var(--days-gold);
-    font-weight: bold;
-    transform: translateY(-2px);
-    box-shadow: 0 -2px 6px rgba(0,0,0,0.4);
-}
-
-.dossier-tab.signed::after {
-    content: "✓";
-    color: #8ed49d;
-    font-weight: bold;
-}
-
-/* The Confidential Dossier Document */
-.dossier-document {
-    background: #f1ebd8;
-    color: #171b18;
-    border: 3px solid #7a6e5a;
-    box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
-    padding: 2.25rem;
-    position: relative;
-    margin-bottom: 1.75rem;
-    background-image: radial-gradient(#d6cbaf 10%, transparent 11%);
-    background-size: 20px 20px;
-}
-
-.dossier-stamp-confidential {
-    position: absolute;
-    top: 18px;
-    right: 24px;
-    border: 3px solid #a82727;
-    color: #a82727;
-    font-size: 1.35rem;
-    font-weight: bold;
-    letter-spacing: 3px;
-    padding: 0.25rem 0.8rem;
-    transform: rotate(6deg);
-    opacity: 0.85;
-    pointer-events: none;
-    user-select: none;
-}
-
-.dossier-doc-header {
-    border-bottom: 2px solid #8c7e68;
-    padding-bottom: 0.85rem;
-    margin-bottom: 1.25rem;
-}
-
-.dossier-day-title {
-    font-size: 2rem;
-    color: #6d1b1b;
-    margin-bottom: 0.25rem;
-    letter-spacing: 1px;
-}
-
-.dossier-day-subject {
-    font-size: 1.35rem;
-    color: #4b463a;
-    font-style: italic;
-}
-
-.dossier-doc-body {
-    font-size: 1.45rem;
-    line-height: 1.5;
-    color: #212521;
-    margin-bottom: 1.75rem;
-}
-
-/* Decrees & Choices Area */
-.dossier-choices-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-}
-
-.decree-choice-card {
-    background: #e6ddc4;
-    border: 2px solid #99886d;
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
-    position: relative;
-}
-
-.decree-choice-card:hover {
-    border-color: #66563e;
-    box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
-    transform: translateY(-2px);
-}
-
-.decree-choice-card.selected {
-    border-color: #8b1e1e;
-    background: #edd8d8;
-    box-shadow: 4px 4px 0px rgba(139, 30, 30, 0.4);
-}
-
-.decree-title {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #1a1e1b;
-    margin-bottom: 0.6rem;
-    letter-spacing: 0.5px;
-}
-
-.decree-desc {
-    font-size: 1.25rem;
-    line-height: 1.4;
-    color: #3b423c;
-    margin-bottom: 1.25rem;
-    flex: 1;
-}
-
-.decree-impact-row {
-    font-size: 1.15rem;
-    padding: 0.35rem 0.5rem;
-    background: rgba(0,0,0,0.06);
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.decree-choice-btn {
-    background: #232c25;
-    color: #f7eed8;
-    border: 2px solid #546959;
-    padding: 0.6rem 1rem;
-    font-family: var(--font-romulus);
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-    box-shadow: 2px 2px 0px #0e120f;
-    transition: background 0.15s, transform 0.1s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.decree-choice-btn:hover {
-    background: #394a3d;
-    border-color: var(--days-gold);
-}
-
-.decree-choice-btn:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px #0e120f;
-}
-
-/* Presidential Ink Stamp Applied */
-.decree-stamp-applied {
-    display: none;
-    position: absolute;
-    bottom: 12px;
-    right: 14px;
-    width: 100px;
-    height: auto;
-    pointer-events: none;
-    transform: rotate(-10deg);
-    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.4));
-}
-
-.decree-choice-card.selected .decree-stamp-applied {
-    display: block;
-    animation: stampInk 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
-}
-
-@keyframes stampInk {
-    0% { transform: scale(1.6) rotate(-20deg); opacity: 0; }
-    100% { transform: scale(1) rotate(-10deg); opacity: 0.95; }
-}
-
-/* Outcome Assessment Drawer */
-.crisis-outcome-drawer {
-    display: none;
-    background: #111613;
-    border: 3px solid var(--days-gold);
-    box-shadow: var(--days-border-shadow);
-    padding: 1.75rem;
-    margin-top: 1.75rem;
-    animation: fadeIn 0.4s ease-out;
-}
-
-.crisis-outcome-drawer.visible {
-    display: block;
-}
-
-.outcome-header {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    margin-bottom: 1rem;
-}
-
-.outcome-badge-img {
-    width: 64px;
-    height: 64px;
-    image-rendering: pixelated;
-    border: 2px solid var(--days-gold);
-    background: #090c0a;
-}
-
-.outcome-title-wrap h3 {
-    font-size: 1.9rem;
-    color: #f7d98c;
-    letter-spacing: 1px;
-}
-
-.outcome-title-wrap span {
-    font-size: 1.2rem;
-    color: #a4baa7;
-}
-
-.outcome-description {
-    font-size: 1.4rem;
-    line-height: 1.5;
-    color: #dce7dc;
-    margin-bottom: 1.25rem;
-}
-
-.outcome-actions {
-    display: flex;
-    gap: 1rem;
-}
-
-/* ==========================================================================
    Steam Store Embed Section
    ========================================================================== */
 .days-steam-section {
-    max-width: 880px;
+    max-width: 840px;
     margin: 0 auto 4rem;
     padding: 0 1rem;
 }
@@ -873,153 +496,11 @@ body.days-page .gallery-thumb:hover {
 }
 
 /* ==========================================================================
-   Declassified Evidence Gallery (Screenshots)
-   ========================================================================== */
-.days-gallery-section {
-    max-width: 960px;
-    margin: 0 auto 4rem;
-    padding: 0 1rem;
-}
-
-.days-gallery-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.days-gallery-tag {
-    display: inline-block;
-    background: #2a342c;
-    border: 1px solid #4a5c4e;
-    color: #c9decb;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    padding: 0.2rem 0.8rem;
-    margin-bottom: 0.5rem;
-}
-
-.days-gallery-title {
-    font-size: 2.2rem;
-    color: #f7d98c;
-    letter-spacing: 1px;
-}
-
-.days-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
-.gallery-thumb-card {
-    background: #161c18;
-    border: 3px solid #38463a;
-    box-shadow: 4px 4px 0px #0a0d0b;
-    overflow: hidden;
-    position: relative;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-.gallery-thumb-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--days-gold);
-}
-
-.gallery-thumb-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
-    border-bottom: 2px solid #2e3b30;
-    transition: transform 0.3s;
-}
-
-.gallery-thumb-card:hover .gallery-thumb-img {
-    transform: scale(1.03);
-}
-
-.gallery-caption {
-    padding: 0.75rem 1rem;
-    font-size: 1.25rem;
-    color: #d1ded2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.gallery-doc-id {
-    font-size: 1.05rem;
-    color: var(--days-gold);
-    letter-spacing: 1px;
-}
-
-/* Lightbox Modal */
-.days-lightbox-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(8, 11, 9, 0.92);
-    z-index: 10000;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-}
-
-.days-lightbox-modal.active {
-    display: flex;
-}
-
-.lightbox-content-wrap {
-    max-width: 900px;
-    width: 100%;
-    background: #171d19;
-    border: 3px solid var(--days-gold);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.9);
-    padding: 1.5rem;
-    position: relative;
-}
-
-.lightbox-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 14px;
-    background: #2a342c;
-    color: #ffffff;
-    border: 2px solid #58705e;
-    font-family: var(--font-romulus);
-    font-size: 1.5rem;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 2px 2px 0px #090c0a;
-}
-
-.lightbox-close-btn:hover {
-    background: var(--days-red);
-    border-color: #ffdada;
-}
-
-.lightbox-img {
-    width: 100%;
-    max-height: 70vh;
-    object-fit: contain;
-    display: block;
-    border: 2px solid #344237;
-    margin-bottom: 1rem;
-}
-
-.lightbox-caption-text {
-    font-size: 1.45rem;
-    color: #e5ede5;
-    text-align: center;
-}
-
-/* ==========================================================================
    Responsive Adaptations
    ========================================================================== */
 @media (max-width: 768px) {
     .days-hero-section {
-        padding: 2rem 0.75rem 1.5rem;
+        padding: 2.25rem 0.75rem 1.5rem;
     }
 
     .days-title-container {
@@ -1041,23 +522,8 @@ body.days-page .gallery-thumb:hover {
         justify-content: space-between;
     }
 
-    .crisis-desk-surface {
-        padding: 1.25rem 1rem;
-    }
-
-    .political-meters-bar {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 0.85rem 1rem;
-    }
-
-    .dossier-document {
-        padding: 1.5rem 1rem;
-    }
-
-    .dossier-choices-grid {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
+    .days-story-card {
+        padding: 1.5rem 1.2rem;
     }
 
     .steam-placeholder-card {
@@ -1066,7 +532,7 @@ body.days-page .gallery-thumb:hover {
     }
 
     .steam-capsule-col {
-        max-width: 260px;
+        max-width: 240px;
         margin: 0 auto;
     }
 
