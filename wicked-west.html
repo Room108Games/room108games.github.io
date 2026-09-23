@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wicked West — Developed by Burstyn Santillo // Published by Room108</title>
     <meta name="description" content="Wicked West is an indie rogue-lite survivor shooter with tavern management elements, developed by Burstyn Santillo in Godot 4 and published by Room108.">
-    <meta name="theme-color" content="#f5eedf">
+    <meta name="theme-color" content="#DDE9CE">
 
     <!-- Security Policies -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
@@ -27,8 +27,16 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/style.css?v=17">
-    <link rel="stylesheet" href="css/wicked-west.css?v=17">
+    <link rel="stylesheet" href="css/style.css?v=18">
+    <link rel="stylesheet" href="css/wicked-west.css?v=18">
+
+    <!-- Theme Pre-hydration (Prevents flash of wrong theme) -->
+    <script>
+        (function () {
+            var theme = localStorage.getItem('room108_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body class="ww-page">
 
@@ -223,6 +231,6 @@
     <div id="toast-container" aria-live="polite"></div>
 
     <!-- Script -->
-    <script src="js/wicked-west.js?v=17"></script>
+    <script src="js/wicked-west.js?v=18"></script>
 </body>
 </html>

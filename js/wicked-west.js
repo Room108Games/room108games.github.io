@@ -30,6 +30,7 @@
         if (themeBtn) {
             const span = themeBtn.querySelector('span') || themeBtn;
             span.textContent = theme === 'dark' ? 'LIGHT' : 'DARK';
+            themeBtn.setAttribute('title', theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode');
         }
 
         const logoSrc = theme === 'dark' ? 'assets/logo-white-cropped.svg' : 'assets/logo-black-cropped.svg';
@@ -55,7 +56,6 @@
         if (audioBtn) {
             const span = audioBtn.querySelector('span') || audioBtn;
             span.textContent = state.sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
-            audioBtn.style.opacity = state.sfxEnabled ? '1' : '0.7';
         }
     }
 
@@ -64,6 +64,7 @@
             state.sfxEnabled = !state.sfxEnabled;
             localStorage.setItem('room108_sfx', state.sfxEnabled.toString());
             updateAudioButton();
+            if (state.sfxEnabled) sfxClick();
         });
     }
     updateAudioButton();
@@ -97,8 +98,10 @@
     function toggleMobileMenu() {
         if (navMenu && navMenu.classList.contains('is-open')) {
             closeMobileMenu();
+            sfxClick();
         } else {
             openMobileMenu();
+            sfxClick();
         }
     }
 
@@ -127,6 +130,45 @@
             closeMobileMenu();
         }
     }, { passive: true });
+
+    // Navbar Web Audio Synthesizer (Matching Room108 Global Navbar)
+    let navAudioCtx = null;
+    function initNavAudio() {
+        if (!navAudioCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) navAudioCtx = new AudioContext();
+        }
+        if (navAudioCtx && navAudioCtx.state === 'suspended') navAudioCtx.resume();
+    }
+    function playNavTone(freq, duration = 0.08, type = 'square', volume = 0.05) {
+        if (!state.sfxEnabled) return;
+        initNavAudio();
+        if (!navAudioCtx) return;
+        try {
+            const osc = navAudioCtx.createOscillator();
+            const gain = navAudioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, navAudioCtx.currentTime);
+            gain.gain.setValueAtTime(volume, navAudioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, navAudioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(navAudioCtx.destination);
+            osc.start();
+            osc.stop(navAudioCtx.currentTime + duration);
+        } catch (e) {}
+    }
+    function sfxClick() {
+        playNavTone(660, 0.04, 'square', 0.04);
+        setTimeout(() => playNavTone(880, 0.05, 'square', 0.04), 35);
+    }
+    function sfxBleep() {
+        playNavTone(520, 0.04, 'triangle', 0.05);
+    }
+
+    document.querySelectorAll('.pixel-navbar a, .pixel-navbar button').forEach(el => {
+        el.addEventListener('mouseenter', () => sfxBleep());
+        el.addEventListener('click', () => sfxClick());
+    });
 
     // ==========================================================================
     // 3. Audio & Sound Effects Engine (Subtle Sprite Interactions Only)

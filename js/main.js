@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
        1. 8-Bit Web Audio Synthesizer (Square Waves)
        ========================================================================== */
     let audioCtx = null;
-    let soundEnabled = true;
+    let soundEnabled = localStorage.getItem("room108_sfx") !== "false";
     const audioToggleBtn = document.getElementById("pixel-audio-btn");
 
     function initAudio() {
@@ -66,8 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (audioToggleBtn) {
+        audioToggleBtn.innerHTML = soundEnabled ? '<span>SFX: ON</span>' : '<span>SFX: OFF</span>';
         audioToggleBtn.addEventListener("click", () => {
             soundEnabled = !soundEnabled;
+            localStorage.setItem("room108_sfx", soundEnabled ? "true" : "false");
             audioToggleBtn.innerHTML = soundEnabled
                 ? '<span>SFX: ON</span>'
                 : '<span>SFX: OFF</span>';
@@ -122,6 +124,26 @@ document.addEventListener("DOMContentLoaded", () => {
         navMenu.querySelectorAll(".nav-link").forEach(link => {
             link.addEventListener("click", closeMobileMenu);
         });
+
+        // Active link highlighting for index.html anchors
+        const isIndex = window.location.pathname.endsWith("index.html") || window.location.pathname.endsWith("/") || window.location.pathname === "";
+        if (isIndex) {
+            const introLink = navMenu.querySelector('a[href*="#intro"]');
+            const contactLink = navMenu.querySelector('a[href*="#contact"]');
+
+            function updateIndexActiveLink() {
+                if (window.location.hash === "#contact") {
+                    if (introLink) introLink.classList.remove("active");
+                    if (contactLink) contactLink.classList.add("active");
+                } else {
+                    if (contactLink) contactLink.classList.remove("active");
+                    if (introLink) introLink.classList.add("active");
+                }
+            }
+
+            window.addEventListener("hashchange", updateIndexActiveLink);
+            updateIndexActiveLink();
+        }
     }
 
     window.addEventListener("keydown", (e) => {

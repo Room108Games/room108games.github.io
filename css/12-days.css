@@ -17,9 +17,23 @@
    Global Custom Pen Cursor (Uniform size, no hover enlargement)
    The pen is rotated 90 deg anti-clockwise, nib is at bottom-left (2, 40)
    ========================================================================== */
-body.days-page,
-body.days-page * {
+body.days-page .days-page-main,
+body.days-page .days-page-main *,
+body.days-page .pixel-footer,
+body.days-page .pixel-footer * {
     cursor: url('../assets/12-days/images/cursor/Mouse_Cursor.png') 2 40, auto !important;
+}
+
+body.days-page .pixel-navbar,
+body.days-page .pixel-navbar * {
+    cursor: auto !important;
+}
+
+body.days-page .pixel-navbar a,
+body.days-page .pixel-navbar button,
+body.days-page .pixel-navbar a *,
+body.days-page .pixel-navbar button * {
+    cursor: pointer !important;
 }
 
 /* ==========================================================================

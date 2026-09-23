@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>12 Days — Developed by Jean Luc Desira, Demetria Bugeja, Keith Schembri, Alejandro Agius, Luke Azzopardi // Published by Room108</title>
     <meta name="description" content="12 Days is a gritty multiple-choice narrative and political thriller developed with Unity for the Unity Game Jam 2026. Your choices decide the fate of Navros.">
-    <meta name="theme-color" content="#121714">
+    <meta name="theme-color" content="#DDE9CE">
 
     <!-- Security Policies -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self' data:; connect-src 'self'; frame-src 'self' https://store.steampowered.com; base-uri 'self'; form-action 'self';">
@@ -27,8 +27,16 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/style.css?v=17">
-    <link rel="stylesheet" href="css/12-days.css?v=17">
+    <link rel="stylesheet" href="css/style.css?v=18">
+    <link rel="stylesheet" href="css/12-days.css?v=18">
+
+    <!-- Theme Pre-hydration (Prevents flash of wrong theme) -->
+    <script>
+        (function () {
+            var theme = localStorage.getItem('room108_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body class="days-page">
 
@@ -67,7 +75,7 @@
 
                     <!-- Theme Toggle Button -->
                     <button id="pixel-theme-btn" class="pixel-theme-btn" title="Toggle Dark/Light Mode">
-                        <span>LIGHT</span>
+                        <span>DARK</span>
                     </button>
                 </div>
             </nav>
@@ -238,6 +246,6 @@
     <div id="toast-container" aria-live="polite"></div>
 
     <!-- Scripts -->
-    <script src="js/12-days.js?v=17"></script>
+    <script src="js/12-days.js?v=18"></script>
 </body>
 </html>

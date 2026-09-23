@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     clickAudio.preload = "auto";
     clickAudio.volume = 0.45;
 
-    let soundEnabled = localStorage.getItem("room108_sound") !== "false";
+    let soundEnabled = localStorage.getItem("room108_sfx") !== "false";
     const bgmAudio = document.getElementById("days-bgm");
     const audioDeck = document.getElementById("days-audio-deck");
     const playBtn = document.getElementById("days-audio-play-btn");
@@ -106,14 +106,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Sync with global Room108 navbar audio toggle
     if (navAudioBtn) {
+        navAudioBtn.innerHTML = `<span>SFX: ${soundEnabled ? "ON" : "OFF"}</span>`;
         navAudioBtn.addEventListener("click", () => {
             soundEnabled = !soundEnabled;
-            localStorage.setItem("room108_sound", soundEnabled ? "true" : "false");
+            localStorage.setItem("room108_sfx", soundEnabled ? "true" : "false");
             navAudioBtn.innerHTML = `<span>SFX: ${soundEnabled ? "ON" : "OFF"}</span>`;
             if (bgmAudio) {
                 bgmAudio.muted = !soundEnabled;
                 if (muteBtn) muteBtn.innerHTML = bgmAudio.muted ? "<span>UNMUTE</span>" : "<span>MUTE</span>";
             }
+            if (soundEnabled) sfxClick();
         });
     }
 
@@ -124,23 +126,98 @@ document.addEventListener("DOMContentLoaded", () => {
     const navMenu = document.getElementById("nav-menu");
     const navBackdrop = document.getElementById("pixel-nav-backdrop");
 
-    if (burgerBtn && navMenu) {
-        burgerBtn.addEventListener("click", () => {
-            const isOpen = navMenu.classList.toggle("open");
-            burgerBtn.classList.toggle("active", isOpen);
-            burgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-            if (navBackdrop) navBackdrop.classList.toggle("active", isOpen);
-        });
+    function openMobileMenu() {
+        if (!burgerBtn || !navMenu) return;
+        burgerBtn.classList.add("is-active");
+        burgerBtn.setAttribute("aria-expanded", "true");
+        navMenu.classList.add("is-open");
+        if (navBackdrop) navBackdrop.classList.add("is-active");
+        document.body.style.overflow = "hidden";
+        sfxClick();
+    }
 
-        if (navBackdrop) {
-            navBackdrop.addEventListener("click", () => {
-                navMenu.classList.remove("open");
-                burgerBtn.classList.remove("active");
-                burgerBtn.setAttribute("aria-expanded", "false");
-                navBackdrop.classList.remove("active");
-            });
+    function closeMobileMenu() {
+        if (!burgerBtn || !navMenu) return;
+        burgerBtn.classList.remove("is-active");
+        burgerBtn.setAttribute("aria-expanded", "false");
+        navMenu.classList.remove("is-open");
+        if (navBackdrop) navBackdrop.classList.remove("is-active");
+        document.body.style.overflow = "";
+    }
+
+    function toggleMobileMenu() {
+        if (navMenu && navMenu.classList.contains("is-open")) {
+            closeMobileMenu();
+            sfxClick();
+        } else {
+            openMobileMenu();
         }
     }
+
+    if (burgerBtn) {
+        burgerBtn.addEventListener("click", toggleMobileMenu);
+    }
+
+    if (navBackdrop) {
+        navBackdrop.addEventListener("click", closeMobileMenu);
+    }
+
+    if (navMenu) {
+        navMenu.querySelectorAll(".nav-link").forEach(link => {
+            link.addEventListener("click", closeMobileMenu);
+        });
+    }
+
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && navMenu && navMenu.classList.contains("is-open")) {
+            closeMobileMenu();
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 768 && navMenu && navMenu.classList.contains("is-open")) {
+            closeMobileMenu();
+        }
+    }, { passive: true });
+
+    // Navbar Web Audio Synthesizer (Matching Room108 Global Navbar)
+    let navAudioCtx = null;
+    function initNavAudio() {
+        if (!navAudioCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) navAudioCtx = new AudioContext();
+        }
+        if (navAudioCtx && navAudioCtx.state === "suspended") navAudioCtx.resume();
+    }
+    function playNavTone(freq, duration = 0.08, type = "square", volume = 0.05) {
+        if (!soundEnabled) return;
+        initNavAudio();
+        if (!navAudioCtx) return;
+        try {
+            const osc = navAudioCtx.createOscillator();
+            const gain = navAudioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, navAudioCtx.currentTime);
+            gain.gain.setValueAtTime(volume, navAudioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, navAudioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(navAudioCtx.destination);
+            osc.start();
+            osc.stop(navAudioCtx.currentTime + duration);
+        } catch (e) {}
+    }
+    function sfxClick() {
+        playNavTone(660, 0.04, "square", 0.04);
+        setTimeout(() => playNavTone(880, 0.05, "square", 0.04), 35);
+    }
+    function sfxBleep() {
+        playNavTone(520, 0.04, "triangle", 0.05);
+    }
+
+    document.querySelectorAll(".pixel-navbar a, .pixel-navbar button").forEach(el => {
+        el.addEventListener("mouseenter", () => sfxBleep());
+        el.addEventListener("click", () => sfxClick());
+    });
 
     /* ==========================================================================
        3. Theme Toggle & Logo Swapping
@@ -155,6 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("room108_theme", theme);
         if (themeBtn) {
             themeBtn.innerHTML = `<span>${theme === "dark" ? "LIGHT" : "DARK"}</span>`;
+            themeBtn.setAttribute("title", theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode");
         }
 
         const logoSrc = theme === "dark" ? "assets/logo-white-cropped.svg" : "assets/logo-black-cropped.svg";
@@ -172,3 +250,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+

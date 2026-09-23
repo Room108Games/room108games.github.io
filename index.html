@@ -27,17 +27,25 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/style.css?v=17">
-    <link rel="stylesheet" href="css/wicked-west.css?v=17">
+    <link rel="stylesheet" href="css/style.css?v=18">
+    <link rel="stylesheet" href="css/wicked-west.css?v=18">
+
+    <!-- Theme Pre-hydration (Prevents flash of wrong theme) -->
+    <script>
+        (function () {
+            var theme = localStorage.getItem('room108_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body>
 
     <!-- ==========================================================================
-         Pixel Navigation Bar (Logo Only - No separate door)
+         Pixel Navigation Bar
          ========================================================================== -->
     <header class="pixel-navbar">
         <div class="container nav-container">
-            <a href="#intro" class="nav-brand" aria-label="Room108 Games">
+            <a href="index.html" class="nav-brand" aria-label="Room108 Games">
                 <img id="nav-logo" class="brand-logo-img" src="assets/logo-black-cropped.svg" alt="Room108 Logo">
                 <div class="brand-title-wrap">
                     <span class="brand-title">ROOM108</span>
@@ -53,11 +61,11 @@
             </button>
 
             <nav class="nav-menu" id="nav-menu">
-                <a href="#intro" class="nav-link">[INTRO]</a>
+                <a href="index.html#intro" class="nav-link active">[INTRO]</a>
                 <a href="wicked-west.html" class="nav-link">[WICKED WEST]</a>
                 <a href="12-days.html" class="nav-link">[12 DAYS]</a>
                 <a href="mystery.html" class="nav-link">[???]</a>
-                <a href="#contact" class="nav-link">[CONTACT]</a>
+                <a href="index.html#contact" class="nav-link">[CONTACT]</a>
 
                 <div class="nav-menu-actions">
                     <!-- Audio Toggle Button -->
@@ -259,6 +267,6 @@
     <div id="toast-container" aria-live="polite"></div>
 
     <!-- Script -->
-    <script src="js/main.js?v=17"></script>
+    <script src="js/main.js?v=18"></script>
 </body>
 </html>

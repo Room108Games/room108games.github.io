@@ -106,6 +106,18 @@ body.ww-page .pixel-footer * {
     cursor: url('../assets/wicked-west/cursor/Default.png') 15 15, auto !important;
 }
 
+body.ww-page .pixel-navbar,
+body.ww-page .pixel-navbar * {
+    cursor: auto !important;
+}
+
+body.ww-page .pixel-navbar a,
+body.ww-page .pixel-navbar button,
+body.ww-page .pixel-navbar a *,
+body.ww-page .pixel-navbar button * {
+    cursor: pointer !important;
+}
+
 /* Combat Reticle when hovering over enemy monsters */
 body.ww-page .ww-draggable-sprite[data-target-type="enemy"],
 body.ww-page .ww-draggable-sprite[data-target-type="enemy"] * {

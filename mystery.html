@@ -27,7 +27,15 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/style.css?v=17">
+    <link rel="stylesheet" href="css/style.css?v=18">
+
+    <!-- Theme Pre-hydration (Prevents flash of wrong theme) -->
+    <script>
+        (function () {
+            var theme = localStorage.getItem('room108_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body class="mystery-page">
 
@@ -110,6 +118,6 @@
     <div id="toast-container" aria-live="polite"></div>
 
     <!-- Script -->
-    <script src="js/main.js?v=17"></script>
+    <script src="js/main.js?v=18"></script>
 </body>
 </html>
