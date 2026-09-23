@@ -140,9 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ==========================================================================
-       3. Theme Toggle
+       3. Theme Toggle & Logo Swapping
        ========================================================================== */
     const themeBtn = document.getElementById("pixel-theme-btn");
+    const navLogo = document.getElementById("nav-logo");
+    const footerLogo = document.getElementById("footer-logo");
     const htmlEl = document.documentElement;
 
     function applyTheme(theme) {
@@ -151,14 +153,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (themeBtn) {
             themeBtn.innerHTML = `<span>${theme === "dark" ? "LIGHT" : "DARK"}</span>`;
         }
+
+        const logoSrc = theme === "dark" ? "assets/logo-white-cropped.svg" : "assets/logo-black-cropped.svg";
+        if (navLogo) navLogo.src = logoSrc;
+        if (footerLogo) footerLogo.src = logoSrc;
     }
 
-    const savedTheme = localStorage.getItem("room108_theme") || "dark";
+    const savedTheme = localStorage.getItem("room108_theme") || "light";
     applyTheme(savedTheme);
 
     if (themeBtn) {
         themeBtn.addEventListener("click", () => {
-            const current = htmlEl.getAttribute("data-theme") || "dark";
+            const current = htmlEl.getAttribute("data-theme") || "light";
             applyTheme(current === "dark" ? "light" : "dark");
         });
     }
