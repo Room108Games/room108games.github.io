@@ -783,6 +783,24 @@ body.ww-page *,
     box-shadow: 2px 2px 0 var(--border-color);
 }
 
+.steam-wishlist-cta.steam-coming-soon {
+    background-color: var(--bg-surface);
+    color: var(--color-ink);
+    border: 3px solid var(--border-color);
+    box-shadow: 3px 3px 0 var(--border-color);
+    font-family: 'Block Western', var(--font-heading);
+    letter-spacing: 0.05em;
+    cursor: default !important;
+    user-select: none;
+}
+
+.steam-wishlist-cta.steam-coming-soon:hover {
+    background-color: var(--bg-surface);
+    color: var(--color-ink);
+    transform: none;
+    box-shadow: 3px 3px 0 var(--border-color);
+}
+
 @media (max-width: 768px) {
     .steam-placeholder-card {
         grid-template-columns: 1fr;

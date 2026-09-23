@@ -129,23 +129,20 @@
     }, { passive: true });
 
     // ==========================================================================
-    // 3. Audio & Sound Effects Engine
+    // 3. Audio & Sound Effects Engine (Subtle Sprite Interactions Only)
     // ==========================================================================
 
-    const sfxShoot = new Audio('assets/wicked-west/audio/shoot_revolver.wav');
-    sfxShoot.volume = 0.5;
+    const sfxShoot = new Audio('assets/wicked-west/audio/shoot.wav');
+    sfxShoot.volume = 0.35;
 
     const sfxHurt = new Audio('assets/wicked-west/audio/hurt.wav');
-    sfxHurt.volume = 0.7;
+    sfxHurt.volume = 0.35;
 
     const sfxChest = new Audio('assets/wicked-west/audio/chest_open.wav');
-    sfxChest.volume = 0.75;
-
-    const sfxExplosion = new Audio('assets/wicked-west/audio/explosion.wav');
-    sfxExplosion.volume = 0.65;
+    sfxChest.volume = 0.35;
 
     const sfxPickup = new Audio('assets/wicked-west/audio/pickup.wav');
-    sfxPickup.volume = 0.7;
+    sfxPickup.volume = 0.3;
 
     function playSfx(audioObj) {
         if (!state.sfxEnabled || !audioObj) return;
@@ -155,28 +152,6 @@
             clone.play().catch(() => {});
         } catch (e) {}
     }
-
-    // Universal Click SFX (Revolver Shot with 80ms throttle guard)
-    let lastShootTime = 0;
-    function playUniversalShoot() {
-        if (!state.sfxEnabled) return;
-        const now = performance.now();
-        if (now - lastShootTime < 80) return;
-        lastShootTime = now;
-        playSfx(sfxShoot);
-    }
-
-    window.addEventListener('pointerdown', (e) => {
-        // Sprite interactions handle their own custom sound effects
-        if (e.target && e.target.closest && e.target.closest('.ww-draggable-sprite')) {
-            return;
-        }
-        // Exclude volume sliders to prevent gunshots on slider dragging
-        if (e.target && (e.target.id === 'ww-audio-vol' || e.target.type === 'range')) {
-            return;
-        }
-        playUniversalShoot();
-    }, { capture: true, passive: true });
 
     // ==========================================================================
     // 3b. Saloon Jukebox Soundtrack Deck (Empty Tavern)
@@ -289,7 +264,7 @@
             el.appendChild(bubble);
             setTimeout(() => bubble.remove(), 1800);
         } else if (type === 'enemy') {
-            playSfx(sfxExplosion);
+            playSfx(sfxShoot);
             el.classList.add('ww-hit-flash');
             setTimeout(() => el.classList.remove('ww-hit-flash'), 300);
         } else if (type === 'chest') {
