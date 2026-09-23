@@ -27,8 +27,8 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/style.css?v=7">
-    <link rel="stylesheet" href="css/12-days.css?v=1">
+    <link rel="stylesheet" href="css/style.css?v=8">
+    <link rel="stylesheet" href="css/12-days.css?v=2">
 </head>
 <body class="days-page">
 
@@ -172,121 +172,7 @@
             </div>
         </div>
 
-        <!-- ======================================================================
-             Interactive Feature: The Presidential Crisis Desk
-             ====================================================================== -->
-        <section class="crisis-desk-section">
-            <div class="crisis-desk-header">
-                <span class="crisis-desk-tag">INTERACTIVE EXECUTIVE TERMINAL</span>
-                <h2 class="crisis-desk-title">THE PRESIDENT'S DESK</h2>
-                <p class="crisis-desk-subtitle">
-                    Step into the crisis countdown. Read the confidential intelligence dispatches and sign executive directives with your fountain pen.
-                </p>
-            </div>
 
-            <div class="crisis-desk-surface">
-                <!-- Political Balance Gauges Bar -->
-                <div class="political-meters-bar">
-                    <!-- Party Loyalty Meter -->
-                    <div class="meter-block">
-                        <div class="meter-header">
-                            <span class="meter-label party">
-                                <strong>PARTY LOYALTY</strong>
-                            </span>
-                            <span class="meter-value" id="party-meter-val">50%</span>
-                        </div>
-                        <div class="meter-track">
-                            <div class="meter-fill party-fill" id="party-meter-fill"></div>
-                        </div>
-                    </div>
-
-                    <!-- Public Sentiment Meter -->
-                    <div class="meter-block">
-                        <div class="meter-header">
-                            <span class="meter-label people">
-                                <strong>PUBLIC SENTIMENT</strong>
-                            </span>
-                            <span class="meter-value" id="people-meter-val">50%</span>
-                        </div>
-                        <div class="meter-track">
-                            <div class="meter-fill people-fill" id="people-meter-fill"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Day Selector Tabs -->
-                <div class="dossier-tabs-row" role="tablist">
-                    <button class="dossier-tab active" data-day="1" role="tab">DAY 01: ARTILLERY</button>
-                    <button class="dossier-tab" data-day="4" role="tab">DAY 04: REFUGEES</button>
-                    <button class="dossier-tab" data-day="8" role="tab">DAY 08: GENERAL STRIKE</button>
-                    <button class="dossier-tab" data-day="12" role="tab">DAY 12: ULTIMATUM</button>
-                </div>
-
-                <!-- Confidential Dossier Document -->
-                <div class="dossier-document">
-                    <div class="dossier-stamp-confidential">TOP SECRET</div>
-
-                    <div class="dossier-doc-header">
-                        <h3 class="dossier-day-title" id="dossier-day-title">DAY 01: BORDER ARTILLERY MOBILIZATION</h3>
-                        <div class="dossier-day-subject" id="dossier-day-subject">DEFENSE DIRECTIVE // SOLONIAN NORTHERN SECTOR</div>
-                    </div>
-
-                    <p class="dossier-doc-body" id="dossier-doc-brief">
-                        Military intelligence confirms troop buildup across the Solonian border river. Party hawks led by General Vance insist that Navros must position heavy artillery regiments right against the ceasefire perimeter before Solonia fortifies.
-                    </p>
-
-                    <!-- Decrees Choices Grid -->
-                    <div class="dossier-choices-grid">
-                        <!-- Option A -->
-                        <div class="decree-choice-card" id="decree-card-a">
-                            <div class="decree-title">EXECUTIVE ORDER 108-A: FORWARD ARTILLERY</div>
-                            <p class="decree-desc">Deploy 3 artillery divisions to border trenches. Signal unwavering military strength to party leadership.</p>
-                            <div class="decree-impact-row">
-                                <span>PARTY: +20%</span>
-                                <span>PEOPLE: -15%</span>
-                            </div>
-                            <button class="decree-choice-btn" id="sign-btn-a">
-                                <span>SIGN DIRECTIVE</span>
-                            </button>
-                            <img class="decree-stamp-applied" src="assets/12-days/images/ui/signature-blood.png" alt="Signed with Blood Stamp">
-                        </div>
-
-                        <!-- Option B -->
-                        <div class="decree-choice-card" id="decree-card-b">
-                            <div class="decree-title">EXECUTIVE ORDER 108-B: DIPLOMATIC ENVOY</div>
-                            <p class="decree-desc">Hold regiments in regional barracks and dispatch an urgent de-escalation envoy to Solonia.</p>
-                            <div class="decree-impact-row">
-                                <span>PARTY: -20%</span>
-                                <span>PEOPLE: +20%</span>
-                            </div>
-                            <button class="decree-choice-btn" id="sign-btn-b">
-                                <span>SIGN DIRECTIVE</span>
-                            </button>
-                            <img class="decree-stamp-applied" src="assets/12-days/images/ui/signature-normal.png" alt="Signed with Official Ink Stamp">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Outcome Assessment Drawer -->
-                <div class="crisis-outcome-drawer" id="crisis-outcome-drawer">
-                    <div class="outcome-header">
-                        <img id="outcome-badge-img" class="outcome-badge-img" src="assets/12-days/images/endings/peace.png" alt="Ending Badge">
-                        <div class="outcome-title-wrap">
-                            <h3 id="outcome-title-text">ENDING: THE POPULAR ACCORD</h3>
-                            <span id="outcome-sub-text">PEACE RESTORED // PARTY RETALIATION IMMINENT</span>
-                        </div>
-                    </div>
-                    <p class="outcome-description" id="outcome-desc-text">
-                        You defied your own political party to heed the cries of the people. Solonia signed the demilitarized accord, averting a bloodbath.
-                    </p>
-                    <div class="outcome-actions">
-                        <button id="reset-crisis-btn" class="days-audio-btn">
-                            <span>RESET CRISIS &amp; RE-TRY</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- ======================================================================
              Steam Store Embed Section
@@ -327,85 +213,7 @@
                 <iframe id="steam-widget-frame" class="steam-widget-frame" style="display: none;" title="12 Days on Steam" loading="lazy"></iframe>
             </div>
         </section>
-
-        <!-- ======================================================================
-             Declassified Evidence Gallery (Screenshots)
-             ====================================================================== -->
-        <section class="days-gallery-section">
-            <div class="days-gallery-header">
-                <span class="days-gallery-tag">ARCHIVAL EVIDENCE</span>
-                <h2 class="days-gallery-title">CABINET DOSSIER &amp; SCREENSHOTS</h2>
-            </div>
-
-            <div class="days-gallery-grid">
-                <!-- Screenshot 2 -->
-                <div class="gallery-thumb-card" data-full="assets/12-days/images/screenshots/screenshot2.png" data-caption="Executive Briefing: The Presidential Office under wartime pressure.">
-                    <img src="assets/12-days/images/screenshots/screenshot2.png" alt="Cabinet Office" class="gallery-thumb-img">
-                    <div class="gallery-caption">
-                        <span>EXECUTIVE OFFICE</span>
-                        <span class="gallery-doc-id">DOC #02</span>
-                    </div>
-                </div>
-
-                <!-- Screenshot 3 -->
-                <div class="gallery-thumb-card" data-full="assets/12-days/images/screenshots/screenshot3.png" data-caption="Intelligence Ledger: Reviewing party demands and border reports.">
-                    <img src="assets/12-days/images/screenshots/screenshot3.png" alt="Intelligence Ledger" class="gallery-thumb-img">
-                    <div class="gallery-caption">
-                        <span>INTELLIGENCE LEDGER</span>
-                        <span class="gallery-doc-id">DOC #03</span>
-                    </div>
-                </div>
-
-                <!-- Screenshot 4 -->
-                <div class="gallery-thumb-card" data-full="assets/12-days/images/screenshots/screenshot4.png" data-caption="State Media &amp; Press: War reporting from the border trenches.">
-                    <img src="assets/12-days/images/screenshots/screenshot4.png" alt="State Press Dispatch" class="gallery-thumb-img">
-                    <div class="gallery-caption">
-                        <span>STATE DISPATCH</span>
-                        <span class="gallery-doc-id">DOC #04</span>
-                    </div>
-                </div>
-
-                <!-- Screenshot 5 -->
-                <div class="gallery-thumb-card" data-full="assets/12-days/images/screenshots/screenshot5.png" data-caption="The Ultimatum: Crucial decision points with enduring consequences.">
-                    <img src="assets/12-days/images/screenshots/screenshot5.png" alt="The Ultimatum" class="gallery-thumb-img">
-                    <div class="gallery-caption">
-                        <span>THE ULTIMATUM</span>
-                        <span class="gallery-doc-id">DOC #05</span>
-                    </div>
-                </div>
-
-                <!-- In the Office -->
-                <div class="gallery-thumb-card" data-full="assets/12-days/images/backgrounds/in-the-office.png" data-caption="Presidential Chamber: Late-night consultations before the ceasefire deadline.">
-                    <img src="assets/12-days/images/backgrounds/in-the-office.png" alt="Presidential Chamber" class="gallery-thumb-img">
-                    <div class="gallery-caption">
-                        <span>PRESIDENTIAL CHAMBER</span>
-                        <span class="gallery-doc-id">DOC #06</span>
-                    </div>
-                </div>
-
-                <!-- Lady Jane Character Portrait -->
-                <div class="gallery-thumb-card" data-full="assets/12-days/images/ui/lady-jane.png" data-caption="Confidante Portrait: Political advisor and cabinet liaison.">
-                    <img src="assets/12-days/images/ui/lady-jane.png" alt="Cabinet Liaison" class="gallery-thumb-img" style="object-position: top center;">
-                    <div class="gallery-caption">
-                        <span>CABINET LIAISON</span>
-                        <span class="gallery-doc-id">DOC #07</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
-
-    <!-- ==========================================================================
-         Lightbox Modal
-         ========================================================================== -->
-    <div class="days-lightbox-modal" id="days-lightbox-modal" role="dialog" aria-modal="true" aria-label="Screenshot Lightbox">
-        <div class="lightbox-content-wrap">
-            <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">&times;</button>
-            <img src="" alt="Full Resolution Document" class="lightbox-img" id="lightbox-img">
-            <p class="lightbox-caption-text" id="lightbox-caption-text"></p>
-        </div>
-    </div>
 
     <!-- ==========================================================================
          Footer
@@ -429,6 +237,6 @@
     <div id="toast-container" aria-live="polite"></div>
 
     <!-- Scripts -->
-    <script src="js/12-days.js?v=1"></script>
+    <script src="js/12-days.js?v=2"></script>
 </body>
 </html>
