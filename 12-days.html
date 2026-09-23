@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 Days — Developed by Jean Luc Desira, Demetria Bugeja, Keith Schembri, Alejandro Agius, Luke Azzopardi // Published by Room108</title>
+    <meta name="description" content="12 Days is a gritty multiple-choice narrative and political thriller developed with Unity for the GamingMalta X Unity Game Jam 2026. Your choices decide the fate of Navros.">
+    <meta name="theme-color" content="#121714">
+
+    <!-- Security Policies -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self' data:; connect-src 'self'; frame-src 'self' https://store.steampowered.com; base-uri 'self'; form-action 'self';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+    <!-- Cache Invalidation -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- Fonts: Mogra, Chicle & Custom Romulus -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chicle&family=Mogra&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/style.css?v=7">
+    <link rel="stylesheet" href="css/12-days.css?v=1">
+</head>
+<body class="days-page">
+
+    <!-- ==========================================================================
+         Pixel Navigation Bar
+         ========================================================================== -->
+    <header class="pixel-navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand" aria-label="Room108 Games">
+                <img id="nav-logo" class="brand-logo-img" src="assets/logo-white-cropped.svg" alt="Room108 Logo">
+                <div class="brand-title-wrap">
+                    <span class="brand-title">ROOM108</span>
+                    <span class="brand-sub">GAMES // MALTA</span>
+                </div>
+            </a>
+
+            <!-- Mobile Burger Toggle Button -->
+            <button class="pixel-burger-btn" id="pixel-burger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+            </button>
+
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html#intro" class="nav-link">[INTRO]</a>
+                <a href="wicked-west.html" class="nav-link">[WICKED WEST]</a>
+                <a href="12-days.html" class="nav-link active">[12 DAYS]</a>
+                <a href="index.html#contact" class="nav-link">[CONTACT]</a>
+
+                <div class="nav-menu-actions">
+                    <!-- Audio Toggle Button -->
+                    <button id="pixel-audio-btn" class="pixel-audio-btn" title="Toggle sound effects">
+                        <span>SFX: ON</span>
+                    </button>
+
+                    <!-- Theme Toggle Button -->
+                    <button id="pixel-theme-btn" class="pixel-theme-btn" title="Toggle Dark/Light Mode">
+                        <span>LIGHT</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Backdrop Overlay -->
+    <div class="pixel-nav-backdrop" id="pixel-nav-backdrop" aria-hidden="true"></div>
+
+    <!-- ==========================================================================
+         Main Page Container
+         ========================================================================== -->
+    <main class="days-page-main">
+
+        <!-- ======================================================================
+             Hero & Header Section
+             ====================================================================== -->
+        <section class="days-hero-section">
+            <div class="days-classified-banner">
+                <span>CLASSIFIED // EXECUTIVE DECREE</span>
+            </div>
+
+            <div class="days-title-container">
+                <img src="assets/12-days/images/titles/game-title.png" alt="12 Days Logo" class="days-title-img">
+            </div>
+
+            <p class="days-subtitle">
+                A game about you as a newly elected president of Navros. Your political party is set on war with neighbouring Solonia. Your choices matter.
+            </p>
+
+            <div class="days-badge-row">
+                <span class="days-badge jam">GAMINGMALTA X UNITY GAME JAM 2026</span>
+                <span class="days-badge engine">POWERED BY UNITY</span>
+                <span class="days-badge genre">INTERACTIVE FICTION / STRATEGY / VISUAL NOVEL</span>
+            </div>
+        </section>
+
+        <!-- ======================================================================
+             Executive Audio Deck (State Broadcast)
+             ====================================================================== -->
+        <div class="container">
+            <div class="days-audio-deck" id="days-audio-deck">
+                <div class="days-audio-info">
+                    <div class="days-tape-reels" aria-hidden="true">
+                        <div class="tape-reel"></div>
+                        <div class="tape-reel"></div>
+                    </div>
+                    <div class="audio-track-text">
+                        <span class="audio-track-title">TRACK: TITLE NEW</span>
+                        <span class="audio-track-status">STATE BROADCAST: STANDBY</span>
+                    </div>
+                </div>
+
+                <div class="days-audio-controls">
+                    <button id="days-audio-play-btn" class="days-audio-btn" aria-label="Play or Pause music">
+                        <span>PLAY</span>
+                    </button>
+                    <button id="days-audio-mute-btn" class="days-audio-btn" aria-label="Mute or Unmute music">
+                        <span>MUTE</span>
+                    </button>
+                    <div class="days-vol-wrap">
+                        <label for="days-audio-vol">VOL:</label>
+                        <input type="range" id="days-audio-vol" min="0" max="1" step="0.05" value="0.4" aria-label="Volume Slider">
+                    </div>
+                </div>
+
+                <!-- Background Audio Track -->
+                <audio id="days-bgm" loop preload="auto" src="assets/12-days/audio/title-new.wav"></audio>
+            </div>
+        </div>
+
+        <!-- ======================================================================
+             Story & Premise Card
+             ====================================================================== -->
+        <div class="container">
+            <div class="days-story-card">
+                <h2 class="days-story-heading">THE CRISIS OF NAVROS // PRESIDENTIAL BRIEFING</h2>
+                <p class="days-story-text">
+                    You have just been elected as the President of Navros. The celebrations are short-lived: your own political party is aggressively pushing toward war with neighbouring Solonia.
+                </p>
+                <p class="days-story-text">
+                    The game is a multiple ending, multiple choice narrative that has a gritty undertone around difficult topics, accompanied by an evocative, original musical score. Every decree signed in the quiet of the executive office reverberates across the front lines, the capital plazas, and the history books.
+                </p>
+
+                <div class="days-credits-grid">
+                    <div class="days-credit-item">
+                        <strong>DEVELOPMENT TEAM</strong>
+                        <span>Jean Luc Desira, Demetria Bugeja, Keith Schembri, Alejandro Agius, Luke Azzopardi</span>
+                    </div>
+                    <div class="days-credit-item">
+                        <strong>GAME JAM &amp; ENGINE</strong>
+                        <span>GamingMalta X Unity Game Jam 2026 • Unity Engine</span>
+                    </div>
+                    <div class="days-credit-item">
+                        <strong>GENRE &amp; FORMAT</strong>
+                        <span>Interactive Fiction, Strategy, Visual Novel</span>
+                    </div>
+                    <div class="days-credit-item">
+                        <strong>TAGS &amp; ATTRIBUTES</strong>
+                        <span>2D, Fantasy, Indie, Multiple Endings, Music, Narrative, Singleplayer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================================================
+             Interactive Feature: The Presidential Crisis Desk
+             ====================================================================== -->
+        <section class="crisis-desk-section">
+            <div class="crisis-desk-header">
+                <span class="crisis-desk-tag">INTERACTIVE EXECUTIVE TERMINAL</span>
+                <h2 class="crisis-desk-title">THE PRESIDENT'S DESK</h2>
+                <p class="crisis-desk-subtitle">
+                    Step into the crisis countdown. Read the confidential intelligence dispatches and sign executive directives with your fountain pen.
+                </p>
+            </div>
+
+            <div class="crisis-desk-surface">
+                <!-- Political Balance Gauges Bar -->
+                <div class="political-meters-bar">
+                    <!-- Party Loyalty Meter -->
+                    <div class="meter-block">
+                        <div class="meter-header">
+                            <span class="meter-label party">
+                                <strong>PARTY LOYALTY</strong>
+                            </span>
+                            <span class="meter-value" id="party-meter-val">50%</span>
+                        </div>
+                        <div class="meter-track">
+                            <div class="meter-fill party-fill" id="party-meter-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Public Sentiment Meter -->
+                    <div class="meter-block">
+                        <div class="meter-header">
+                            <span class="meter-label people">
+                                <strong>PUBLIC SENTIMENT</strong>
+                            </span>
+                            <span class="meter-value" id="people-meter-val">50%</span>
+                        </div>
+                        <div class="meter-track">
+                            <div class="meter-fill people-fill" id="people-meter-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day Selector Tabs -->
+                <div class="dossier-tabs-row" role="tablist">
+                    <button class="dossier-tab active" data-day="1" role="tab">DAY 01: ARTILLERY</button>
+                    <button class="dossier-tab" data-day="4" role="tab">DAY 04: REFUGEES</button>
+                    <button class="dossier-tab" data-day="8" role="tab">DAY 08: GENERAL STRIKE</button>
+                    <button class="dossier-tab" data-day="12" role="tab">DAY 12: ULTIMATUM</button>
+                </div>
+
+                <!-- Confidential Dossier Document -->
+                <div class="dossier-document">
+                    <div class="dossier-stamp-confidential">TOP SECRET</div>
+
+                    <div class="dossier-doc-header">
+                        <h3 class="dossier-day-title" id="dossier-day-title">DAY 01: BORDER ARTILLERY MOBILIZATION</h3>
+                        <div class="dossier-day-subject" id="dossier-day-subject">DEFENSE DIRECTIVE // SOLONIAN NORTHERN SECTOR</div>
+                    </div>
+
+                    <p class="dossier-doc-body" id="dossier-doc-brief">
+                        Military intelligence confirms troop buildup across the Solonian border river. Party hawks led by General Vance insist that Navros must position heavy artillery regiments right against the ceasefire perimeter before Solonia fortifies.
+                    </p>
+
+                    <!-- Decrees Choices Grid -->
+                    <div class="dossier-choices-grid">
+                        <!-- Option A -->
+                        <div class="decree-choice-card" id="decree-card-a">
+                            <div class="decree-title">EXECUTIVE ORDER 108-A: FORWARD ARTILLERY</div>
+                            <p class="decree-desc">Deploy 3 artillery divisions to border trenches. Signal unwavering military strength to party leadership.</p>
+                            <div class="decree-impact-row">
+                                <span>PARTY: +20%</span>
+                                <span>PEOPLE: -15%</span>
+                            </div>
+                            <button class="decree-choice-btn" id="sign-btn-a">
+                                <span>SIGN DIRECTIVE</span>
+                            </button>
+                            <img class="decree-stamp-applied" src="assets/12-days/images/ui/signature-blood.png" alt="Signed with Blood Stamp">
+                        </div>
+
+                        <!-- Option B -->
+                        <div class="decree-choice-card" id="decree-card-b">
+                            <div class="decree-title">EXECUTIVE ORDER 108-B: DIPLOMATIC ENVOY</div>
+                            <p class="decree-desc">Hold regiments in regional barracks and dispatch an urgent de-escalation envoy to Solonia.</p>
+                            <div class="decree-impact-row">
+                                <span>PARTY: -20%</span>
+                                <span>PEOPLE: +20%</span>
+                            </div>
+                            <button class="decree-choice-btn" id="sign-btn-b">
+                                <span>SIGN DIRECTIVE</span>
+                            </button>
+                            <img class="decree-stamp-applied" src="assets/12-days/images/ui/signature-normal.png" alt="Signed with Official Ink Stamp">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outcome Assessment Drawer -->
+                <div class="crisis-outcome-drawer" id="crisis-outcome-drawer">
+                    <div class="outcome-header">
+                        <img id="outcome-badge-img" class="outcome-badge-img" src="assets/12-days/images/endings/peace.png" alt="Ending Badge">
+                        <div class="outcome-title-wrap">
+                            <h3 id="outcome-title-text">ENDING: THE POPULAR ACCORD</h3>
+                            <span id="outcome-sub-text">PEACE RESTORED // PARTY RETALIATION IMMINENT</span>
+                        </div>
+                    </div>
+                    <p class="outcome-description" id="outcome-desc-text">
+                        You defied your own political party to heed the cries of the people. Solonia signed the demilitarized accord, averting a bloodbath.
+                    </p>
+                    <div class="outcome-actions">
+                        <button id="reset-crisis-btn" class="days-audio-btn">
+                            <span>RESET CRISIS &amp; RE-TRY</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================================
+             Steam Store Embed Section
+             ====================================================================== -->
+        <section class="days-steam-section">
+            <div class="days-steam-header">
+                <span class="days-steam-tag">STEAM STORE</span>
+                <h2 class="days-steam-title">OFFICIAL STOREFRONT &amp; COMMUNITY</h2>
+            </div>
+
+            <div class="steam-embed-wrapper" id="steam-embed-wrapper">
+                <div class="steam-placeholder-card">
+                    <div class="steam-capsule-col">
+                        <img src="assets/12-days/images/capsules/vertical-capsule.png" alt="12 Days Steam Capsule" class="steam-capsule-img">
+                    </div>
+                    <div class="steam-details-col">
+                        <div class="steam-status-badge">STEAM STORE INTEGRATION READY</div>
+                        <h3 class="steam-game-name">12 DAYS</h3>
+                        <p class="steam-game-summary">
+                            You are the newly elected president of Navros. Your political party is set on war with neighbouring Solonia. A gritty interactive fiction and visual novel with multiple endings and difficult choices.
+                        </p>
+                        <div class="steam-meta-grid">
+                            <div><strong>DEVELOPER:</strong> Jean Luc Desira, Demetria Bugeja, Keith Schembri, Alejandro Agius, Luke Azzopardi</div>
+                            <div><strong>EVENT:</strong> GamingMalta X Unity Game Jam 2026</div>
+                            <div><strong>GENRE:</strong> Interactive Fiction, Strategy, Visual Novel</div>
+                            <div><strong>TAGS:</strong> 2D, Fantasy, Indie, Multiple Endings, Music, Narrative, Singleplayer</div>
+                        </div>
+                        <div class="steam-actions">
+                            <a href="https://store.steampowered.com" target="_blank" rel="noopener noreferrer" class="steam-btn">
+                                <span>&#x2605; WISHLIST ON STEAM</span>
+                            </a>
+                            <span class="steam-note">Steam store embed slot configured. Ready for Steam App ID / Widget embed URL.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Steam Iframe Slot (automatically displays if embed url is provided) -->
+                <iframe id="steam-widget-frame" class="steam-widget-frame" style="display: none;" title="12 Days on Steam" loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <!-- ======================================================================
+             Declassified Evidence Gallery (Screenshots)
+             ====================================================================== -->
+        <section class="days-gallery-section">
+            <div class="days-gallery-header">
+                <span class="days-gallery-tag">ARCHIVAL EVIDENCE</span>
+                <h2 class="days-gallery-title">CABINET DOSSIER &amp; SCREENSHOTS</h2>
+            </div>
+
+            <div class="days-gallery-grid">
+                <!-- Screenshot 2 -->
+                <div class="gallery-thumb-card" data-full="assets/12-days/images/screenshots/screenshot2.png" data-caption="Executive Briefing: The Presidential Office under wartime pressure.">
+                    <img src="assets/12-days/images/screenshots/screenshot2.png" alt="Cabinet Office" class="gallery-thumb-img">
+                    <div class="gallery-caption">
+                        <span>EXECUTIVE OFFICE</span>
+                        <span class="gallery-doc-id">DOC #02</span>
+                    </div>
+                </div>
+
+                <!-- Screenshot 3 -->
+                <div class="gallery-thumb-card" data-full="assets/12-days/images/screenshots/screenshot3.png" data-caption="Intelligence Ledger: Reviewing party demands and border reports.">
+                    <img src="assets/12-days/images/screenshots/screenshot3.png" alt="Intelligence Ledger" class="gallery-thumb-img">
+                    <div class="gallery-caption">
+                        <span>INTELLIGENCE LEDGER</span>
+                        <span class="gallery-doc-id">DOC #03</span>
+                    </div>
+                </div>
+
+                <!-- Screenshot 4 -->
+                <div class="gallery-thumb-card" data-full="assets/12-days/images/screenshots/screenshot4.png" data-caption="State Media &amp; Press: War reporting from the border trenches.">
+                    <img src="assets/12-days/images/screenshots/screenshot4.png" alt="State Press Dispatch" class="gallery-thumb-img">
+                    <div class="gallery-caption">
+                        <span>STATE DISPATCH</span>
+                        <span class="gallery-doc-id">DOC #04</span>
+                    </div>
+                </div>
+
+                <!-- Screenshot 5 -->
+                <div class="gallery-thumb-card" data-full="assets/12-days/images/screenshots/screenshot5.png" data-caption="The Ultimatum: Crucial decision points with enduring consequences.">
+                    <img src="assets/12-days/images/screenshots/screenshot5.png" alt="The Ultimatum" class="gallery-thumb-img">
+                    <div class="gallery-caption">
+                        <span>THE ULTIMATUM</span>
+                        <span class="gallery-doc-id">DOC #05</span>
+                    </div>
+                </div>
+
+                <!-- In the Office -->
+                <div class="gallery-thumb-card" data-full="assets/12-days/images/backgrounds/in-the-office.png" data-caption="Presidential Chamber: Late-night consultations before the ceasefire deadline.">
+                    <img src="assets/12-days/images/backgrounds/in-the-office.png" alt="Presidential Chamber" class="gallery-thumb-img">
+                    <div class="gallery-caption">
+                        <span>PRESIDENTIAL CHAMBER</span>
+                        <span class="gallery-doc-id">DOC #06</span>
+                    </div>
+                </div>
+
+                <!-- Lady Jane Character Portrait -->
+                <div class="gallery-thumb-card" data-full="assets/12-days/images/ui/lady-jane.png" data-caption="Confidante Portrait: Political advisor and cabinet liaison.">
+                    <img src="assets/12-days/images/ui/lady-jane.png" alt="Cabinet Liaison" class="gallery-thumb-img" style="object-position: top center;">
+                    <div class="gallery-caption">
+                        <span>CABINET LIAISON</span>
+                        <span class="gallery-doc-id">DOC #07</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==========================================================================
+         Lightbox Modal
+         ========================================================================== -->
+    <div class="days-lightbox-modal" id="days-lightbox-modal" role="dialog" aria-modal="true" aria-label="Screenshot Lightbox">
+        <div class="lightbox-content-wrap">
+            <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">&times;</button>
+            <img src="" alt="Full Resolution Document" class="lightbox-img" id="lightbox-img">
+            <p class="lightbox-caption-text" id="lightbox-caption-text"></p>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         Footer
+         ========================================================================== -->
+    <footer class="pixel-footer">
+        <div class="container footer-content">
+            <div class="footer-branding">
+                <img id="footer-logo" class="footer-logo-small" src="assets/logo-white-cropped.svg" alt="Room108 Logo">
+                <span>12 DAYS // ROOM108</span>
+            </div>
+            <div class="footer-motto">
+                Developed by Jean Luc Desira, Demetria Bugeja, Keith Schembri, Alejandro Agius, Luke Azzopardi &bull; GamingMalta X Unity Game Jam 2026 &bull; Published by Room108
+            </div>
+            <div class="footer-copyright">
+                &copy; 2026 Desira, Bugeja, Schembri, Agius, Azzopardi &amp; Room108. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container for Notifications -->
+    <div id="toast-container" aria-live="polite"></div>
+
+    <!-- Scripts -->
+    <script src="js/12-days.js?v=1"></script>
+</body>
+</html>
