@@ -597,36 +597,87 @@ body.days-page .pixel-navbar button * {
         padding: 2.25rem 0.75rem 1.5rem;
     }
 
+    .days-classified-banner {
+        font-size: clamp(0.85rem, 3.5vw, 1.05rem);
+        letter-spacing: 1px;
+        padding: 0.35rem 0.85rem;
+        max-width: 100%;
+    }
+
     .days-title-container {
         max-width: 95%;
     }
 
     .days-subtitle {
         font-size: 1.35rem;
+        line-height: 1.45;
+    }
+
+    .days-badge {
+        font-size: 0.95rem;
+        padding: 0.3rem 0.65rem;
+        max-width: 100%;
+        word-break: break-word;
     }
 
     .days-audio-deck {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         padding: 1.25rem 1rem;
+    }
+
+    .days-audio-info {
+        min-width: 0;
+        width: 100%;
     }
 
     .days-audio-controls {
         width: 100%;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+    }
+
+    .days-audio-btn {
+        min-height: 42px;
+        padding: 0.45rem 0.85rem;
     }
 
     .days-story-card {
-        padding: 1.5rem 1.2rem;
+        padding: 1.5rem 1.15rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .days-story-heading {
+        font-size: 1.55rem;
+    }
+
+    .days-story-text {
+        font-size: 1.28rem;
+    }
+
+    .days-credits-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .days-steam-section {
+        padding: 0 0.5rem;
+        margin: 0 auto 3rem;
+    }
+
+    .days-steam-title {
+        font-size: clamp(1.4rem, 4.5vw, 1.85rem);
     }
 
     .steam-placeholder-card {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 1.25rem;
     }
 
     .steam-capsule-col {
-        max-width: 240px;
+        max-width: 260px;
         margin: 0 auto;
     }
 
@@ -634,7 +685,111 @@ body.days-page .pixel-navbar button * {
         justify-content: center;
     }
 
+    .steam-btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+        min-height: 44px;
+    }
+
     .steam-meta-grid {
         text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .days-hero-section {
+        padding: 1.75rem 0.5rem 1.25rem;
+    }
+
+    .days-classified-banner {
+        font-size: clamp(0.72rem, 3.2vw, 0.82rem);
+        letter-spacing: 0.5px;
+        padding: 0.3rem 0.65rem;
+    }
+
+    .days-title-container {
+        max-width: 90%;
+    }
+
+    .days-subtitle {
+        font-size: 1.2rem;
+        line-height: 1.45;
+        margin-bottom: 1.25rem;
+    }
+
+    .days-badge-row {
+        gap: 0.45rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .days-badge {
+        font-size: 0.85rem;
+        padding: 0.25rem 0.55rem;
+    }
+
+    .days-audio-deck {
+        padding: 1.15rem 0.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .days-audio-deck::before {
+        font-size: 0.78rem;
+        left: 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .audio-track-title {
+        font-size: 1.15rem;
+    }
+
+    .audio-track-status {
+        font-size: 0.95rem;
+    }
+
+    .days-story-card {
+        padding: 1.25rem 0.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .days-story-card::before {
+        font-size: 0.78rem;
+        left: 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .days-story-heading {
+        font-size: 1.35rem;
+    }
+
+    .days-story-text {
+        font-size: 1.15rem;
+    }
+
+    .days-credits-grid {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+        padding: 0.85rem;
+    }
+
+    .steam-embed-wrapper {
+        padding: 1.15rem 0.75rem;
+    }
+
+    .steam-capsule-col {
+        max-width: 220px;
+    }
+
+    .steam-game-name {
+        font-size: 1.75rem;
+    }
+
+    .steam-game-summary {
+        font-size: 1.15rem;
+    }
+
+    .steam-meta-grid {
+        font-size: 1rem;
+        padding: 0.65rem 0.75rem;
     }
 }

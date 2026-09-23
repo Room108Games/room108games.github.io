@@ -85,10 +85,17 @@
     image-rendering: pixelated;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 html {
     scroll-behavior: smooth;
     font-size: 16px;
     background-color: var(--bg-main);
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 body {
@@ -100,6 +107,7 @@ body {
     letter-spacing: 0.03em;
     min-height: 100vh;
     overflow-x: hidden;
+    max-width: 100%;
     position: relative;
     transition: background-color 0.15s steps(3), color 0.15s steps(3);
 }
@@ -852,27 +860,50 @@ a:hover {
 }
 
 /* ==========================================================================
-   Responsive
+   Responsive Adaptations
    ========================================================================== */
 
 @media (max-width: 768px) {
-    .pixel-box-body {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 1.5rem;
+    .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .intro-section {
+        padding: 3rem 0 2rem 0;
     }
 
     .hero-emblem-box {
-        padding: 1.75rem 2rem;
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
     }
 
     .hero-logo-img {
-        width: 140px;
-        height: 140px;
+        width: 135px;
+        height: 135px;
     }
 
     .intro-title {
-        font-size: 1.6rem;
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+    }
+
+    .intro-text-card {
+        padding: 1.5rem 1.35rem;
+        margin-bottom: 2rem;
+    }
+
+    .intro-text-card p {
+        font-size: 1.2rem;
+    }
+
+    .pixel-box-body {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 1.75rem 1.5rem;
+    }
+
+    .channel-link {
+        padding: 1.5rem 1.25rem;
     }
 
     .pixel-burger-btn {
@@ -907,10 +938,13 @@ a:hover {
         flex-direction: column;
         align-items: stretch;
         gap: 0.65rem;
-        padding: 1.25rem;
+        padding: 1.15rem;
         background-color: var(--bg-surface);
         border: 3px solid var(--border-color);
         box-shadow: 4px 4px 0 var(--border-color);
+        max-height: calc(100vh - 85px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         opacity: 0;
         visibility: hidden;
         transform: translateY(-8px) scale(0.98);
@@ -928,8 +962,11 @@ a:hover {
     }
 
     .nav-menu .nav-link {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
+        min-height: 44px;
         padding: 0.75rem 1rem;
         background-color: var(--bg-main);
         border: 2px solid var(--border-color);
@@ -954,6 +991,7 @@ a:hover {
     .nav-menu-actions .pixel-theme-btn {
         flex: 1;
         justify-content: center;
+        min-height: 44px;
         padding: 0.65rem 0.5rem;
         font-size: 0.85rem;
     }
@@ -962,6 +1000,131 @@ a:hover {
         left: 1rem;
         right: 1rem;
         bottom: 1rem;
+    }
+
+    .pixel-toast {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding-left: 0.85rem;
+        padding-right: 0.85rem;
+    }
+
+    .pixel-navbar {
+        padding: 0.65rem 0;
+    }
+
+    .brand-logo-img {
+        height: 36px;
+        width: 36px;
+    }
+
+    .brand-title {
+        font-size: 1.05rem;
+    }
+
+    .brand-sub {
+        font-size: 0.82rem;
+    }
+
+    .pixel-burger-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .location-badge {
+        font-size: clamp(0.72rem, 3.2vw, 0.82rem);
+        padding: 0.35rem 0.75rem;
+        letter-spacing: 0.04em;
+        margin-bottom: 1.5rem;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .hero-emblem-box {
+        padding: 1.25rem 1.25rem;
+        margin-bottom: 1.5rem;
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .hero-logo-img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .intro-title {
+        font-size: clamp(1.6rem, 7vw, 2.1rem);
+        margin-bottom: 1.25rem;
+    }
+
+    .intro-text-card {
+        padding: 1.25rem 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .intro-text-card p {
+        font-size: 1.15rem;
+        line-height: 1.5;
+    }
+
+    .pixel-btn {
+        width: 100%;
+        max-width: 300px;
+        padding: 0.85rem 1.25rem;
+        font-size: 0.95rem;
+    }
+
+    .pixel-box-header {
+        padding: 0.75rem 1rem;
+    }
+
+    .pixel-box-title {
+        font-size: 1rem;
+    }
+
+    .pixel-box-body {
+        padding: 1.25rem 0.85rem;
+        gap: 1.5rem;
+    }
+
+    .channel-link {
+        padding: 1.15rem 0.85rem;
+    }
+
+    .channel-label {
+        font-size: 0.92rem;
+    }
+
+    .channel-value {
+        font-size: 1.05rem;
+        word-break: break-all;
+    }
+
+    .pixel-form {
+        gap: 1rem;
+    }
+
+    .pixel-input,
+    .pixel-textarea {
+        font-size: 1.1rem;
+        padding: 0.65rem 0.85rem;
+    }
+
+    .pixel-submit-btn {
+        min-height: 48px;
+        font-size: 1rem;
+        padding: 0.85rem;
+    }
+
+    .footer-motto,
+    .footer-copyright {
+        font-size: 0.95rem;
+        line-height: 1.45;
+        padding: 0 0.5rem;
     }
 }
 
@@ -976,21 +1139,22 @@ a:hover {
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 2rem;
+    padding: 2rem 1rem;
     text-align: center;
     overflow: hidden;
 }
 
 .mystery-title {
     font-family: var(--font-heading);
-    font-size: clamp(6rem, 24vw, 16rem);
+    font-size: clamp(4.5rem, 20vw, 15rem);
     color: var(--color-ink);
     line-height: 1;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     margin: 0;
     user-select: none;
     text-shadow: 8px 8px 0px var(--color-primary);
     transition: transform 0.15s steps(2), text-shadow 0.15s steps(2);
+    max-width: 100%;
 }
 
 .mystery-title:hover {
@@ -1004,4 +1168,21 @@ a:hover {
 
 [data-theme="dark"] .mystery-title:hover {
     text-shadow: 10px 10px 0px var(--color-primary);
+}
+
+@media (max-width: 480px) {
+    .mystery-section {
+        padding: 1.5rem 0.75rem;
+        min-height: calc(100vh - 65px - 85px);
+    }
+
+    .mystery-title {
+        font-size: clamp(3.8rem, 18vw, 7rem);
+        letter-spacing: 0.04em;
+        text-shadow: 5px 5px 0px var(--color-primary);
+    }
+
+    [data-theme="dark"] .mystery-title {
+        text-shadow: 5px 5px 0px var(--color-secondary);
+    }
 }

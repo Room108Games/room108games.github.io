@@ -343,14 +343,14 @@
         // Shuffle pool
         const shuffled = [...SPRITE_POOL].sort(() => Math.random() - 0.5);
 
-        // Pick random unique sprites: 3 to 4 on mobile, 5 to 7 on desktop
+        // Pick random unique sprites: 2 on mobile (non-intrusive), 5 to 7 on desktop
         const countToSpawn = isMobile
-            ? Math.min(3 + Math.floor(Math.random() * 2), shuffled.length)
+            ? Math.min(2, shuffled.length)
             : Math.min(Math.floor(Math.random() * 3) + 5, shuffled.length);
         const selected = shuffled.slice(0, countToSpawn);
 
         const bounds = getBounds();
-        const spriteSize = isSmallMobile ? 68 : (isMobile ? 85 : 180);
+        const spriteSize = isSmallMobile ? 58 : (isMobile ? 75 : 180);
         const placedPositions = [];
 
         function getBlankSpaceSpawnPosition(index) {
@@ -630,12 +630,13 @@
 
             // Pointer down handler
             function onPointerDown(e) {
-                e.preventDefault();
+                const isTouch = e.type === 'touchstart';
                 const clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
                 const clientY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
 
                 activeDrag = spriteObj;
                 spriteObj.isDragging = true;
+                spriteObj.hasMoved = false;
                 spriteObj.dragStartX = clientX;
                 spriteObj.dragStartY = clientY;
                 spriteObj.spriteStartX = spriteObj.x;
@@ -644,24 +645,50 @@
                 spriteObj.lastY = clientY;
                 spriteObj.lastTime = performance.now();
 
-                wrapper.classList.add('is-dragging');
+                // On desktop mousedown, prevent default to prevent selection.
+                // On mobile touch, do NOT prevent default here so vertical swipes scroll the page cleanly!
+                if (!isTouch) {
+                    e.preventDefault();
+                    wrapper.classList.add('is-dragging');
+                }
             }
 
             wrapper.addEventListener('mousedown', onPointerDown);
-            wrapper.addEventListener('touchstart', onPointerDown, { passive: false });
+            wrapper.addEventListener('touchstart', onPointerDown, { passive: true });
         });
     }
 
     // Window drag handlers
     function onPointerMove(e) {
         if (!activeDrag) return;
-        e.preventDefault();
 
+        const isTouch = e.type === 'touchmove';
         const clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
         const clientY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
 
         const dx = clientX - activeDrag.dragStartX;
         const dy = clientY - activeDrag.dragStartY;
+
+        // If on mobile touch and the user is scrolling vertically rather than dragging horizontally:
+        if (isTouch && !activeDrag.hasMoved) {
+            if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) {
+                // User is scrolling the page! Release drag so touch scroll is uninterrupted
+                activeDrag.isDragging = false;
+                activeDrag.el.classList.remove('is-dragging');
+                activeDrag = null;
+                return;
+            }
+            if (Math.hypot(dx, dy) > 8) {
+                activeDrag.hasMoved = true;
+                activeDrag.el.classList.add('is-dragging');
+            }
+        } else if (!isTouch && Math.hypot(dx, dy) > 3) {
+            activeDrag.hasMoved = true;
+        }
+
+        if (activeDrag.hasMoved && e.cancelable) {
+            e.preventDefault();
+        }
 
         activeDrag.x = activeDrag.spriteStartX + dx;
         activeDrag.y = activeDrag.spriteStartY + dy;
@@ -691,7 +718,7 @@
         const clientY = e && e.clientY !== undefined ? e.clientY : (e && e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : activeDrag.lastY);
 
         const dist = Math.hypot(clientX - activeDrag.dragStartX, clientY - activeDrag.dragStartY);
-        if (dist < 8) {
+        if (dist < 10) {
             triggerSpriteInteraction(activeDrag);
         }
 
