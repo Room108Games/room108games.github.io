@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wicked West — Developed by Burstyn Santillo // Published by Room108</title>
     <meta name="description" content="Wicked West is an indie rogue-lite survivor shooter with tavern management elements, developed by Burstyn Santillo in Godot 4 and published by Room108.">
-    <meta name="theme-color" content="#DDE9CE">
+    <meta name="theme-color" content="#f5eedf">
 
     <!-- Security Policies -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self';">
@@ -27,8 +27,8 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/style.css?v=12">
-    <link rel="stylesheet" href="css/wicked-west.css?v=12">
+    <link rel="stylesheet" href="css/style.css?v=13">
+    <link rel="stylesheet" href="css/wicked-west.css?v=13">
 </head>
 <body class="ww-page">
 
@@ -88,46 +88,47 @@
         <!-- Draggable Floating Planetary Sprites Container (Randomly Spawned) -->
         <div class="ww-floating-container" id="sprites-container" aria-hidden="true"></div>
 
-        <!-- Center Introduction Card -->
+        <!-- Center Introduction Container -->
         <div class="ww-intro-container">
-            <!-- Attribution Badges -->
-            <div class="ww-badge-row">
-                <span class="ww-badge dev">DEVELOPED BY: BURSTYN SANTILLO</span>
-                <span class="ww-badge pub">PUBLISHED BY: ROOM108</span>
-                <span class="ww-badge engine">GODOT ENGINE 4</span>
-            </div>
+            <!-- Godot Scene Transition Card -->
+            <div class="ww-transition-card">
+                <!-- Badge Label (from Godot dungeon_transition.tscn BadgeLabel) -->
+                <div class="ww-badge-label">★   EXPEDITION // FRONTIER SALOON   ★</div>
 
-            <!-- Title Logo (Swaps between light and dark) -->
-            <div class="ww-title-container">
-                <img class="ww-title-img ww-title-img-light" src="assets/wicked-west/titles/WickedWestTitle.png" alt="Wicked West">
-                <img class="ww-title-img ww-title-img-dark" src="assets/wicked-west/titles/WickedWestTitleWhite.png" alt="Wicked West">
-            </div>
+                <!-- Title Logo (Swaps between light and dark) -->
+                <div class="ww-title-container">
+                    <img class="ww-title-img ww-title-img-light" src="assets/wicked-west/titles/WickedWestTitle.png" alt="Wicked West">
+                    <img class="ww-title-img ww-title-img-dark" src="assets/wicked-west/titles/WickedWestTitleWhite.png" alt="Wicked West">
+                </div>
 
-            <!-- Tagline -->
-            <h1 class="ww-tagline">
-                A Rogue-Lite Survivor Shooter with <span class="highlight">Tavern Management</span>
-            </h1>
+                <!-- Subtitle Label (from Godot intro.tscn Subtitle) -->
+                <div class="ww-subtitle-label">— ❖ A BULLET-RIDDEN ROGUELIKE ❖ —</div>
 
-            <!-- Introduction Story Card -->
-            <div class="ww-intro-card">
-                <h2 class="ww-intro-lead">
-                    Wicked West is an indie rogue-lite survivor shooter with tavern management elements.
-                </h2>
-                <p>
-                    Developed by <strong>Burstyn Santillo</strong>, published by <strong>Room108</strong>, and built with the <strong>Godot Engine</strong>.
-                </p>
-                <p>
-                    The Wild West has been overrun by bizarre fairytale monsters. As Cowboy Cody, turn this supernatural chaos into the business opportunity of a lifetime: venture into perilous dungeons, harvest exotic monster essences, and brew legendary beers to build the most celebrated saloon in the frontier.
-                </p>
-            </div>
+                <!-- Divider Label (from Godot dungeon_transition.tscn DividerBottom) -->
+                <div class="ww-divider-label">❖ ────────────────────────────────────────────── ❖</div>
 
-            <!-- Feature Tag Pills -->
-            <div class="ww-tags-row">
-                <span class="pixel-tag green">ROGUELITE SURVIVOR</span>
-                <span class="pixel-tag emerald">TAVERN SIM</span>
-                <span class="pixel-tag green">PIXEL ART</span>
-                <span class="pixel-tag emerald">GODOT 4</span>
-                <span class="pixel-tag green">BURSTYN SANTILLO</span>
+                <!-- Flavor Lead (from Godot dungeon_transition.tscn FlavorLabel) -->
+                <div class="ww-flavor-lead">A Rogue-Lite Survivor Shooter with Tavern Management</div>
+
+                <!-- Narrative Story Body -->
+                <div class="ww-card-body">
+                    <p>
+                        Developed by <strong>Burstyn Santillo</strong>, published by <strong>Room108</strong>, and built with the <strong>Godot Engine 4</strong>.
+                    </p>
+                    <p>
+                        The Wild West has been overrun by bizarre fairytale monsters. As Cowboy Cody, turn this supernatural chaos into the business opportunity of a lifetime: venture into perilous dungeons, harvest exotic monster essences, and brew legendary beers to build the most celebrated saloon in the frontier.
+                    </p>
+                </div>
+
+                <!-- Spacer -->
+                <div class="ww-card-spacer" aria-hidden="true"></div>
+
+                <!-- Objectives Row (from Godot dungeon_transition.tscn ObjectiveLabel) -->
+                <div class="ww-objectives-row">
+                    <span class="ww-obj-tag">[ SURVIVE DANGEROUS DUNGEONS ]</span>
+                    <span class="ww-obj-tag">[ HARVEST FAIRYTALE ESSENCES ]</span>
+                    <span class="ww-obj-tag">[ BREW LEGENDARY BEERS ]</span>
+                </div>
             </div>
 
             <!-- Saloon Jukebox Soundtrack Deck -->
@@ -172,8 +173,8 @@
          ========================================================================== -->
     <section class="ww-steam-section">
         <div class="ww-steam-header">
-            <span class="ww-steam-tag">STEAM STORE</span>
-            <h2 class="ww-steam-title">STEAM STOREFRONT // COMING SOON</h2>
+            <span class="ww-steam-tag">[ STEAM STOREFRONT ]</span>
+            <h2 class="ww-steam-title">STEAM STORE // FRONTIER EXPEDITION</h2>
         </div>
 
         <div class="steam-embed-wrapper" id="steam-embed-wrapper">
@@ -227,6 +228,6 @@
     <div id="toast-container" aria-live="polite"></div>
 
     <!-- Script -->
-    <script src="js/wicked-west.js?v=12"></script>
+    <script src="js/wicked-west.js?v=13"></script>
 </body>
 </html>

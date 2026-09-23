@@ -1,27 +1,122 @@
 /* ==========================================================================
-   Wicked West - Dedicated Game Page Stylesheet (Clean Intro & Floating Elements)
+   Wicked West - Dedicated Game Page Stylesheet
+   Faithful recreation of Godot 4 UI theme (dungeon_transition, main_menu, intro)
+   Fonts: Pixel-Western.ttf, editundo.ttf, Chicle-Regular.ttf
    Developed by Burstyn Santillo // Published by Room108
    ========================================================================== */
 
-/* Western Typography */
+/* ==========================================================================
+   1. Authentic Western Typography from Godot
+   ========================================================================== */
+
 @font-face {
-    font-family: 'Burnstown Dam';
-    src: url('../assets/wicked-west/fonts/Burnstown Dam.otf') format('opentype');
+    font-family: 'Pixel Western';
+    src: url('../assets/wicked-west/fonts/Pixel-Western.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Block Western';
-    src: url('../assets/wicked-west/fonts/gomarice_block_western.ttf') format('truetype');
+    font-family: 'EditUndo';
+    src: url('../assets/wicked-west/fonts/editundo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Chicle WW';
+    src: url('../assets/wicked-west/fonts/Chicle-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 /* ==========================================================================
-   Wicked West - Official In-Game Cursor Configuration
+   2. Theme Variables (Godot Dungeon Transition & Main Menu Palettes)
+   ========================================================================== */
+
+/* Light Theme: Frontier Parchment & Leather (from Godot MainMenu ColorRect & Intro) */
+[data-theme="light"] body.ww-page {
+    --bg-main: #f5eedf;
+    --bg-surface: #fffcf5;
+    --bg-card: #f9f4ea;
+    --bg-card-hover: #f3ebda;
+    --border-color: #8c6032;
+    --color-primary: #daa849;
+    --color-primary-light: #e4b55a;
+    --color-secondary: #b84224;
+    --color-secondary-dark: #8c2a12;
+    --color-ink: #140f0d;
+    --color-ink-muted: #503c24;
+    --color-ink-dim: #7a5c38;
+
+    --ww-gold-accent: #daa849;
+    --ww-card-border: #8c6032;
+    --ww-card-bg: #fffcf5;
+    --ww-card-shadow: 0 8px 24px rgba(140, 96, 50, 0.18), inset 0 0 16px rgba(218, 168, 73, 0.12);
+
+    --ww-title-color: #140f0d;
+    --ww-title-shadow: rgba(218, 168, 73, 0.35);
+    --ww-subtitle-color: #b84224;
+    --ww-badge-color: #ad701a;
+    --ww-divider-color: #8c6032;
+    --ww-flavor-color: #503c24;
+    --ww-body-color: #241810;
+
+    --ww-btn-bg: #fdfaf3;
+    --ww-btn-border: #8c6032;
+    --ww-btn-text: #140f0d;
+    --ww-btn-hover-bg: #f0e2c6;
+    --ww-btn-hover-border: #5a391a;
+    --ww-btn-hover-text: #140f0d;
+
+    --ww-obj-bg: rgba(245, 238, 223, 0.85);
+    --ww-obj-border: rgba(140, 96, 50, 0.45);
+}
+
+/* Dark Theme: Saloon Wood & Antique Brass (from Godot dungeon_transition.tscn StyleBoxFlat_card) */
+[data-theme="dark"] body.ww-page {
+    --bg-main: #110b07;
+    --bg-surface: rgba(26, 16, 10, 0.96);
+    --bg-card: #1f120a;
+    --bg-card-hover: #29180e;
+    --border-color: #daa849;
+    --color-primary: #daa849;
+    --color-primary-light: #ffd973;
+    --color-secondary: #e26d47;
+    --color-secondary-dark: #b84224;
+    --color-ink: #fff5db;
+    --color-ink-muted: #d4bfa3;
+    --color-ink-dim: #9a8264;
+
+    --ww-gold-accent: #daa849;
+    --ww-card-border: #daa849;
+    --ww-card-bg: rgba(26, 16, 10, 0.96);
+    --ww-card-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), inset 0 0 25px rgba(0, 0, 0, 0.7);
+
+    --ww-title-color: #fff5db;
+    --ww-title-shadow: #8a5219;
+    --ww-subtitle-color: #e26d47;
+    --ww-badge-color: #e4b55a;
+    --ww-divider-color: #ad7d39;
+    --ww-flavor-color: #d4bfa3;
+    --ww-body-color: #fff5db;
+
+    --ww-btn-bg: #1f120a;
+    --ww-btn-border: #daa849;
+    --ww-btn-text: #fff5db;
+    --ww-btn-hover-bg: #331f12;
+    --ww-btn-hover-border: #ffd973;
+    --ww-btn-hover-text: #ffd973;
+
+    --ww-obj-bg: rgba(31, 18, 10, 0.85);
+    --ww-obj-border: rgba(218, 168, 73, 0.45);
+}
+
+/* ==========================================================================
+   3. Official In-Game Cursor Configuration
    ========================================================================== */
 
 html,
@@ -64,7 +159,81 @@ body.ww-page *,
 }
 
 /* ==========================================================================
-   Main Intro Section
+   4. Navbar & Global Elements Overrides for Wicked West
+   ========================================================================== */
+
+body.ww-page {
+    background-color: var(--bg-main);
+    color: var(--color-ink);
+    font-family: 'Chicle WW', 'Chicle', cursive, sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body.ww-page .pixel-navbar {
+    background-color: var(--bg-main);
+    border-bottom: 3px solid var(--border-color);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+}
+
+body.ww-page .brand-title {
+    font-family: 'Pixel Western', cursive, sans-serif;
+    letter-spacing: 0.08em;
+}
+
+body.ww-page .brand-sub {
+    font-family: 'EditUndo', monospace;
+    letter-spacing: 0.06em;
+}
+
+body.ww-page .nav-link {
+    font-family: 'Pixel Western', cursive, sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    color: var(--color-ink);
+}
+
+body.ww-page .nav-link:hover {
+    color: var(--ww-subtitle-color);
+}
+
+body.ww-page .pixel-btn,
+body.ww-page .pixel-audio-btn,
+body.ww-page .pixel-theme-btn,
+body.ww-page .pixel-burger-btn {
+    font-family: 'Pixel Western', cursive, sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    background-color: var(--ww-btn-bg);
+    border: 2px solid var(--ww-btn-border);
+    color: var(--ww-btn-text);
+    border-radius: 4px;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+    transition: all 0.08s steps(2);
+}
+
+body.ww-page .pixel-btn:hover,
+body.ww-page .pixel-audio-btn:hover,
+body.ww-page .pixel-theme-btn:hover {
+    background-color: var(--ww-btn-hover-bg);
+    border-color: var(--ww-btn-hover-border);
+    color: var(--ww-btn-hover-text);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.45);
+    transform: translate(-1px, -1px);
+}
+
+body.ww-page .pixel-btn:active,
+body.ww-page .pixel-audio-btn:active,
+body.ww-page .pixel-theme-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+body.ww-page .pixel-burger-btn span {
+    background-color: var(--color-ink);
+}
+
+/* ==========================================================================
+   5. Main Scene Section & Transition Card (from dungeon_transition.tscn)
    ========================================================================== */
 
 .ww-main-section {
@@ -89,13 +258,45 @@ body.ww-page *,
     text-align: center;
 }
 
-/* Title Logo Image */
+/* Scene Transition Card (Authentic Godot StyleBoxFlat_card recreation) */
+.ww-transition-card {
+    background: var(--ww-card-bg);
+    border: 3px solid var(--ww-card-border);
+    border-radius: 8px;
+    box-shadow: var(--ww-card-shadow);
+    padding: 2.25rem 2.25rem;
+    margin-bottom: 1.75rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Badge Label (e.g. ★ EXPEDITION // FRONTIER SALOON ★) */
+.ww-badge-label {
+    font-family: 'Pixel Western', cursive, sans-serif;
+    font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+    letter-spacing: 0.18em;
+    color: var(--ww-badge-color);
+    margin-bottom: 0.9rem;
+    line-height: 1.2;
+    user-select: none;
+}
+
+[data-theme="dark"] .ww-badge-label {
+    text-shadow: -1px -1px 0 #140a05, 1px -1px 0 #140a05, -1px 1px 0 #140a05, 1px 1px 0 #140a05;
+}
+
+/* Title Logo Image Container */
 .ww-title-container {
-    margin: 1.25rem 0 1.25rem 0;
-    max-width: 540px;
+    margin: 0.5rem 0 1rem 0;
+    max-width: 520px;
     width: 90%;
     aspect-ratio: 16 / 9;
-    filter: drop-shadow(4px 4px 0px rgba(11, 148, 68, 0.4));
+    filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.35));
     transition: transform 0.1s steps(2);
 }
 
@@ -111,14 +312,12 @@ body.ww-page *,
     image-rendering: crisp-edges;
 }
 
-/* Dark mode switches to white title */
 [data-theme="dark"] .ww-title-img-light {
     display: none;
 }
 [data-theme="dark"] .ww-title-img-dark {
     display: block;
 }
-
 [data-theme="light"] .ww-title-img-light {
     display: block;
 }
@@ -126,130 +325,139 @@ body.ww-page *,
     display: none;
 }
 
-/* Tagline */
-.ww-tagline {
-    font-family: 'Burnstown Dam', var(--font-heading);
-    font-size: clamp(1.25rem, 2.5vw, 1.7rem);
-    color: var(--color-ink);
-    margin-bottom: 1.5rem;
-    max-width: 720px;
+/* Subtitle Label (from Godot Intro Scene: — ❖ A BULLET-RIDDEN ROGUELIKE ❖ —) */
+.ww-subtitle-label {
+    font-family: 'Pixel Western', cursive, sans-serif;
+    font-size: clamp(0.95rem, 2vw, 1.25rem);
+    letter-spacing: 0.08em;
+    color: var(--ww-subtitle-color);
+    margin-bottom: 0.75rem;
     line-height: 1.25;
-    letter-spacing: 0.02em;
 }
 
-.ww-tagline .highlight {
-    background-color: var(--color-primary);
-    color: #0d1a10;
-    padding: 0.15rem 0.55rem;
-    box-shadow: 2px 2px 0 var(--color-secondary);
-    display: inline-block;
+[data-theme="dark"] .ww-subtitle-label {
+    text-shadow: -1px -1px 0 #1f0a05, 1px -1px 0 #1f0a05, -1px 1px 0 #1f0a05, 1px 1px 0 #1f0a05;
 }
 
-/* Attribution Badges */
-.ww-badge-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.6rem;
-    margin-bottom: 1.5rem;
+[data-theme="light"] .ww-subtitle-label {
+    text-shadow: 0 1px 0 rgba(218, 168, 73, 0.35);
 }
 
-.ww-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.4rem 0.85rem;
-    background-color: var(--bg-surface);
-    border: 2px solid var(--border-color);
-    box-shadow: 2px 2px 0 var(--border-color);
-    font-family: 'Block Western', var(--font-heading);
-    font-size: 0.85rem;
-    color: var(--color-ink);
+/* Divider Label (from Godot Transition Scene: ❖ ─────────────────────────────── ❖) */
+.ww-divider-label {
+    font-family: 'Pixel Western', monospace;
+    font-size: clamp(0.75rem, 1.6vw, 0.95rem);
+    color: var(--ww-divider-color);
     letter-spacing: 0.04em;
+    margin-bottom: 1.25rem;
+    line-height: 1;
+    user-select: none;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0.9;
 }
 
-.ww-badge.dev {
-    background-color: var(--color-primary);
-    color: #0d1a10;
-    border-color: #0d1a10;
-    box-shadow: 3px 3px 0 var(--color-secondary);
+/* Flavor Lead (from Godot editundo.ttf Flavor text) */
+.ww-flavor-lead {
+    font-family: 'EditUndo', monospace;
+    font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+    color: var(--ww-flavor-color);
+    line-height: 1.45;
+    letter-spacing: 0.03em;
+    margin-bottom: 1.25rem;
+    max-width: 680px;
 }
 
-.ww-badge.pub {
-    background-color: var(--color-secondary);
-    color: #ffffff;
-    border-color: #0d1a10;
-    box-shadow: 3px 3px 0 var(--border-color);
+[data-theme="dark"] .ww-flavor-lead {
+    text-shadow: -1px -1px 0 #140a05, 1px -1px 0 #140a05, -1px 1px 0 #140a05, 1px 1px 0 #140a05;
 }
 
-.ww-badge.engine {
-    background-color: #478cbf;
-    color: #ffffff;
-    border-color: #0d1a10;
-    box-shadow: 3px 3px 0 var(--border-color);
+/* Narrative Story Body */
+.ww-card-body {
+    font-family: 'Chicle WW', 'Chicle', cursive, sans-serif;
+    font-size: clamp(1.15rem, 2.2vw, 1.3rem);
+    line-height: 1.65;
+    color: var(--ww-body-color);
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
-/* Intro Description Card */
-.ww-intro-card {
-    background-color: var(--bg-surface);
-    border: 3px solid var(--border-color);
-    box-shadow: var(--pixel-shadow-md);
-    padding: 2rem 2.25rem;
-    margin-bottom: 1.75rem;
-    text-align: left;
-    position: relative;
-    width: 100%;
+.ww-card-body p {
+    margin-bottom: 0.85rem;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
 }
 
-.ww-intro-lead {
-    font-family: 'Burnstown Dam', var(--font-heading);
-    font-size: 1.35rem;
-    color: var(--color-secondary);
-    margin-bottom: 1rem;
-    line-height: 1.35;
-    letter-spacing: 0.02em;
-}
-
-[data-theme="dark"] .ww-intro-lead {
-    color: var(--color-primary);
-}
-
-.ww-intro-card p {
-    font-family: var(--font-body);
-    font-size: 1.15rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    color: var(--color-ink);
-}
-
-.ww-intro-card p:last-child {
+.ww-card-body p:last-child {
     margin-bottom: 0;
 }
 
-/* Feature Tag Pills */
-.ww-tags-row {
+.ww-card-body strong {
+    color: var(--ww-subtitle-color);
+    font-weight: normal;
+}
+
+/* Spacer */
+.ww-card-spacer {
+    height: 8px;
+}
+
+/* Objectives Row (styled after Godot Transition [ SURVIVE ... ] pills) */
+.ww-objectives-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.6rem;
-    margin-bottom: 1.5rem;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    width: 100%;
 }
 
-/* Saloon Jukebox Soundtrack Deck */
+.ww-obj-tag {
+    font-family: 'Pixel Western', cursive, sans-serif;
+    font-size: clamp(0.75rem, 1.5vw, 0.92rem);
+    letter-spacing: 0.06em;
+    color: var(--ww-subtitle-color);
+    background: var(--ww-obj-bg);
+    border: 1px solid var(--ww-obj-border);
+    padding: 0.38rem 0.85rem;
+    border-radius: 4px;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+    user-select: none;
+    transition: transform 0.08s steps(2);
+}
+
+.ww-obj-tag:hover {
+    transform: translateY(-1px);
+    border-color: var(--ww-card-border);
+}
+
+[data-theme="dark"] .ww-obj-tag {
+    text-shadow: -1px -1px 0 #1f0a05, 1px -1px 0 #1f0a05, -1px 1px 0 #1f0a05, 1px 1px 0 #1f0a05;
+}
+
+/* ==========================================================================
+   6. Saloon Jukebox Soundtrack Deck
+   ========================================================================== */
+
 .ww-jukebox-deck {
-    background: var(--bg-surface);
-    border: 3px solid var(--border-color);
-    box-shadow: 5px 5px 0 var(--border-color);
-    padding: 0.85rem 1.4rem;
+    background: var(--ww-card-bg);
+    border: 3px solid var(--ww-card-border);
+    border-radius: 8px;
+    box-shadow: var(--ww-card-shadow);
+    padding: 0.95rem 1.4rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.25rem;
-    max-width: 720px;
+    max-width: 820px;
     width: 100%;
     margin-bottom: 1.5rem;
     position: relative;
     z-index: 10;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .ww-jukebox-info {
@@ -278,8 +486,8 @@ body.ww-page *,
     display: block;
     width: 3px;
     height: 4px;
-    background-color: var(--color-primary);
-    border: 1px solid var(--border-color);
+    background-color: var(--ww-card-border);
+    border: 1px solid rgba(0, 0, 0, 0.4);
     transition: height 0.12s ease;
 }
 
@@ -313,9 +521,9 @@ body.ww-page *,
 }
 
 .ww-jukebox-track-title {
-    font-family: 'Block Western', var(--font-heading);
+    font-family: 'Pixel Western', cursive, sans-serif;
     font-size: 0.95rem;
-    color: var(--color-ink);
+    color: var(--ww-title-color);
     letter-spacing: 0.05em;
     white-space: nowrap;
     overflow: hidden;
@@ -323,14 +531,10 @@ body.ww-page *,
 }
 
 .ww-jukebox-track-status {
-    font-family: var(--font-heading);
-    font-size: 0.72rem;
-    color: var(--color-secondary);
-    letter-spacing: 0.06em;
-}
-
-[data-theme="dark"] .ww-jukebox-track-status {
-    color: var(--color-primary);
+    font-family: 'EditUndo', monospace;
+    font-size: 0.78rem;
+    color: var(--ww-subtitle-color);
+    letter-spacing: 0.05em;
 }
 
 .ww-jukebox-controls {
@@ -341,13 +545,15 @@ body.ww-page *,
 }
 
 .ww-jukebox-btn {
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
+    font-family: 'Pixel Western', cursive, sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
     padding: 0.45rem 0.95rem;
-    background-color: var(--color-primary);
-    color: #0d1a10;
-    border: 2px solid var(--border-color);
-    box-shadow: 3px 3px 0 var(--border-color);
+    background-color: var(--ww-btn-bg);
+    color: var(--ww-btn-text);
+    border: 2px solid var(--ww-btn-border);
+    border-radius: 4px;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
     transition: all 0.08s steps(2);
     display: inline-flex;
     align-items: center;
@@ -355,29 +561,30 @@ body.ww-page *,
 }
 
 .ww-jukebox-btn:hover {
-    background-color: var(--color-secondary);
-    color: #ffffff;
+    background-color: var(--ww-btn-hover-bg);
+    border-color: var(--ww-btn-hover-border);
+    color: var(--ww-btn-hover-text);
     transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--border-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.45);
 }
 
 .ww-jukebox-btn:active {
     transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0 var(--border-color);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 }
 
 .ww-vol-wrap {
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    font-family: var(--font-heading);
-    font-size: 0.75rem;
-    color: var(--color-ink);
+    font-family: 'EditUndo', monospace;
+    font-size: 0.8rem;
+    color: var(--ww-flavor-color);
 }
 
 .ww-vol-wrap input[type="range"] {
     width: 65px;
-    accent-color: var(--color-primary);
+    accent-color: var(--ww-card-border);
 }
 
 @media (max-width: 640px) {
@@ -404,7 +611,7 @@ body.ww-page *,
 }
 
 /* ==========================================================================
-   Draggable Floating Sprites (NPCs & Enemies Wandering)
+   7. Draggable Floating Sprites (Godot NPCs & Enemies Wandering)
    ========================================================================== */
 
 .ww-floating-container {
@@ -442,7 +649,7 @@ body.ww-page *,
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
-    filter: drop-shadow(6px 6px 0 var(--border-color));
+    filter: drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.45));
     pointer-events: none;
     -webkit-user-drag: none;
     user-select: none;
@@ -456,11 +663,11 @@ body.ww-page *,
 }
 
 .ww-draggable-sprite:hover img {
-    filter: drop-shadow(8px 8px 0 var(--color-primary));
+    filter: drop-shadow(8px 8px 0 var(--ww-card-border));
 }
 
 .ww-draggable-sprite.is-dragging img {
-    filter: drop-shadow(10px 10px 0 var(--color-secondary));
+    filter: drop-shadow(10px 10px 0 var(--ww-subtitle-color));
 }
 
 @media (max-width: 768px) {
@@ -468,8 +675,8 @@ body.ww-page *,
         padding: 2rem 1rem;
     }
 
-    .ww-intro-card {
-        padding: 1.5rem;
+    .ww-transition-card {
+        padding: 1.5rem 1.15rem;
     }
 
     .ww-title-container {
@@ -484,7 +691,7 @@ body.ww-page *,
     .ww-draggable-sprite img {
         max-width: 85px;
         max-height: 85px;
-        filter: drop-shadow(4px 4px 0 var(--border-color));
+        filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.45));
     }
 }
 
@@ -497,73 +704,12 @@ body.ww-page *,
     .ww-draggable-sprite img {
         max-width: 68px;
         max-height: 68px;
-        filter: drop-shadow(3px 3px 0 var(--border-color));
+        filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.45));
     }
 }
 
 /* ==========================================================================
-   Featured Section on Index Page (Fully Centered)
-   ========================================================================== */
-
-.ww-featured-section {
-    position: relative;
-    padding: 4.5rem 0 3.5rem 0;
-    border-top: 3px dashed var(--border-color);
-}
-
-.ww-featured-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: 0 auto;
-    max-width: 820px;
-}
-
-.ww-featured-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.ww-featured-tag {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    color: var(--color-secondary);
-    background-color: var(--bg-surface);
-    border: 2px solid var(--border-color);
-    padding: 0.25rem 0.75rem;
-    margin-bottom: 0.5rem;
-    box-shadow: 2px 2px 0 var(--border-color);
-}
-
-[data-theme="dark"] .ww-featured-tag {
-    color: var(--color-primary);
-}
-
-.ww-featured-title {
-    font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-    color: var(--color-ink);
-    line-height: 1.15;
-    text-align: center;
-}
-
-.ww-featured-desc {
-    font-family: var(--font-body);
-    font-size: 1.25rem;
-    max-width: 720px;
-    margin: 1.25rem auto 2rem auto;
-    line-height: 1.6;
-    color: var(--color-ink);
-    text-align: center;
-}
-
-/* ==========================================================================
-   Sprite Interactive Feedback (Speech bubbles, Loot Popups, Hit Flash)
+   8. Sprite Interactive Feedback (Dialogue bubbles, Loot Popups, Hit Flash)
    ========================================================================== */
 
 .ww-dialogue-bubble {
@@ -571,13 +717,14 @@ body.ww-page *,
     bottom: 95%;
     left: 50%;
     transform: translateX(-50%);
-    background: #ffffff;
-    color: #0d1a10;
-    border: 2px solid #0d1a10;
-    box-shadow: 3px 3px 0 #0d1a10;
+    background: var(--ww-card-bg);
+    color: var(--ww-title-color);
+    border: 2px solid var(--ww-card-border);
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     padding: 0.35rem 0.65rem;
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
+    font-family: 'EditUndo', monospace;
+    font-size: 0.85rem;
     white-space: nowrap;
     pointer-events: none;
     z-index: 1000;
@@ -592,7 +739,7 @@ body.ww-page *,
     transform: translateX(-50%);
     border-width: 5px;
     border-style: solid;
-    border-color: #0d1a10 transparent transparent transparent;
+    border-color: var(--ww-card-border) transparent transparent transparent;
 }
 
 @keyframes wwBubblePop {
@@ -607,14 +754,14 @@ body.ww-page *,
     bottom: 95%;
     left: 50%;
     transform: translateX(-50%);
-    background: #ffcc00;
-    color: #0d1a10;
-    border: 2px solid #0d1a10;
-    box-shadow: 3px 3px 0 #0d1a10;
-    padding: 0.3rem 0.6rem;
-    font-family: 'Block Western', var(--font-heading);
+    background: var(--ww-card-bg);
+    color: var(--ww-gold-accent);
+    border: 2px solid var(--ww-card-border);
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    padding: 0.35rem 0.7rem;
+    font-family: 'Pixel Western', cursive, sans-serif;
     font-size: 0.85rem;
-    font-weight: bold;
     white-space: nowrap;
     pointer-events: none;
     z-index: 1000;
@@ -634,7 +781,7 @@ body.ww-page *,
 }
 
 /* ==========================================================================
-   Steam Store Section
+   9. Steam Store Section (Styled after Godot Scene Transition Card)
    ========================================================================== */
 
 .ww-steam-section {
@@ -656,35 +803,35 @@ body.ww-page *,
 
 .ww-steam-tag {
     display: inline-block;
-    font-family: var(--font-heading);
+    font-family: 'Pixel Western', cursive, sans-serif;
     font-size: 0.85rem;
-    color: var(--color-secondary);
-    background-color: var(--bg-surface);
-    border: 2px solid var(--border-color);
-    padding: 0.25rem 0.75rem;
-    margin-bottom: 0.5rem;
-    box-shadow: 2px 2px 0 var(--border-color);
-}
-
-[data-theme="dark"] .ww-steam-tag {
-    color: var(--color-primary);
+    color: var(--ww-subtitle-color);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+    user-select: none;
 }
 
 .ww-steam-title {
-    font-family: 'Burnstown Dam', var(--font-heading);
-    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
-    color: var(--color-ink);
-    letter-spacing: 0.03em;
-    line-height: 1.2;
+    font-family: 'Pixel Western', cursive, sans-serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+    color: var(--ww-title-color);
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+}
+
+[data-theme="dark"] .ww-steam-title {
+    text-shadow: -1px -1px 0 #1f1006, 1px -1px 0 #1f1006, -1px 1px 0 #1f1006, 1px 1px 0 #1f1006;
 }
 
 .steam-embed-wrapper {
-    background-color: var(--bg-surface);
-    border: 3px solid var(--border-color);
-    box-shadow: var(--pixel-shadow-md);
-    padding: 1.5rem;
+    background-color: var(--ww-card-bg);
+    border: 3px solid var(--ww-card-border);
+    border-radius: 8px;
+    box-shadow: var(--ww-card-shadow);
+    padding: 1.75rem;
     margin-bottom: 1rem;
     text-align: left;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .steam-placeholder-card {
@@ -697,8 +844,9 @@ body.ww-page *,
 .steam-capsule-col {
     width: 100%;
     aspect-ratio: 16 / 9;
-    border: 2px solid var(--border-color);
-    box-shadow: 3px 3px 0 var(--border-color);
+    border: 2px solid var(--ww-card-border);
+    border-radius: 6px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
     overflow: hidden;
     background: #0d1a10;
     display: flex;
@@ -722,34 +870,31 @@ body.ww-page *,
 }
 
 .steam-game-name {
-    font-family: 'Burnstown Dam', var(--font-heading);
-    font-size: 1.45rem;
-    color: var(--color-ink);
+    font-family: 'Pixel Western', cursive, sans-serif;
+    font-size: 1.5rem;
+    color: var(--ww-title-color);
+    letter-spacing: 0.04em;
 }
 
 .steam-game-snippet {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    line-height: 1.5;
-    color: var(--color-ink);
+    font-family: 'Chicle WW', 'Chicle', cursive, sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ww-body-color);
 }
 
 .steam-meta-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.4rem 1rem;
-    font-family: var(--font-heading);
+    font-family: 'EditUndo', monospace;
     font-size: 0.85rem;
     margin: 0.4rem 0;
-    color: var(--color-ink);
+    color: var(--ww-flavor-color);
 }
 
 .steam-meta-grid strong {
-    color: var(--color-secondary);
-}
-
-[data-theme="dark"] .steam-meta-grid strong {
-    color: var(--color-primary);
+    color: var(--ww-subtitle-color);
 }
 
 .steam-actions-bar {
@@ -760,45 +905,33 @@ body.ww-page *,
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: var(--font-heading);
-    font-size: 1rem;
+    font-family: 'Pixel Western', cursive, sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
     padding: 0.65rem 1.4rem;
-    background-color: var(--color-primary);
-    color: #0d1a10;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0 var(--border-color);
+    background-color: var(--ww-btn-bg);
+    color: var(--ww-btn-text);
+    border: 2px solid var(--ww-btn-border);
+    border-radius: 4px;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
     text-decoration: none;
     transition: all 0.08s steps(2);
 }
 
-.steam-wishlist-cta:hover {
-    background-color: var(--color-secondary);
-    color: #ffffff;
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 var(--border-color);
-}
-
-.steam-wishlist-cta:active {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 var(--border-color);
-}
-
 .steam-wishlist-cta.steam-coming-soon {
-    background-color: var(--bg-surface);
-    color: var(--color-ink);
-    border: 3px solid var(--border-color);
-    box-shadow: 3px 3px 0 var(--border-color);
-    font-family: 'Block Western', var(--font-heading);
-    letter-spacing: 0.05em;
+    background-color: var(--ww-btn-bg);
+    color: var(--ww-btn-text);
+    border: 2px solid var(--ww-btn-border);
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
     cursor: default !important;
     user-select: none;
 }
 
 .steam-wishlist-cta.steam-coming-soon:hover {
-    background-color: var(--bg-surface);
-    color: var(--color-ink);
+    background-color: var(--ww-btn-bg);
+    color: var(--ww-btn-text);
     transform: none;
-    box-shadow: 3px 3px 0 var(--border-color);
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
 }
 
 @media (max-width: 768px) {
@@ -812,5 +945,25 @@ body.ww-page *,
     }
 }
 
+/* ==========================================================================
+   10. Footer Overrides for Wicked West
+   ========================================================================== */
 
+body.ww-page .pixel-footer {
+    background-color: var(--ww-card-bg);
+    border-top: 3px solid var(--ww-card-border);
+    color: var(--ww-flavor-color);
+}
 
+body.ww-page .footer-branding span {
+    font-family: 'Pixel Western', cursive, sans-serif;
+    letter-spacing: 0.06em;
+    color: var(--ww-title-color);
+}
+
+body.ww-page .footer-motto,
+body.ww-page .footer-copyright {
+    font-family: 'EditUndo', monospace;
+    font-size: 0.85rem;
+    color: var(--ww-flavor-color);
+}

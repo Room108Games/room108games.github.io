@@ -754,7 +754,7 @@
                 size: Math.random() > 0.6 ? 5 : 3,
                 speedX: (Math.random() - 0.5) * 0.4 - 0.2,
                 speedY: (Math.random() - 0.5) * 0.4,
-                color: Math.random() > 0.5 ? '#8CC63F' : '#0B9444',
+                color: Math.random() > 0.6 ? '#daa849' : (Math.random() > 0.5 ? '#e4b55a' : '#ad7d39'),
                 opacity: Math.random() * 0.4 + 0.15
             });
         }
