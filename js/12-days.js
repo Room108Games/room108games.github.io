@@ -1,10 +1,10 @@
 /**
  * 12 Days - Audio Controller & Global Page Interaction
  * Features:
- * - Mechanical pen click SFX on interactive elements
- * - "Title New" background music deck with playback, volume, and mute controls
+ * - Mechanical pen click SFX on every single page click (with debounce to prevent double effects)
+ * - "12 Days Theme" background music deck with playback, volume, and mute controls
  * - Responsive mobile burger navigation
- * - Theme toggle
+ * - Full Dark & Light Theme toggle with SVG logo syncing
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
        ========================================================================== */
     const clickAudio = new Audio("assets/12-days/audio/click.wav");
     clickAudio.preload = "auto";
-    clickAudio.volume = 0.4;
+    clickAudio.volume = 0.45;
 
     let soundEnabled = localStorage.getItem("room108_sound") !== "false";
     const bgmAudio = document.getElementById("days-bgm");
@@ -23,21 +23,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const volSlider = document.getElementById("days-audio-vol");
     const navAudioBtn = document.getElementById("pixel-audio-btn");
 
+    let lastClickTime = 0;
     function playClickSfx() {
         if (!soundEnabled) return;
+        const now = performance.now();
+        // Prevent double effects within 70ms (e.g. pointerdown followed by click or nested bubbles)
+        if (now - lastClickTime < 70) return;
+        lastClickTime = now;
+
         try {
             clickAudio.currentTime = 0;
             clickAudio.play().catch(() => {});
         } catch (e) {}
     }
 
-    // Attach mechanical pen click sound to interactive elements
-    document.addEventListener("click", (e) => {
-        const target = e.target.closest("button, a, input, select, .clickable, .pixel-btn, .steam-btn");
-        if (target) {
-            playClickSfx();
-        }
-    });
+    // Every click anywhere on the page plays the mechanical pen clicking sound exactly once
+    window.addEventListener("pointerdown", () => {
+        playClickSfx();
+    }, { capture: true });
 
     // Music Deck Controller
     let hasInteracted = false;

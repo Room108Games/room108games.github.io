@@ -1,15 +1,7 @@
 /* ==========================================================================
    12 Days - Dedicated Game Stylesheet
    Theme: Navros Executive Presidency (Gritty Political Thriller)
-   Palette:
-     Dark Bunker Paper: #111413
-     Executive Slate:   #1a201d
-     Parchment Warm:    #e8dec8
-     Parchment Dim:     #c7ba9f
-     State Crimson:     #8b1e1e
-     Blood Accent:      #b32727
-     Gold Seal:         #c99a3e
-     Ink Black:         #0c0f0d
+   Supports First-Class Light and Dark Themes
    ========================================================================== */
 
 /* Custom Font: Romulus */
@@ -21,62 +13,147 @@
     font-display: swap;
 }
 
-/* Global Cursor Override for 12 Days Page */
+/* ==========================================================================
+   Global Custom Pen Cursor (Uniform size, no hover enlargement)
+   The pen is rotated 90 deg anti-clockwise, nib is at bottom-left (2, 40)
+   ========================================================================== */
 body.days-page,
 body.days-page * {
-    cursor: url('../assets/12-days/images/cursor/Mouse_Cursor.png') 2 2, auto !important;
+    cursor: url('../assets/12-days/images/cursor/Mouse_Cursor.png') 2 40, auto !important;
 }
 
-body.days-page a:hover,
-body.days-page button:hover,
-body.days-page input:hover,
-body.days-page select:hover,
-body.days-page .clickable:hover,
-body.days-page .pixel-btn:hover,
-body.days-page .steam-btn:hover {
-    cursor: url('../assets/12-days/images/cursor/Bigger-cursor.png') 4 4, pointer !important;
-}
-
-/* Page Background & Base Variables */
+/* ==========================================================================
+   Theme Variables
+   ========================================================================== */
 :root {
     --font-romulus: 'Romulus', 'Chicle', Georgia, serif;
-    --days-bg: #121714;
-    --days-desk: #1e2621;
-    --days-parchment: #ede4d1;
-    --days-parchment-border: #9f8c6e;
-    --days-ink: #161816;
-    --days-ink-dim: #444c45;
-    --days-red: #942020;
-    --days-red-dark: #661414;
-    --days-gold: #c99a3e;
-    --days-green: #296839;
-    --days-border-shadow: 4px 4px 0px #0a0d0b;
 }
 
+/* DARK THEME (Default) */
+[data-theme="dark"] body.days-page {
+    --days-page-bg: #121714;
+    --days-bg-overlay: radial-gradient(circle at 50% 20%, rgba(20, 24, 21, 0.4) 0%, rgba(10, 13, 11, 0.95) 100%);
+    --days-text-main: #ede4d1;
+    --days-subtitle-color: #e6dfcd;
+    --days-subtitle-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+
+    --days-deck-bg: #171d19;
+    --days-deck-border: #c99a3e;
+    --days-deck-tag-bg: #c99a3e;
+    --days-deck-tag-color: #111512;
+    --days-track-title: #f7d98c;
+    --days-track-status: #92a496;
+    --days-btn-bg: #253128;
+    --days-btn-border: #58705e;
+    --days-btn-color: #e0eedf;
+    --days-btn-hover-bg: #36483b;
+    --days-btn-hover-border: #c99a3e;
+
+    --days-card-bg: #171d19;
+    --days-card-border: #3c493f;
+    --days-card-shadow: 4px 4px 0px #0a0d0b;
+    --days-card-badge-bg: #27342b;
+    --days-card-badge-border: #546a5a;
+    --days-card-badge-color: #b7cebe;
+    --days-card-heading: #f7d98c;
+    --days-card-text: #d8e5d9;
+
+    --days-credits-bg: #101412;
+    --days-credits-border: #28332a;
+    --days-credits-label: #c99a3e;
+    --days-credits-val: #b9cab8;
+
+    --days-steam-bg: #171d19;
+    --days-steam-border: #2e3e32;
+    --days-steam-meta-bg: #101412;
+    --days-steam-meta-border: #253127;
+    --days-steam-meta-color: #98aba0;
+    --days-steam-title: #ffffff;
+    --days-steam-summary: #cdd9ce;
+    --days-steam-badge-bg: #2a3f31;
+    --days-steam-badge-border: #4a6d54;
+    --days-steam-badge-color: #9fe2b2;
+
+    --days-badge-bg: rgba(18, 23, 20, 0.88);
+    --days-badge-jam-border: #c99a3e;
+    --days-badge-jam-color: #f7d98c;
+    --days-badge-engine-border: #8bb3e8;
+    --days-badge-engine-color: #c7dcfa;
+    --days-badge-genre-border: #9cd49c;
+    --days-badge-genre-color: #d1f3d1;
+}
+
+/* LIGHT THEME */
 [data-theme="light"] body.days-page {
-    --days-bg: #dcd4be;
-    --days-desk: #cbbf9f;
-    --days-parchment: #f9f5ea;
-    --days-parchment-border: #7c6b51;
-    --days-ink: #1a1e1b;
-    --days-ink-dim: #4f5851;
-    --days-border-shadow: 4px 4px 0px #242925;
+    --days-page-bg: #ede4d1;
+    --days-bg-overlay: radial-gradient(circle at 50% 20%, rgba(245, 238, 224, 0.75) 0%, rgba(224, 214, 193, 0.92) 100%);
+    --days-text-main: #1e2420;
+    --days-subtitle-color: #242c26;
+    --days-subtitle-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+
+    --days-deck-bg: #f7f1e4;
+    --days-deck-border: #9b7524;
+    --days-deck-tag-bg: #9b7524;
+    --days-deck-tag-color: #ffffff;
+    --days-track-title: #631c1c;
+    --days-track-status: #465549;
+    --days-btn-bg: #ecd9ba;
+    --days-btn-border: #8a6f3b;
+    --days-btn-color: #2b1f0c;
+    --days-btn-hover-bg: #e2c99f;
+    --days-btn-hover-border: #631c1c;
+
+    --days-card-bg: #f9f5ec;
+    --days-card-border: #8a7a65;
+    --days-card-shadow: 4px 4px 0px #5e513e;
+    --days-card-badge-bg: #e6dac6;
+    --days-card-badge-border: #806e57;
+    --days-card-badge-color: #3b2d17;
+    --days-card-heading: #7a1b1b;
+    --days-card-text: #212923;
+
+    --days-credits-bg: #eee5d3;
+    --days-credits-border: #9e8e75;
+    --days-credits-label: #7a1b1b;
+    --days-credits-val: #273029;
+
+    --days-steam-bg: #f7f1e4;
+    --days-steam-border: #758b7a;
+    --days-steam-meta-bg: #eee5d3;
+    --days-steam-meta-border: #9fb3a4;
+    --days-steam-meta-color: #29382d;
+    --days-steam-title: #19211c;
+    --days-steam-summary: #2c382f;
+    --days-steam-badge-bg: #d1ead6;
+    --days-steam-badge-border: #3b7b4a;
+    --days-steam-badge-color: #175426;
+
+    --days-badge-bg: rgba(247, 241, 228, 0.95);
+    --days-badge-jam-border: #9b7524;
+    --days-badge-jam-color: #634707;
+    --days-badge-engine-border: #4d75a8;
+    --days-badge-engine-color: #1d3e69;
+    --days-badge-genre-border: #3d8045;
+    --days-badge-genre-color: #14491c;
 }
 
-/* Page Wrapper */
+/* ==========================================================================
+   Page Main Wrapper
+   ========================================================================== */
 .days-page-main {
-    background-color: var(--days-bg);
+    background-color: var(--days-page-bg);
     background-image: 
-        radial-gradient(circle at 50% 20%, rgba(20, 24, 21, 0.4) 0%, rgba(10, 13, 11, 0.95) 100%),
+        var(--days-bg-overlay),
         url('../assets/12-days/images/backgrounds/page-bg.png');
     background-size: cover;
     background-attachment: fixed;
     background-position: center top;
     min-height: 100vh;
     padding-bottom: 5rem;
-    color: var(--days-parchment);
+    color: var(--days-text-main);
     font-family: var(--font-romulus);
     image-rendering: auto;
+    transition: background-color 0.25s, color 0.25s;
 }
 
 /* ==========================================================================
@@ -92,21 +169,21 @@ body.days-page .steam-btn:hover {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    background-color: var(--days-red-dark);
+    background-color: #661414;
     color: #ffdada;
     border: 2px solid #b33939;
     padding: 0.35rem 1.1rem;
     font-size: 1.15rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    box-shadow: var(--days-border-shadow);
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
     margin-bottom: 1.25rem;
 }
 
 .days-title-container {
     max-width: 680px;
     margin: 0 auto 1.5rem;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.7));
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
 }
 
 .days-title-img {
@@ -119,11 +196,11 @@ body.days-page .steam-btn:hover {
 .days-subtitle {
     font-size: 1.6rem;
     line-height: 1.4;
-    color: #e6dfcd;
+    color: var(--days-subtitle-color);
     max-width: 760px;
     margin: 0 auto 1.75rem;
     letter-spacing: 0.5px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    text-shadow: var(--days-subtitle-shadow);
 }
 
 .days-badge-row {
@@ -140,23 +217,23 @@ body.days-page .steam-btn:hover {
     font-size: 1.1rem;
     letter-spacing: 1px;
     border: 2px solid;
-    box-shadow: 3px 3px 0px rgba(0,0,0,0.5);
-    background: rgba(18, 23, 20, 0.85);
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+    background: var(--days-badge-bg);
 }
 
 .days-badge.jam {
-    border-color: var(--days-gold);
-    color: #f7d98c;
+    border-color: var(--days-badge-jam-border);
+    color: var(--days-badge-jam-color);
 }
 
 .days-badge.engine {
-    border-color: #8bb3e8;
-    color: #c7dcfa;
+    border-color: var(--days-badge-engine-border);
+    color: var(--days-badge-engine-color);
 }
 
 .days-badge.genre {
-    border-color: #9cd49c;
-    color: #d1f3d1;
+    border-color: var(--days-badge-genre-border);
+    color: var(--days-badge-genre-color);
 }
 
 /* ==========================================================================
@@ -165,9 +242,9 @@ body.days-page .steam-btn:hover {
 .days-audio-deck {
     max-width: 780px;
     margin: 0 auto 2.5rem;
-    background: #171d19;
-    border: 3px solid var(--days-gold);
-    box-shadow: var(--days-border-shadow);
+    background: var(--days-deck-bg);
+    border: 3px solid var(--days-deck-border);
+    box-shadow: var(--days-card-shadow);
     padding: 1.25rem 1.5rem;
     display: flex;
     flex-wrap: wrap;
@@ -175,6 +252,7 @@ body.days-page .steam-btn:hover {
     justify-content: space-between;
     gap: 1.25rem;
     position: relative;
+    transition: background 0.25s, border-color 0.25s;
 }
 
 .days-audio-deck::before {
@@ -182,8 +260,8 @@ body.days-page .steam-btn:hover {
     position: absolute;
     top: -12px;
     left: 16px;
-    background: var(--days-gold);
-    color: #111512;
+    background: var(--days-deck-tag-bg);
+    color: var(--days-deck-tag-color);
     font-size: 0.95rem;
     font-weight: bold;
     padding: 0.1rem 0.5rem;
@@ -217,7 +295,7 @@ body.days-page .steam-btn:hover {
     position: absolute;
     width: 6px;
     height: 6px;
-    background: var(--days-gold);
+    background: var(--days-deck-border);
     border-radius: 50%;
     top: 50%;
     left: 50%;
@@ -239,13 +317,14 @@ body.days-page .steam-btn:hover {
 
 .audio-track-title {
     font-size: 1.3rem;
-    color: #f7d98c;
+    color: var(--days-track-title);
     letter-spacing: 1px;
+    font-weight: bold;
 }
 
 .audio-track-status {
     font-size: 1.05rem;
-    color: #92a496;
+    color: var(--days-track-status);
 }
 
 .days-audio-controls {
@@ -255,26 +334,25 @@ body.days-page .steam-btn:hover {
 }
 
 .days-audio-btn {
-    background: #253128;
-    color: #e0eedf;
-    border: 2px solid #58705e;
+    background: var(--days-btn-bg);
+    color: var(--days-btn-color);
+    border: 2px solid var(--days-btn-border);
     padding: 0.45rem 1rem;
     font-family: var(--font-romulus);
     font-size: 1.15rem;
     letter-spacing: 1px;
-    box-shadow: 2px 2px 0px #090c0a;
-    transition: background 0.15s, transform 0.1s;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.4);
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
 }
 
 .days-audio-btn:hover {
-    background: #36483b;
-    border-color: var(--days-gold);
-    color: #ffffff;
+    background: var(--days-btn-hover-bg);
+    border-color: var(--days-btn-hover-border);
 }
 
 .days-audio-btn:active {
     transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px #090c0a;
+    box-shadow: 1px 1px 0px rgba(0,0,0,0.4);
 }
 
 .days-vol-wrap {
@@ -285,11 +363,11 @@ body.days-page .steam-btn:hover {
 
 .days-vol-wrap label {
     font-size: 1.05rem;
-    color: #92a496;
+    color: var(--days-track-status);
 }
 
 .days-vol-wrap input[type="range"] {
-    accent-color: var(--days-gold);
+    accent-color: var(--days-deck-border);
     width: 80px;
 }
 
@@ -299,11 +377,12 @@ body.days-page .steam-btn:hover {
 .days-story-card {
     max-width: 820px;
     margin: 0 auto 3.5rem;
-    background: #171d19;
-    border: 3px solid #3c493f;
-    box-shadow: var(--days-border-shadow);
+    background: var(--days-card-bg);
+    border: 3px solid var(--days-card-border);
+    box-shadow: var(--days-card-shadow);
     padding: 2rem 2.25rem;
     position: relative;
+    transition: background 0.25s, border-color 0.25s;
 }
 
 .days-story-card::before {
@@ -311,9 +390,9 @@ body.days-page .steam-btn:hover {
     position: absolute;
     top: -12px;
     left: 20px;
-    background: #27342b;
-    border: 1px solid #546a5a;
-    color: #b7cebe;
+    background: var(--days-card-badge-bg);
+    border: 1px solid var(--days-card-badge-border);
+    color: var(--days-card-badge-color);
     font-size: 0.95rem;
     padding: 0.15rem 0.6rem;
     letter-spacing: 1.5px;
@@ -321,17 +400,17 @@ body.days-page .steam-btn:hover {
 
 .days-story-heading {
     font-size: 1.85rem;
-    color: #f7d98c;
+    color: var(--days-card-heading);
     margin-bottom: 1.2rem;
     letter-spacing: 1px;
-    border-bottom: 2px dashed #3c493f;
+    border-bottom: 2px dashed var(--days-card-border);
     padding-bottom: 0.5rem;
 }
 
 .days-story-text {
     font-size: 1.45rem;
     line-height: 1.5;
-    color: #d8e5d9;
+    color: var(--days-card-text);
     margin-bottom: 1.25rem;
 }
 
@@ -339,8 +418,8 @@ body.days-page .steam-btn:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.2rem;
-    background: #101412;
-    border: 2px solid #28332a;
+    background: var(--days-credits-bg);
+    border: 2px solid var(--days-credits-border);
     padding: 1.2rem;
     margin-top: 1.5rem;
 }
@@ -348,14 +427,14 @@ body.days-page .steam-btn:hover {
 .days-credit-item strong {
     display: block;
     font-size: 1.15rem;
-    color: var(--days-gold);
+    color: var(--days-credits-label);
     letter-spacing: 1px;
     margin-bottom: 0.25rem;
 }
 
 .days-credit-item span {
     font-size: 1.25rem;
-    color: #b9cab8;
+    color: var(--days-credits-val);
 }
 
 /* ==========================================================================
@@ -385,16 +464,17 @@ body.days-page .steam-btn:hover {
 
 .days-steam-title {
     font-size: 2rem;
-    color: #f7d98c;
+    color: var(--days-card-heading);
     letter-spacing: 1px;
 }
 
 .steam-embed-wrapper {
-    background: #171d19;
-    border: 3px solid #2e3e32;
-    box-shadow: var(--days-border-shadow);
+    background: var(--days-steam-bg);
+    border: 3px solid var(--days-steam-border);
+    box-shadow: var(--days-card-shadow);
     padding: 1.75rem;
     position: relative;
+    transition: background 0.25s, border-color 0.25s;
 }
 
 .steam-placeholder-card {
@@ -407,16 +487,16 @@ body.days-page .steam-btn:hover {
 .steam-capsule-img {
     width: 100%;
     height: auto;
-    border: 2px solid #3d4f41;
-    box-shadow: 3px 3px 0px #090c0a;
+    border: 2px solid var(--days-steam-border);
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
     display: block;
 }
 
 .steam-status-badge {
     display: inline-block;
-    background: #2a3f31;
-    border: 1px solid #4a6d54;
-    color: #9fe2b2;
+    background: var(--days-steam-badge-bg);
+    border: 1px solid var(--days-steam-badge-border);
+    color: var(--days-steam-badge-color);
     font-size: 1rem;
     letter-spacing: 1px;
     padding: 0.15rem 0.5rem;
@@ -425,7 +505,7 @@ body.days-page .steam-btn:hover {
 
 .steam-game-name {
     font-size: 2.2rem;
-    color: #ffffff;
+    color: var(--days-steam-title);
     letter-spacing: 1.5px;
     margin-bottom: 0.6rem;
 }
@@ -433,18 +513,18 @@ body.days-page .steam-btn:hover {
 .steam-game-summary {
     font-size: 1.35rem;
     line-height: 1.45;
-    color: #cdd9ce;
+    color: var(--days-steam-summary);
     margin-bottom: 1rem;
 }
 
 .steam-meta-grid {
     font-size: 1.15rem;
-    color: #98aba0;
+    color: var(--days-steam-meta-color);
     line-height: 1.5;
     margin-bottom: 1.25rem;
-    background: #101412;
+    background: var(--days-steam-meta-bg);
     padding: 0.75rem 1rem;
-    border: 1px solid #253127;
+    border: 1px solid var(--days-steam-meta-border);
 }
 
 .steam-actions {
@@ -463,7 +543,7 @@ body.days-page .steam-btn:hover {
     font-size: 1.3rem;
     letter-spacing: 1px;
     text-decoration: none;
-    box-shadow: 3px 3px 0px #090c0a;
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
     transition: background 0.15s, transform 0.1s;
     display: inline-flex;
     align-items: center;
@@ -478,12 +558,12 @@ body.days-page .steam-btn:hover {
 
 .steam-btn:active {
     transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px #090c0a;
+    box-shadow: 1px 1px 0px rgba(0,0,0,0.3);
 }
 
 .steam-note {
     font-size: 1.05rem;
-    color: #7b8f81;
+    color: var(--days-track-status);
     font-style: italic;
 }
 
@@ -492,7 +572,7 @@ body.days-page .steam-btn:hover {
     width: 100%;
     height: 190px;
     border: none;
-    box-shadow: var(--days-border-shadow);
+    box-shadow: var(--days-card-shadow);
 }
 
 /* ==========================================================================
