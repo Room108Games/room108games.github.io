@@ -914,6 +914,11 @@ body.ww-page {
     box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
 }
 
+.steam-widget-iframe,
+.steam-embed-wrapper iframe {
+    display: none !important;
+}
+
 @media (max-width: 768px) {
     .ww-steam-section {
         padding: 0 0.5rem;

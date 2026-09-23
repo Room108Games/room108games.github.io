@@ -582,11 +582,13 @@ body.days-page .pixel-navbar button * {
 }
 
 /* Actual Steam Iframe (ready for URL) */
-.steam-widget-frame {
+.steam-widget-frame,
+.steam-embed-wrapper iframe {
     width: 100%;
     height: 190px;
     border: none;
     box-shadow: var(--days-card-shadow);
+    display: none !important;
 }
 
 /* ==========================================================================
