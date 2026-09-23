@@ -952,3 +952,44 @@ a:hover {
         bottom: 1rem;
     }
 }
+
+/* ==========================================================================
+   Mystery Page ([???])
+   ========================================================================== */
+
+.mystery-section {
+    min-height: calc(100vh - 75px - 90px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.mystery-title {
+    font-family: var(--font-heading);
+    font-size: clamp(6rem, 24vw, 16rem);
+    color: var(--color-ink);
+    line-height: 1;
+    letter-spacing: 0.12em;
+    margin: 0;
+    user-select: none;
+    text-shadow: 8px 8px 0px var(--color-primary);
+    transition: transform 0.15s steps(2), text-shadow 0.15s steps(2);
+}
+
+.mystery-title:hover {
+    transform: scale(1.05);
+    text-shadow: 10px 10px 0px var(--color-secondary);
+}
+
+[data-theme="dark"] .mystery-title {
+    text-shadow: 8px 8px 0px var(--color-secondary);
+}
+
+[data-theme="dark"] .mystery-title:hover {
+    text-shadow: 10px 10px 0px var(--color-primary);
+}
