@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             setTimeout(() => {
-                showToast(`[>] DISPATCH LOGGED! Thanks ${name}, our Malta team will reply soon!`, "success");
+                showToast(`[>] DISPATCH LOGGED! Thanks ${name}, our team will reply soon!`, "success");
                 contactForm.reset();
 
                 if (submitBtn) {
