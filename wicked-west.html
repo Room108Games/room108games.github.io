@@ -27,10 +27,10 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/style.css?v=11">
-    <link rel="stylesheet" href="css/wicked-west.css?v=11">
+    <link rel="stylesheet" href="css/style.css?v=12">
+    <link rel="stylesheet" href="css/wicked-west.css?v=12">
 </head>
-<body>
+<body class="ww-page">
 
     <!-- ==========================================================================
          Navigation Bar
@@ -130,17 +130,80 @@
                 <span class="pixel-tag green">BURSTYN SANTILLO</span>
             </div>
 
+            <!-- Saloon Jukebox Soundtrack Deck -->
+            <div class="ww-jukebox-deck" id="ww-jukebox-deck">
+                <div class="ww-jukebox-info">
+                    <div class="ww-jukebox-icon-wrap" aria-hidden="true">
+                        <div class="ww-equalizer" id="ww-equalizer">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="ww-jukebox-text">
+                        <span class="ww-jukebox-track-title">TRACK: EMPTY TAVERN (ORIGINAL SOUNDTRACK)</span>
+                        <span class="ww-jukebox-track-status" id="ww-jukebox-status">FRONTIER BROADCAST: STANDBY</span>
+                    </div>
+                </div>
+
+                <div class="ww-jukebox-controls">
+                    <button id="ww-audio-play-btn" class="ww-jukebox-btn" aria-label="Play or Pause music">
+                        <span>PLAY OST</span>
+                    </button>
+                    <button id="ww-audio-mute-btn" class="ww-jukebox-btn" aria-label="Mute or Unmute music">
+                        <span>MUTE</span>
+                    </button>
+                    <div class="ww-vol-wrap">
+                        <label for="ww-audio-vol">VOL:</label>
+                        <input type="range" id="ww-audio-vol" min="0" max="1" step="0.05" value="0.5" aria-label="Volume Slider">
+                    </div>
+                </div>
+            </div>
+
             <!-- Action Buttons -->
             <div class="ww-actions-row">
-                <button id="ww-ost-btn" class="ww-ost-btn" title="Toggle Empty Tavern OST track">
-                    <span>PLAY OST: EMPTY TAVERN</span>
-                </button>
                 <a href="index.html" class="pixel-btn">
                     <span>RETURN TO ROOM108</span>
                 </a>
             </div>
         </div>
     </main>
+
+    <!-- ==========================================================================
+         Steam Store & Wishlist Section
+         ========================================================================== -->
+    <section class="ww-steam-section">
+        <div class="ww-steam-header">
+            <span class="ww-steam-tag">STEAM STORE</span>
+            <h2 class="ww-steam-title">OFFICIAL STOREFRONT &amp; WISHLIST</h2>
+        </div>
+
+        <div class="steam-embed-wrapper" id="steam-embed-wrapper">
+            <div class="steam-placeholder-card">
+                <div class="steam-capsule-col">
+                    <img src="assets/wicked-west/titles/WickedWestTitle.png" alt="Wicked West Capsule" class="steam-capsule-img ww-title-img-light">
+                    <img src="assets/wicked-west/titles/WickedWestTitleWhite.png" alt="Wicked West Capsule" class="steam-capsule-img ww-title-img-dark">
+                </div>
+                <div class="steam-details-col">
+                    <div class="steam-game-name">Wicked West</div>
+                    <div class="steam-game-snippet">
+                        A rogue-lite survivor shooter with tavern management elements. Venture into dangerous fairytale dungeons, harvest exotic monster essences, and craft mythical beers in your frontier saloon.
+                    </div>
+                    <div class="steam-meta-grid">
+                        <div class="meta-row"><strong>DEVELOPER:</strong> <span>Burstyn Santillo</span></div>
+                        <div class="meta-row"><strong>PUBLISHER:</strong> <span>Room108 Games</span></div>
+                        <div class="meta-row"><strong>ENGINE:</strong> <span>Godot Engine 4</span></div>
+                        <div class="meta-row"><strong>RELEASE:</strong> <span>Coming Soon</span></div>
+                    </div>
+                    <div class="steam-actions-bar">
+                        <a href="https://store.steampowered.com" target="_blank" rel="noopener noreferrer" class="steam-wishlist-cta">
+                            <span>WISHLIST ON STEAM</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Live Steam Store Widget Iframe (Ready for App ID insertion) -->
+            <iframe id="steam-widget-frame" class="steam-widget-iframe" src="" style="display: none;" title="Steam Store Widget" loading="lazy"></iframe>
+        </div>
+    </section>
 
     <!-- ==========================================================================
          Footer
@@ -164,6 +227,6 @@
     <div id="toast-container" aria-live="polite"></div>
 
     <!-- Script -->
-    <script src="js/wicked-west.js?v=11"></script>
+    <script src="js/wicked-west.js?v=12"></script>
 </body>
 </html>

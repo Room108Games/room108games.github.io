@@ -129,26 +129,127 @@
     }, { passive: true });
 
     // ==========================================================================
-    // 3. Compact OST Player (Empty Tavern)
+    // 3. Audio & Sound Effects Engine
+    // ==========================================================================
+
+    const sfxShoot = new Audio('assets/wicked-west/audio/shoot_revolver.wav');
+    sfxShoot.volume = 0.5;
+
+    const sfxHurt = new Audio('assets/wicked-west/audio/hurt.wav');
+    sfxHurt.volume = 0.7;
+
+    const sfxChest = new Audio('assets/wicked-west/audio/chest_open.wav');
+    sfxChest.volume = 0.75;
+
+    const sfxExplosion = new Audio('assets/wicked-west/audio/explosion.wav');
+    sfxExplosion.volume = 0.65;
+
+    const sfxPickup = new Audio('assets/wicked-west/audio/pickup.wav');
+    sfxPickup.volume = 0.7;
+
+    function playSfx(audioObj) {
+        if (!state.sfxEnabled || !audioObj) return;
+        try {
+            const clone = audioObj.cloneNode();
+            clone.volume = audioObj.volume;
+            clone.play().catch(() => {});
+        } catch (e) {}
+    }
+
+    // Universal Click SFX (Revolver Shot with 80ms throttle guard)
+    let lastShootTime = 0;
+    function playUniversalShoot() {
+        if (!state.sfxEnabled) return;
+        const now = performance.now();
+        if (now - lastShootTime < 80) return;
+        lastShootTime = now;
+        playSfx(sfxShoot);
+    }
+
+    window.addEventListener('pointerdown', (e) => {
+        // Sprite interactions handle their own custom sound effects
+        if (e.target && e.target.closest && e.target.closest('.ww-draggable-sprite')) {
+            return;
+        }
+        // Exclude volume sliders to prevent gunshots on slider dragging
+        if (e.target && (e.target.id === 'ww-audio-vol' || e.target.type === 'range')) {
+            return;
+        }
+        playUniversalShoot();
+    }, { capture: true, passive: true });
+
+    // ==========================================================================
+    // 3b. Saloon Jukebox Soundtrack Deck (Empty Tavern)
     // ==========================================================================
 
     const ostAudio = new Audio('assets/wicked-west/audio/EmptyTavern.mp3');
     ostAudio.loop = true;
-    ostAudio.volume = 0.6;
+    ostAudio.volume = 0.5;
 
-    const ostBtn = document.getElementById('ww-ost-btn');
-    if (ostBtn) {
-        ostBtn.addEventListener('click', () => {
-            const span = ostBtn.querySelector('span') || ostBtn;
+    const jukeboxDeck = document.getElementById('ww-jukebox-deck');
+    const playBtn = document.getElementById('ww-audio-play-btn');
+    const muteBtn = document.getElementById('ww-audio-mute-btn');
+    const volSlider = document.getElementById('ww-audio-vol');
+    const statusLabel = document.getElementById('ww-jukebox-status');
+
+    let isMuted = false;
+    let previousVol = 0.5;
+
+    function updateJukeboxUI() {
+        if (!jukeboxDeck) return;
+        if (state.musicPlaying) {
+            jukeboxDeck.classList.add('is-playing');
+            if (playBtn) playBtn.querySelector('span').textContent = 'PAUSE OST';
+            if (statusLabel) statusLabel.textContent = 'PLAYING: EMPTY TAVERN';
+        } else {
+            jukeboxDeck.classList.remove('is-playing');
+            if (playBtn) playBtn.querySelector('span').textContent = 'PLAY OST';
+            if (statusLabel) statusLabel.textContent = 'FRONTIER BROADCAST: PAUSED';
+        }
+    }
+
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
             if (state.musicPlaying) {
                 ostAudio.pause();
                 state.musicPlaying = false;
-                span.textContent = 'PLAY OST: EMPTY TAVERN';
+                updateJukeboxUI();
             } else {
                 ostAudio.play().then(() => {
                     state.musicPlaying = true;
-                    span.textContent = 'PAUSE OST: EMPTY TAVERN';
+                    updateJukeboxUI();
                 }).catch(() => {});
+            }
+        });
+    }
+
+    if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+            isMuted = !isMuted;
+            if (isMuted) {
+                previousVol = ostAudio.volume;
+                ostAudio.volume = 0;
+                if (volSlider) volSlider.value = 0;
+                muteBtn.querySelector('span').textContent = 'UNMUTE';
+            } else {
+                ostAudio.volume = previousVol || 0.5;
+                if (volSlider) volSlider.value = ostAudio.volume;
+                muteBtn.querySelector('span').textContent = 'MUTE';
+            }
+        });
+    }
+
+    if (volSlider) {
+        volSlider.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            ostAudio.volume = val;
+            if (val === 0) {
+                isMuted = true;
+                if (muteBtn) muteBtn.querySelector('span').textContent = 'UNMUTE';
+            } else {
+                isMuted = false;
+                previousVol = val;
+                if (muteBtn) muteBtn.querySelector('span').textContent = 'MUTE';
             }
         });
     }
@@ -158,19 +259,52 @@
     // ==========================================================================
 
     const SPRITE_POOL = [
-        { name: 'Cowboy Cody', src: 'assets/wicked-west/sprites/Player.png' },
-        { name: 'Gianni Jones', src: 'assets/wicked-west/npcs/GianniJones.png' },
-        { name: 'J. Enriquez', src: 'assets/wicked-west/npcs/JEnriquez.png' },
-        { name: 'Cactus Jumper', src: 'assets/wicked-west/enemies/CactusJumper.png' },
-        { name: 'Sand Crab', src: 'assets/wicked-west/enemies/CrabSprite.png' },
-        { name: 'Tornado Snake', src: 'assets/wicked-west/enemies/TornadoSnake.png' },
-        { name: 'PowerUp Chest', src: 'assets/wicked-west/items/PowerUpChest.png' },
-        { name: 'Common Chest', src: 'assets/wicked-west/items/CommonChest.png' },
-        { name: 'Desert Cactus 1', src: 'assets/wicked-west/env/Cactus1.png' },
-        { name: 'Desert Cactus 2', src: 'assets/wicked-west/env/Cactus2.png' },
-        { name: 'Basic Revolver', src: 'assets/wicked-west/weapons/BasicRevolver.png' },
-        { name: 'Basic Shotgun', src: 'assets/wicked-west/weapons/BasicShotgun.png' }
+        { name: 'Cowboy Cody', src: 'assets/wicked-west/sprites/Player.png', type: 'character', quotes: ["Don't shoot the barkeep!", "Just tending the taps, partner!", "Time to brew another batch!"] },
+        { name: 'Gianni Jones', src: 'assets/wicked-west/npcs/GianniJones.png', type: 'character', quotes: ["Watch your aim, partner!", "Got any fresh beer ready?", "Careful with that trigger!"] },
+        { name: 'J. Enriquez', src: 'assets/wicked-west/npcs/JEnriquez.png', type: 'character', quotes: ["Order at the bar, stranger!", "Keep your weapons holstered!", "Fairytale monsters at the gates!"] },
+        { name: 'Cactus Jumper', src: 'assets/wicked-west/enemies/CactusJumper.png', type: 'enemy' },
+        { name: 'Sand Crab', src: 'assets/wicked-west/enemies/CrabSprite.png', type: 'enemy' },
+        { name: 'Tornado Snake', src: 'assets/wicked-west/enemies/TornadoSnake.png', type: 'enemy' },
+        { name: 'PowerUp Chest', src: 'assets/wicked-west/items/PowerUpChest.png', type: 'chest', loot: 'POWER-UP UNLOCKED!' },
+        { name: 'Common Chest', src: 'assets/wicked-west/items/CommonChest.png', type: 'chest', loot: '+50 BEER ESSENCE!' },
+        { name: 'Desert Cactus 1', src: 'assets/wicked-west/env/Cactus1.png', type: 'env' },
+        { name: 'Desert Cactus 2', src: 'assets/wicked-west/env/Cactus2.png', type: 'env' },
+        { name: 'Basic Revolver', src: 'assets/wicked-west/weapons/BasicRevolver.png', type: 'weapon' },
+        { name: 'Basic Shotgun', src: 'assets/wicked-west/weapons/BasicShotgun.png', type: 'weapon' }
     ];
+
+    function triggerSpriteInteraction(sprite) {
+        if (!state.sfxEnabled) return;
+        const type = sprite.type;
+        const el = sprite.el;
+
+        if (type === 'character') {
+            playSfx(sfxHurt);
+            const existing = el.querySelector('.ww-dialogue-bubble');
+            if (existing) existing.remove();
+            const bubble = document.createElement('div');
+            bubble.className = 'ww-dialogue-bubble';
+            const quotes = sprite.quotes || ["Howdy, partner!"];
+            bubble.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            el.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 1800);
+        } else if (type === 'enemy') {
+            playSfx(sfxExplosion);
+            el.classList.add('ww-hit-flash');
+            setTimeout(() => el.classList.remove('ww-hit-flash'), 300);
+        } else if (type === 'chest') {
+            playSfx(sfxChest);
+            const existing = el.querySelector('.ww-loot-toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = 'ww-loot-toast';
+            toast.textContent = sprite.loot || '+50 BEER ESSENCE!';
+            el.appendChild(toast);
+            setTimeout(() => toast.remove(), 1500);
+        } else {
+            playSfx(sfxPickup);
+        }
+    }
 
     const container = document.getElementById('sprites-container');
     const parentSection = document.querySelector('.ww-main-section') || document.body;
@@ -409,6 +543,7 @@
         selected.forEach((item, index) => {
             const wrapper = document.createElement('div');
             wrapper.className = 'ww-draggable-sprite';
+            wrapper.setAttribute('data-target-type', item.type);
 
             const img = document.createElement('img');
             img.className = 'pixel-art';
@@ -452,6 +587,9 @@
             const spriteObj = {
                 id: index,
                 el: wrapper,
+                type: item.type,
+                quotes: item.quotes,
+                loot: item.loot,
                 size: spriteSize,
                 x: spawnX,
                 y: spawnY,
@@ -529,8 +667,17 @@
         activeDrag.el.style.transform = `translate3d(${activeDrag.x.toFixed(1)}px, ${activeDrag.y.toFixed(1)}px, 0) rotate(${activeDrag.rotation.toFixed(1)}deg)`;
     }
 
-    function onPointerUp() {
+    function onPointerUp(e) {
         if (!activeDrag) return;
+
+        const clientX = e && e.clientX !== undefined ? e.clientX : (e && e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : activeDrag.lastX);
+        const clientY = e && e.clientY !== undefined ? e.clientY : (e && e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : activeDrag.lastY);
+
+        const dist = Math.hypot(clientX - activeDrag.dragStartX, clientY - activeDrag.dragStartY);
+        if (dist < 8) {
+            triggerSpriteInteraction(activeDrag);
+        }
+
         activeDrag.isDragging = false;
         activeDrag.el.classList.remove('is-dragging');
 

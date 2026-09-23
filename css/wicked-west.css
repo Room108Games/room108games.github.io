@@ -3,6 +3,59 @@
    Developed by Burstyn Santillo // Published by Room108
    ========================================================================== */
 
+/* Western Typography */
+@font-face {
+    font-family: 'Burnstown Dam';
+    src: url('../assets/wicked-west/fonts/Burnstown Dam.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Block Western';
+    src: url('../assets/wicked-west/fonts/gomarice_block_western.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ==========================================================================
+   Wicked West - Official In-Game Cursor Configuration
+   ========================================================================== */
+
+html,
+body.ww-page,
+body.ww-page *,
+.ww-page a,
+.ww-page button,
+.ww-page input,
+.ww-page select,
+.ww-page textarea,
+.ww-page [role="button"],
+.ww-page .pixel-btn,
+.ww-page .pixel-audio-btn,
+.ww-page .pixel-theme-btn,
+.ww-page .pixel-burger-btn,
+.ww-page .nav-link,
+.ww-page .nav-brand,
+.ww-page .ww-ost-btn,
+.ww-page .ww-jukebox-btn,
+.ww-page .ww-draggable-sprite {
+    cursor: url('../assets/wicked-west/cursor/Default.png') 15 15, auto !important;
+}
+
+/* Combat Reticle when hovering over enemy monsters */
+.ww-page .ww-draggable-sprite[data-target-type="enemy"],
+.ww-page .ww-draggable-sprite[data-target-type="enemy"] * {
+    cursor: url('../assets/wicked-west/cursor/Shooting.png') 24 24, crosshair !important;
+}
+
+.ww-page .ww-draggable-sprite.is-dragging,
+.ww-page .ww-draggable-sprite.is-dragging * {
+    cursor: url('../assets/wicked-west/cursor/Default.png') 15 15, grabbing !important;
+}
+
 /* Pixel Art crisp scaling */
 .pixel-art {
     image-rendering: pixelated;
@@ -75,12 +128,13 @@
 
 /* Tagline */
 .ww-tagline {
-    font-family: var(--font-heading);
-    font-size: clamp(1.15rem, 2.3vw, 1.55rem);
+    font-family: 'Burnstown Dam', var(--font-heading);
+    font-size: clamp(1.25rem, 2.5vw, 1.7rem);
     color: var(--color-ink);
     margin-bottom: 1.5rem;
     max-width: 720px;
     line-height: 1.25;
+    letter-spacing: 0.02em;
 }
 
 .ww-tagline .highlight {
@@ -108,9 +162,10 @@
     background-color: var(--bg-surface);
     border: 2px solid var(--border-color);
     box-shadow: 2px 2px 0 var(--border-color);
-    font-family: var(--font-heading);
+    font-family: 'Block Western', var(--font-heading);
     font-size: 0.85rem;
     color: var(--color-ink);
+    letter-spacing: 0.04em;
 }
 
 .ww-badge.dev {
@@ -147,11 +202,12 @@
 }
 
 .ww-intro-lead {
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
+    font-family: 'Burnstown Dam', var(--font-heading);
+    font-size: 1.35rem;
     color: var(--color-secondary);
     margin-bottom: 1rem;
     line-height: 1.35;
+    letter-spacing: 0.02em;
 }
 
 [data-theme="dark"] .ww-intro-lead {
@@ -176,10 +232,167 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.6rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
-/* Compact Soundtrack & Action Row */
+/* Saloon Jukebox Soundtrack Deck */
+.ww-jukebox-deck {
+    background: var(--bg-surface);
+    border: 3px solid var(--border-color);
+    box-shadow: 5px 5px 0 var(--border-color);
+    padding: 0.85rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    max-width: 720px;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.ww-jukebox-info {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-width: 0;
+}
+
+.ww-jukebox-icon-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.ww-equalizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 22px;
+    width: 28px;
+}
+
+.ww-equalizer span {
+    display: block;
+    width: 3px;
+    height: 4px;
+    background-color: var(--color-primary);
+    border: 1px solid var(--border-color);
+    transition: height 0.12s ease;
+}
+
+.ww-jukebox-deck.is-playing .ww-equalizer span:nth-child(1) {
+    animation: wwEqBar 0.55s infinite alternate ease-in-out;
+}
+.ww-jukebox-deck.is-playing .ww-equalizer span:nth-child(2) {
+    animation: wwEqBar 0.4s infinite alternate ease-in-out 0.12s;
+}
+.ww-jukebox-deck.is-playing .ww-equalizer span:nth-child(3) {
+    animation: wwEqBar 0.65s infinite alternate ease-in-out 0.05s;
+}
+.ww-jukebox-deck.is-playing .ww-equalizer span:nth-child(4) {
+    animation: wwEqBar 0.45s infinite alternate ease-in-out 0.18s;
+}
+.ww-jukebox-deck.is-playing .ww-equalizer span:nth-child(5) {
+    animation: wwEqBar 0.6s infinite alternate ease-in-out 0.08s;
+}
+
+@keyframes wwEqBar {
+    0% { height: 4px; }
+    50% { height: 20px; }
+    100% { height: 8px; }
+}
+
+.ww-jukebox-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    min-width: 0;
+}
+
+.ww-jukebox-track-title {
+    font-family: 'Block Western', var(--font-heading);
+    font-size: 0.95rem;
+    color: var(--color-ink);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ww-jukebox-track-status {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    color: var(--color-secondary);
+    letter-spacing: 0.06em;
+}
+
+[data-theme="dark"] .ww-jukebox-track-status {
+    color: var(--color-primary);
+}
+
+.ww-jukebox-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+}
+
+.ww-jukebox-btn {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    padding: 0.45rem 0.95rem;
+    background-color: var(--color-primary);
+    color: #0d1a10;
+    border: 2px solid var(--border-color);
+    box-shadow: 3px 3px 0 var(--border-color);
+    transition: all 0.08s steps(2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ww-jukebox-btn:hover {
+    background-color: var(--color-secondary);
+    color: #ffffff;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--border-color);
+}
+
+.ww-jukebox-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--border-color);
+}
+
+.ww-vol-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    color: var(--color-ink);
+}
+
+.ww-vol-wrap input[type="range"] {
+    width: 65px;
+    accent-color: var(--color-primary);
+}
+
+@media (max-width: 640px) {
+    .ww-jukebox-deck {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        padding: 0.85rem;
+    }
+    .ww-jukebox-controls {
+        justify-content: space-between;
+    }
+}
+
+/* Action Row */
 .ww-actions-row {
     display: flex;
     flex-wrap: wrap;
@@ -188,33 +401,6 @@
     gap: 1rem;
     position: relative;
     z-index: 10;
-}
-
-.ww-ost-btn {
-    font-family: var(--font-heading);
-    font-size: 0.95rem;
-    padding: 0.7rem 1.4rem;
-    background-color: var(--color-primary);
-    color: #0d1a10;
-    border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0 var(--border-color);
-    cursor: pointer;
-    transition: all 0.08s steps(2);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.ww-ost-btn:hover {
-    background-color: var(--color-secondary);
-    color: #ffffff;
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 var(--border-color);
-}
-
-.ww-ost-btn:active {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 var(--border-color);
 }
 
 /* ==========================================================================
@@ -375,5 +561,238 @@
     color: var(--color-ink);
     text-align: center;
 }
+
+/* ==========================================================================
+   Sprite Interactive Feedback (Speech bubbles, Loot Popups, Hit Flash)
+   ========================================================================== */
+
+.ww-dialogue-bubble {
+    position: absolute;
+    bottom: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    color: #0d1a10;
+    border: 2px solid #0d1a10;
+    box-shadow: 3px 3px 0 #0d1a10;
+    padding: 0.35rem 0.65rem;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1000;
+    animation: wwBubblePop 1.8s forwards steps(4);
+}
+
+.ww-dialogue-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #0d1a10 transparent transparent transparent;
+}
+
+@keyframes wwBubblePop {
+    0% { opacity: 0; transform: translate(-50%, 6px); }
+    15% { opacity: 1; transform: translate(-50%, 0); }
+    80% { opacity: 1; transform: translate(-50%, -4px); }
+    100% { opacity: 0; transform: translate(-50%, -12px); }
+}
+
+.ww-loot-toast {
+    position: absolute;
+    bottom: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffcc00;
+    color: #0d1a10;
+    border: 2px solid #0d1a10;
+    box-shadow: 3px 3px 0 #0d1a10;
+    padding: 0.3rem 0.6rem;
+    font-family: 'Block Western', var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: bold;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1000;
+    animation: wwLootFloat 1.5s forwards steps(4);
+}
+
+@keyframes wwLootFloat {
+    0% { opacity: 0; transform: translate(-50%, 4px) scale(0.85); }
+    15% { opacity: 1; transform: translate(-50%, -2px) scale(1.05); }
+    85% { opacity: 1; transform: translate(-50%, -10px) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); }
+}
+
+.ww-draggable-sprite.ww-hit-flash img {
+    filter: brightness(2.8) drop-shadow(0 0 12px #ff2222) !important;
+    transition: filter 0.05s steps(2);
+}
+
+/* ==========================================================================
+   Steam Store Section
+   ========================================================================== */
+
+.ww-steam-section {
+    position: relative;
+    z-index: 10;
+    max-width: 820px;
+    width: 100%;
+    margin: 2.5rem auto 3.5rem auto;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.ww-steam-header {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ww-steam-tag {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--color-secondary);
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-color);
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 2px 2px 0 var(--border-color);
+}
+
+[data-theme="dark"] .ww-steam-tag {
+    color: var(--color-primary);
+}
+
+.ww-steam-title {
+    font-family: 'Burnstown Dam', var(--font-heading);
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    color: var(--color-ink);
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+}
+
+.steam-embed-wrapper {
+    background-color: var(--bg-surface);
+    border: 3px solid var(--border-color);
+    box-shadow: var(--pixel-shadow-md);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.steam-placeholder-card {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.steam-capsule-col {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 2px solid var(--border-color);
+    box-shadow: 3px 3px 0 var(--border-color);
+    overflow: hidden;
+    background: #0d1a10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.steam-capsule-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    display: block;
+}
+
+.steam-details-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.steam-game-name {
+    font-family: 'Burnstown Dam', var(--font-heading);
+    font-size: 1.45rem;
+    color: var(--color-ink);
+}
+
+.steam-game-snippet {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: var(--color-ink);
+}
+
+.steam-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 1rem;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    margin: 0.4rem 0;
+    color: var(--color-ink);
+}
+
+.steam-meta-grid strong {
+    color: var(--color-secondary);
+}
+
+[data-theme="dark"] .steam-meta-grid strong {
+    color: var(--color-primary);
+}
+
+.steam-actions-bar {
+    margin-top: 0.5rem;
+}
+
+.steam-wishlist-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    padding: 0.65rem 1.4rem;
+    background-color: var(--color-primary);
+    color: #0d1a10;
+    border: 3px solid var(--border-color);
+    box-shadow: 4px 4px 0 var(--border-color);
+    text-decoration: none;
+    transition: all 0.08s steps(2);
+}
+
+.steam-wishlist-cta:hover {
+    background-color: var(--color-secondary);
+    color: #ffffff;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--border-color);
+}
+
+.steam-wishlist-cta:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--border-color);
+}
+
+@media (max-width: 768px) {
+    .steam-placeholder-card {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+    .steam-capsule-col {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
+
 
 
