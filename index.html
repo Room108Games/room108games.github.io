@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#DDE9CE">
 
     <!-- Security Policies -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self' data:; connect-src 'self'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; base-uri 'self'; form-action 'self';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
@@ -27,8 +27,8 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/style.css?v=20">
-    <link rel="stylesheet" href="css/wicked-west.css?v=20">
+    <link rel="stylesheet" href="css/style.css?v=21">
+    <link rel="stylesheet" href="css/wicked-west.css?v=21">
 
     <!-- Theme Pre-hydration (Prevents flash of wrong theme) -->
     <script>
@@ -149,6 +149,20 @@
                 A rogue-lite survivor shooter with tavern management elements. Battle relentless hordes of fairytale monsters, distill their essences into legendary brews, and uncover the wicked conspiracy behind the frontier invasion.
             </p>
 
+            <!-- Official Gameplay Trailer Embed -->
+            <div class="ww-featured-video-wrap">
+                <div class="ww-video-container">
+                    <iframe
+                        src="https://www.youtube-nocookie.com/embed/cOL7WaqmrRQ"
+                        title="Survive the Wild Frontier | Wicked West — Alpha Gameplay Trailer"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
             <a href="wicked-west.html" class="pixel-btn">
                 <span>EXPLORE WICKED WEST</span>
             </a>
@@ -267,6 +281,6 @@
     <div id="toast-container" aria-live="polite"></div>
 
     <!-- Script -->
-    <script src="js/main.js?v=20"></script>
+    <script src="js/main.js?v=21"></script>
 </body>
 </html>

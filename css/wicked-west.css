@@ -355,6 +355,79 @@ body.ww-page {
 }
 
 /* ==========================================================================
+   5b. Gameplay Trailer Deck
+   ========================================================================== */
+
+.ww-trailer-deck {
+    background: var(--ww-card-bg);
+    border: 3px solid var(--ww-card-border);
+    border-radius: 8px;
+    box-shadow: var(--ww-card-shadow);
+    padding: 1.5rem;
+    max-width: 820px;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ww-trailer-header {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ww-trailer-tag {
+    font-family: 'EditUndo', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--ww-flavor-color);
+    margin-bottom: 0.35rem;
+}
+
+.ww-trailer-title {
+    font-family: 'Pixel Western', cursive, sans-serif;
+    font-size: clamp(1.1rem, 3.5vw, 1.45rem);
+    color: var(--ww-title-color);
+    letter-spacing: 0.04em;
+    margin: 0;
+}
+
+[data-theme="dark"] .ww-trailer-title {
+    text-shadow: -1px -1px 0 #1f1006, 1px -1px 0 #1f1006, -1px 1px 0 #1f1006, 1px 1px 0 #1f1006;
+}
+
+.ww-video-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 2px solid var(--ww-card-border);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    background-color: #000;
+}
+
+.ww-video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+.ww-featured-video-wrap {
+    width: 100%;
+    max-width: 680px;
+    margin: 1.5rem auto 2rem auto;
+}
+
+/* ==========================================================================
    6. Saloon Jukebox Soundtrack Deck
    ========================================================================== */
 
@@ -590,6 +663,11 @@ body.ww-page {
         padding: 1.5rem 1rem;
     }
 
+    .ww-trailer-deck {
+        padding: 1.25rem 0.85rem;
+        margin-bottom: 1.5rem;
+    }
+
     .ww-title-container {
         max-width: 340px;
     }
@@ -631,6 +709,15 @@ body.ww-page {
     .ww-transition-card {
         padding: 1.25rem 0.65rem;
         margin-bottom: 1.25rem;
+    }
+
+    .ww-trailer-deck {
+        padding: 1rem 0.65rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .ww-trailer-title {
+        font-size: clamp(0.95rem, 3.8vw, 1.15rem);
     }
 
     .ww-badge-label {
